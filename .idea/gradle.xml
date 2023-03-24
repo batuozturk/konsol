@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/firebase" />
             <option value="$PROJECT_DIR$/firebase/cloudmessaging" />
+            <option value="$PROJECT_DIR$/firebase/firestore" />
             <option value="$PROJECT_DIR$/oauth2" />
           </set>
         </option>
