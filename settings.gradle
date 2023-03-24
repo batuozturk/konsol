@@ -16,3 +16,4 @@ rootProject.name = "FConsole"
 include ':app'
 include ':core'
 include ':oauth2'
+include ':firebase'
