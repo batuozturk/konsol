@@ -16,7 +16,6 @@ rootProject.name = "FConsole"
 include ':app'
 include ':core'
 include ':oauth2'
-include ':firebase'
 include ':firebase:cloudmessaging'
 include ':firebase:firestore'
 include ':firebase:management'
