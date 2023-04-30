@@ -13,7 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.batuhan.fconsole.splashscreen.SplashScreen
 import com.batuhan.fconsole.splashscreen.SplashScreenNavigationKeys
-import com.batuhan.oauth2.presentation.AuthScreen
+import com.batuhan.navigation.authScreenGraph
 import com.batuhan.theme.FConsoleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,22 +38,12 @@ fun FConsoleApp(viewModel: MainViewModel = hiltViewModel()) {
         startDestination = SplashScreenNavigationKeys.START_DESTINATION
     ) {
         splashScreenGraph(navController)
+        authScreenGraph(navController)
         // todo other screen graphs
-        composable("auth_screen") { _ ->
-            AuthScreen(onAuthCompleted = {
-                navController.navigate("Home") {
-                    popUpTo("Auth") {
-                        inclusive = true
-                    }
-                }
-            })
-        }
-        composable("Home") {
-        }
     }
 }
 
-fun NavGraphBuilder.splashScreenGraph(navController: NavController){
+fun NavGraphBuilder.splashScreenGraph(navController: NavController) {
     composable(SplashScreenNavigationKeys.START_DESTINATION) {
         SplashScreen(navigate = { screen, popUpScreen, popUpInclusive ->
             navController.navigate(screen) {

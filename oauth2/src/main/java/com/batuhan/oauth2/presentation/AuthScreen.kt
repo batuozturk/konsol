@@ -30,7 +30,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.batuhan.oauth2.R
 import com.batuhan.theme.FConsoleTheme
 import com.batuhan.theme.Orange
-import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
@@ -47,10 +46,15 @@ private object ConstraintParams {
     val DP_16 = 16.dp
 }
 
+object AuthScreenNavigationKeys {
+    const val START_DESTINATION = "auth_screen"
+    const val PROJECTS_SCREEN = "projects_screen"
+}
+
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
-    onAuthCompleted: (AuthState) -> Unit
+    navigate: (key: String, popUpToScreen: String?, popUpInclusive: Boolean) -> Unit
 ) {
     val context = LocalContext.current
     val authorizationService: AuthorizationService by remember {
@@ -80,7 +84,11 @@ fun AuthScreen(
     LaunchedEffect(key1 = true, block = {
         viewModel.authEvent.collect { event ->
             when (event) {
-                is AuthEvent.Success -> onAuthCompleted.invoke(event.authState)
+                is AuthEvent.Success -> navigate(
+                    AuthScreenNavigationKeys.PROJECTS_SCREEN,
+                    AuthScreenNavigationKeys.START_DESTINATION,
+                    true
+                )
                 is AuthEvent.LaunchIntent -> oauth2Result.launch(event.intent)
                 else -> { // no-op
                 }
