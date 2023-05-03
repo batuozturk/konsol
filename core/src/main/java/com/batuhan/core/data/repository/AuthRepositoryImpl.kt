@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val localDataSource: AuthLocalDataSource) :
     AuthRepository {
-    override suspend fun getAuthenticatedUser(): OauthUser {
+    override suspend fun getAuthenticatedUser(): OauthUser? {
         return localDataSource.getAuthenticatedUser()
     }
 
