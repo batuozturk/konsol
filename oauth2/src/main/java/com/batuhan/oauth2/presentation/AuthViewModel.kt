@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.AuthStateManager
 import com.batuhan.core.util.Constants
+import com.batuhan.core.util.Result
 import com.batuhan.core.util.UiState
 import com.batuhan.oauth2.domain.GetAuthorizationRequestIntent
 import com.batuhan.oauth2.domain.GetOauthToken
@@ -20,6 +21,8 @@ import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
+import net.openid.appauth.AuthorizationServiceConfiguration
+import net.openid.appauth.TokenResponse
 import javax.inject.Inject
 
 @HiltViewModel
@@ -44,13 +47,12 @@ class AuthViewModel @Inject constructor(
     fun sendAuthRequest(authorizationService: AuthorizationService) {
         email ?: return
 
-        viewModelScope.launch {
-            val configuration = getServiceConfiguration.invoke()
-            configuration?.let {
-                authState = AuthState(it)
-                val intent = getAuthorizationRequestIntent.invoke(
+        getServiceConfiguration { authorizationServiceConfig ->
+            viewModelScope.launch {
+                authState = AuthState(authorizationServiceConfig)
+                val result = getAuthorizationRequestIntent.invoke(
                     GetAuthorizationRequestIntent.Params(
-                        serviceConfiguration = configuration,
+                        serviceConfiguration = authorizationServiceConfig,
                         clientId = Constants.OAUTH_CLIENT_ID,
                         email = email!!,
                         redirectUri = "com.batuhan.fconsole:/auth",
@@ -58,7 +60,32 @@ class AuthViewModel @Inject constructor(
                         authorizationService = authorizationService
                     )
                 )
-                _authEvent.send(AuthEvent.LaunchIntent(intent))
+                when (result) {
+                    is Result.Success -> {
+                        val intent = result.data
+                        _authEvent.send(AuthEvent.LaunchIntent(intent))
+                    }
+
+                    is Result.Error -> {
+                        // to-do error handling
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getServiceConfiguration(onSuccess: (config: AuthorizationServiceConfiguration) -> Unit) {
+        viewModelScope.launch {
+            when (val result = getServiceConfiguration.invoke()) {
+                is Result.Success -> {
+                    result.data?.let {
+                        onSuccess(it)
+                    }
+                }
+
+                is Result.Error -> {
+                    // to-do error handling
+                }
             }
         }
     }
@@ -81,22 +108,41 @@ class AuthViewModel @Inject constructor(
         authorizationService: AuthorizationService
     ) {
         viewModelScope.launch {
-            getOauthToken.invoke(GetOauthToken.Params(authorizationResponse, authorizationService))
-                ?.let { (resp, ex) ->
-                    resp?.accessToken?.let { token ->
-                        authState?.let {
-                            it.update(resp, ex)
-                            authStateManager.addAuthState(authState = it)
-                            _authEvent.send(AuthEvent.Success(it))
-                        }
-                    }
+            val result = getOauthToken.invoke(
+                GetOauthToken.Params(
+                    authorizationResponse,
+                    authorizationService
+                )
+            )
+            when (result) {
+                is Result.Success -> {
+                    updateAuthState(result.data)
                 }
+
+                is Result.Error -> {
+                    // to-do error handling
+                }
+            }
         }
     }
 
     fun updateAuthState(response: AuthorizationResponse?, exception: AuthorizationException?) {
         authState?.apply {
             update(response, exception)
+        }
+    }
+
+    fun updateAuthState(pair: Pair<TokenResponse?, AuthorizationException?>?) {
+        val response = pair?.first
+        val exception = pair?.second
+        response?.accessToken?.let { token ->
+            authState?.apply {
+                update(response, exception)
+                viewModelScope.launch {
+                    authStateManager.addAuthState(authState = this@apply)
+                    _authEvent.send(AuthEvent.Success(this@apply))
+                }
+            }
         }
     }
 

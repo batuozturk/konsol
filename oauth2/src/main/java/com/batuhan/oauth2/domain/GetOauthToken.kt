@@ -1,6 +1,8 @@
 package com.batuhan.oauth2.domain
 
 import com.batuhan.core.util.AuthStateManager
+import com.batuhan.core.util.ExceptionType
+import com.batuhan.core.util.Result
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
@@ -17,12 +19,19 @@ class GetOauthToken @Inject constructor(authStateManager: AuthStateManager) {
         val authorizationService: AuthorizationService
     )
 
-    suspend operator fun invoke(params: Params): Pair<TokenResponse?, AuthorizationException?>? {
-        return suspendCoroutine {
-            params.authorizationService.performTokenRequest(
-                params.response.createTokenExchangeRequest()
-            ) { resp, ex ->
-                it.resume(Pair(resp, ex))
+    suspend operator fun invoke(params: Params): Result<Pair<TokenResponse?, AuthorizationException?>?> {
+        return suspendCoroutine { continuation ->
+            runCatching {
+                params.authorizationService.performTokenRequest(
+                    params.response.createTokenExchangeRequest()
+                ) { resp, ex ->
+                    ex?.let {
+                        continuation.resume(Result.Error(ExceptionType.APPAUTH_TOKEN_REQUEST_EXCEPTION, it))
+                    }
+                    continuation.resume(Result.Success(Pair(resp, ex)))
+                }
+            }.getOrElse {
+                continuation.resume(Result.Error(ExceptionType.APPAUTH_INTERNAL_ERROR, it))
             }
         }
     }

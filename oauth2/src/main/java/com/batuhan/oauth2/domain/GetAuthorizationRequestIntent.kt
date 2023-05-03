@@ -2,6 +2,8 @@ package com.batuhan.oauth2.domain
 
 import android.content.Intent
 import android.net.Uri
+import com.batuhan.core.util.ExceptionType
+import com.batuhan.core.util.Result
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.AuthorizationServiceConfiguration
@@ -22,16 +24,27 @@ class GetAuthorizationRequestIntent @Inject constructor() {
         val authorizationService: AuthorizationService
     )
 
-    suspend operator fun invoke(params: Params): Intent =
-        suspendCoroutine {
-            val request =
-                AuthorizationRequest.Builder(
-                    params.serviceConfiguration,
-                    params.clientId,
-                    ResponseTypeValues.CODE,
-                    Uri.parse(params.redirectUri)
-                ).setScope(params.scope).setLoginHint(params.email)
-                    .setCodeVerifier(CodeVerifierUtil.generateRandomCodeVerifier()).build()
-            it.resume(params.authorizationService.getAuthorizationRequestIntent(request))
+    suspend operator fun invoke(params: Params): Result<Intent> {
+        return suspendCoroutine { continuation ->
+            runCatching {
+                val request =
+                    AuthorizationRequest.Builder(
+                        params.serviceConfiguration,
+                        params.clientId,
+                        ResponseTypeValues.CODE,
+                        Uri.parse(params.redirectUri)
+                    ).setScope(params.scope).setLoginHint(params.email)
+                        .setCodeVerifier(CodeVerifierUtil.generateRandomCodeVerifier()).build()
+                continuation.resume(
+                    Result.Success(
+                        params.authorizationService.getAuthorizationRequestIntent(
+                            request
+                        )
+                    )
+                )
+            }.getOrElse {
+                continuation.resume(Result.Error(ExceptionType.APPAUTH_INTERNAL_ERROR, it))
+            }
         }
+    }
 }
