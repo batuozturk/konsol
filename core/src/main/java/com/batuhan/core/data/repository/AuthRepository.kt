@@ -4,7 +4,7 @@ import com.batuhan.core.data.OauthUser
 
 interface AuthRepository {
 
-    suspend fun getAuthenticatedUser(): OauthUser
+    suspend fun getAuthenticatedUser(): OauthUser?
 
     suspend fun addAuthenticatedUser(authState: OauthUser)
 

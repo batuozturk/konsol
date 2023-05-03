@@ -7,7 +7,7 @@ import com.batuhan.core.data.OauthUser
 interface AuthDao {
 
     @Query("SELECT * FROM oauthUser LIMIT 1")
-    suspend fun getAuthenticatedUser(): OauthUser
+    suspend fun getAuthenticatedUser(): OauthUser?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAuthenticatedUser(authState: OauthUser)

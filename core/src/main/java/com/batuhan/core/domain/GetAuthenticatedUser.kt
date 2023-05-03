@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class GetAuthenticatedUser @Inject constructor(private val repository: AuthRepository) {
 
-    suspend operator fun invoke(): Result<OauthUser> {
+    suspend operator fun invoke(): Result<OauthUser?> {
         return runCatching {
             Result.Success(repository.getAuthenticatedUser())
         }.getOrElse {

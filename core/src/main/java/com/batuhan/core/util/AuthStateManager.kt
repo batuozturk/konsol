@@ -13,7 +13,7 @@ class AuthStateManager @Inject constructor(
     private val deleteAuthenticatedUser: DeleteAuthenticatedUser
 ) {
 
-    suspend fun getAuthState(): Result<OauthUser> {
+    suspend fun getAuthState(): Result<OauthUser?> {
         return getAuthenticatedUser.invoke()
     }
 

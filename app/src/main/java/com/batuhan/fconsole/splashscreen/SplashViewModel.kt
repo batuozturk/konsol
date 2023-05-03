@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.batuhan.core.util.Result
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(private val authStateManager: AuthStateManager) :
@@ -24,10 +25,18 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
     private fun getAuthenticatedUser() {
         viewModelScope.launch {
             delay(3000L)
-            authStateManager.getAuthState()?.let {
-                route.send(SplashRouting.ProjectsScreen)
-            } ?: run {
-                route.send(SplashRouting.AuthScreen)
+            val result = authStateManager.getAuthState()
+            when(result){
+                is Result.Success -> {
+                    result.data?.let {
+                        route.send(SplashRouting.ProjectsScreen)
+                    } ?: run {
+                        route.send(SplashRouting.AuthScreen)
+                    }
+                }
+                is Result.Error -> {
+                    // todo error handling
+                }
             }
         }
     }
