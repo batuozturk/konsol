@@ -2,14 +2,24 @@ package com.batuhan.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
+val FConsoleFontFamily = FontFamily(
+    Font(R.font.nunito_black, weight = FontWeight.Black),
+    Font(R.font.nunito_bold, weight = FontWeight.Bold),
+    Font(R.font.nunito_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.nunito_light, weight = FontWeight.Light),
+    Font(R.font.nunito_medium, weight = FontWeight.Medium),
+    Font(R.font.nunito_regular, weight = FontWeight.Normal)
+)
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = FConsoleFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
