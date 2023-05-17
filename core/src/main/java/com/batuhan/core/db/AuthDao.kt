@@ -12,6 +12,9 @@ interface AuthDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addAuthenticatedUser(authState: OauthUser)
 
+    @Update
+    suspend fun updateAuthenticatedUser(authState: OauthUser)
+
     @Delete
     suspend fun deleteAuthenticatedUser(authState: OauthUser)
 }

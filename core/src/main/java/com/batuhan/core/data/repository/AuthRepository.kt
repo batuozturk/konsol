@@ -9,4 +9,6 @@ interface AuthRepository {
     suspend fun addAuthenticatedUser(authState: OauthUser)
 
     suspend fun deleteAuthenticatedUser(oauthUser: OauthUser)
+
+    suspend fun updateAuthenticatedUser(oauthUser: OauthUser)
 }
