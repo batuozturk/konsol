@@ -13,6 +13,8 @@ enum class ExceptionType(val code: Int) {
 
     APPAUTH_SERVICE_CONFIG_INVALID(2003),
 
+    APPAUTH_REFRESH_TOKEN_EXCEPTION(2004),
+
     // Other Exceptions
     ROOM_DB_ERROR(3000)
 }
