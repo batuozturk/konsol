@@ -17,4 +17,8 @@ class AuthRepositoryImpl @Inject constructor(private val localDataSource: AuthLo
     override suspend fun deleteAuthenticatedUser(oauthUser: OauthUser) {
         return localDataSource.deleteAuthenticatedUser(oauthUser)
     }
+
+    override suspend fun updateAuthenticatedUser(oauthUser: OauthUser) {
+        return localDataSource.updateAuthenticatedUser(oauthUser)
+    }
 }
