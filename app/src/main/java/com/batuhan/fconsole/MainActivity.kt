@@ -6,13 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.batuhan.fconsole.splashscreen.SplashScreen
-import com.batuhan.fconsole.splashscreen.SplashScreenNavigationKeys
+import com.batuhan.fconsole.splashscreen.SplashScreenNavigationKeys.AUTH_SCREEN
 import com.batuhan.navigation.authScreenGraph
 import com.batuhan.theme.FConsoleTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,38 +18,24 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val screen = intent.extras?.getString("screen_name") ?: AUTH_SCREEN
             FConsoleTheme {
                 // A surface container using the 'background' color from the theme
-                FConsoleApp()
+                FConsoleApp(startDestination = screen)
             }
         }
     }
 }
 
 @Composable
-fun FConsoleApp(viewModel: MainViewModel = hiltViewModel()) {
+fun FConsoleApp(viewModel: MainViewModel = hiltViewModel(), startDestination: String) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = SplashScreenNavigationKeys.START_DESTINATION
+        startDestination = startDestination
     ) {
-        splashScreenGraph(navController)
         authScreenGraph(navController)
         // todo other screen graphs
-    }
-}
-
-fun NavGraphBuilder.splashScreenGraph(navController: NavController) {
-    composable(SplashScreenNavigationKeys.START_DESTINATION) {
-        SplashScreen(navigate = { screen, popUpScreen, popUpInclusive ->
-            navController.navigate(screen) {
-                popUpScreen?.let {
-                    popUpTo(it) {
-                        inclusive = popUpInclusive
-                    }
-                }
-            }
-        })
     }
 }
 
@@ -61,6 +43,6 @@ fun NavGraphBuilder.splashScreenGraph(navController: NavController) {
 @Composable
 fun DefaultPreview() {
     FConsoleTheme {
-        FConsoleApp()
+        FConsoleApp(startDestination = AUTH_SCREEN)
     }
 }
