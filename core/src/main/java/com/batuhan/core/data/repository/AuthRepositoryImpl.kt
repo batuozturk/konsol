@@ -10,7 +10,7 @@ class AuthRepositoryImpl @Inject constructor(private val localDataSource: AuthLo
         return localDataSource.getAuthenticatedUser()
     }
 
-    override suspend fun addAuthenticatedUser(authState: OauthUser) {
+    override suspend fun addAuthenticatedUser(authState: OauthUser): Long {
         return localDataSource.addAuthenticatedUser(authState)
     }
 

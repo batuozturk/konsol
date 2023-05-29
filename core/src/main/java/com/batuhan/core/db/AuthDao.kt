@@ -10,7 +10,7 @@ interface AuthDao {
     suspend fun getAuthenticatedUser(): OauthUser?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addAuthenticatedUser(authState: OauthUser)
+    suspend fun addAuthenticatedUser(authState: OauthUser): Long
 
     @Update
     suspend fun updateAuthenticatedUser(authState: OauthUser)
