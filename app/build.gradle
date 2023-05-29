@@ -15,8 +15,6 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-        manifestPlaceholders = ['appAuthRedirectScheme': 'com.batuhan.fconsole'
-        ]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -41,7 +39,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.2'
+        kotlinCompilerExtensionVersion '1.4.6'
     }
     packagingOptions {
         resources {
@@ -95,6 +93,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    // AppAuth
+    implementation 'net.openid:appauth:0.11.0'
 }
 
 // Allow references to generated code
