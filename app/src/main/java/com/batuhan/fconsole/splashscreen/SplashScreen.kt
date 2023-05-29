@@ -25,21 +25,17 @@ internal object SplashScreenNavigationKeys {
 
 @Composable
 fun SplashScreen(
-    navigate: (key: String, popUpToScreen: String?, popUpInclusive: Boolean) -> Unit,
+    navigate: (key: String) -> Unit,
     viewModel: SplashViewModel = hiltViewModel()
 ) {
     LaunchedEffect(key1 = true) {
         viewModel.routeFlow.collect {
             when (it) {
                 is SplashRouting.AuthScreen -> navigate(
-                    SplashScreenNavigationKeys.AUTH_SCREEN,
-                    SplashScreenNavigationKeys.START_DESTINATION,
-                    true
+                    SplashScreenNavigationKeys.AUTH_SCREEN
                 )
                 is SplashRouting.ProjectsScreen -> navigate(
-                    SplashScreenNavigationKeys.PROJECTS_SCREEN,
-                    SplashScreenNavigationKeys.START_DESTINATION,
-                    true
+                    SplashScreenNavigationKeys.PROJECTS_SCREEN
                 )
             }
         }

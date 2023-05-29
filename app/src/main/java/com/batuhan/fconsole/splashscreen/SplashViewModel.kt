@@ -3,13 +3,13 @@ package com.batuhan.fconsole.splashscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.AuthStateManager
+import com.batuhan.core.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.batuhan.core.util.Result
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(private val authStateManager: AuthStateManager) :
@@ -25,12 +25,13 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
     private fun getAuthenticatedUser() {
         viewModelScope.launch {
             delay(3000L)
-            val result = authStateManager.getAuthState()
-            when(result){
+            when (val result = authStateManager.getAuthState()) {
                 is Result.Success -> {
                     result.data?.let {
+                        authStateManager.setAuthState(it)
                         route.send(SplashRouting.ProjectsScreen)
                     } ?: run {
+                        authStateManager.clearAuthState()
                         route.send(SplashRouting.AuthScreen)
                     }
                 }
