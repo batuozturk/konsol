@@ -25,13 +25,19 @@ class AuthStateManager @Inject constructor(
         return getAuthenticatedUser.invoke()
     }
 
-    suspend fun deleteAuthState(oauthUser: OauthUser) =
-        deleteAuthenticatedUser.invoke(DeleteAuthenticatedUser.Params(oauthUser))
+    suspend fun deleteAuthState() {
+        this.oauthUser?.let { deleteAuthenticatedUser.invoke(DeleteAuthenticatedUser.Params(it)) }
+        clearAuthState()
+    }
 
-    suspend fun addAuthState(authState: AuthState): Result<Unit> {
+    suspend fun addAuthState(authState: AuthState) {
         val oauthUser = OauthUser(authState = authState)
-        setAuthState(oauthUser)
-        return addAuthenticatedUser.invoke(AddAuthenticatedUser.Params(oauthUser))
+        when (val result = addAuthenticatedUser.invoke(AddAuthenticatedUser.Params(oauthUser))) {
+            is Result.Success -> {
+                setAuthState(oauthUser.copy(id = result.data))
+            }
+            else -> throw Throwable()
+        }
     }
 
     fun setAuthState(oauthUser: OauthUser) {
@@ -64,4 +70,19 @@ class AuthStateManager @Inject constructor(
     }
 
     fun getAccessToken() = oauthUser!!.authState.accessToken
+
+    // Since Google Oauth2 service doesn't return endSessionUri,
+    // there's no way that end session request by appauth won't be successful (the app crashes)
+    // instead, clear authenticated user information which is written to room database
+
+    /*suspend fun endSession(): Result<Intent?> {
+        return oauthUser?.authState?.let {
+            endSession.invoke(
+                EndSession.Params(
+                    it,
+                    AuthorizationService(context)
+                )
+            )
+        } ?: Result.Error(ExceptionType.ROOM_DB_ERROR, Throwable("No user found"))
+    }*/
 }
