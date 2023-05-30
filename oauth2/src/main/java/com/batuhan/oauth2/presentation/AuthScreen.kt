@@ -27,7 +27,7 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.oauth2.R
+import com.batuhan.theme.R
 import com.batuhan.theme.FConsoleTheme
 import com.batuhan.theme.Orange
 import net.openid.appauth.AuthorizationException
@@ -183,12 +183,11 @@ fun AuthScreenContent(
                 label = {
                     Text(text = "Email", style = TextStyle(color = Orange))
                 },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
+                    cursorColor = Orange,
                     focusedBorderColor = Orange,
                     unfocusedBorderColor = Orange,
-                    cursorColor = Orange,
                     focusedLabelColor = Orange,
-                    placeholderColor = Orange
                 ),
                 modifier = Modifier.padding(vertical = ConstraintParams.DP_16)
                     .layoutId(ConstraintParams.REF_EMAIL_INPUT)
