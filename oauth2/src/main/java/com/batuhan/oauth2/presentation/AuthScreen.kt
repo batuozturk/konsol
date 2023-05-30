@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -26,10 +27,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.oauth2.R
 import com.batuhan.theme.FConsoleTheme
 import com.batuhan.theme.Orange
+import com.batuhan.theme.R
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
@@ -57,6 +60,7 @@ fun AuthScreen(
     navigate: (key: String, popUpToScreen: String?, popUpInclusive: Boolean) -> Unit
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     val authorizationService: AuthorizationService by remember {
         mutableStateOf(
             AuthorizationService(
@@ -79,6 +83,19 @@ fun AuthScreen(
             resp?.let { response ->
                 viewModel.getOauth2Token(response, authorizationService)
             }
+        }
+    }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) {
+                authorizationService.dispose()
+            }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
     LaunchedEffect(key1 = true, block = {
@@ -183,12 +200,11 @@ fun AuthScreenContent(
                 label = {
                     Text(text = "Email", style = TextStyle(color = Orange))
                 },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
+                    cursorColor = Orange,
                     focusedBorderColor = Orange,
                     unfocusedBorderColor = Orange,
-                    cursorColor = Orange,
-                    focusedLabelColor = Orange,
-                    placeholderColor = Orange
+                    focusedLabelColor = Orange
                 ),
                 modifier = Modifier.padding(vertical = ConstraintParams.DP_16)
                     .layoutId(ConstraintParams.REF_EMAIL_INPUT)
