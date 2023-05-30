@@ -10,7 +10,7 @@ class AddAuthenticatedUser @Inject constructor(private val repository: AuthRepos
 
     data class Params(val user: OauthUser)
 
-    suspend operator fun invoke(params: Params): Result<Unit> {
+    suspend operator fun invoke(params: Params): Result<Long> {
         return runCatching {
             Result.Success(repository.addAuthenticatedUser(params.user))
         }.getOrElse {
