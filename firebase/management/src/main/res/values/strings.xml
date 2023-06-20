@@ -1,0 +1,54 @@
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="welcome">Welcome!</string>
+    <string name="button_next">Next</string>
+    <string name="button_back">Back</string>
+    <string name="button_save">Save</string>
+    <string name="step_success">Your project is saved!</string>
+    <string name="error_occurred">An error occurred, please try again</string>
+    <string name="gcloud_error_desc">Possible causes: \n
+                1) Google Cloud Terms Of Service isn\'t accepted, please accept after signing in with this account on Google Cloud Console website \n
+                2) Your GCP quota is full, please create a quota request on Google Cloud Console website \n
+                3) Project ID you entered is used in another project, please change the project ID \n
+                4) Unknown error occurred in Google Cloud services </string>
+    <string name="firebase_error_desc">Possible causes: \n
+                1) Firebase Terms Of Service isn\'t accepted, please accept \n
+                2) Unknown error occurred in Firebase services</string>
+    <string name="project_id_empty">Project ID is empty</string>
+    <string name="project_name_empty">Project name is empty</string>
+    <string name="no_connection">No connection</string>
+    <string name="creation_type_not_selected">Creation type is not selected</string>
+    <string name="project_not_selected">Project is not selected</string>
+    <string name="analytics_account_not_selected">Analytics account is not selected</string>
+    <string name="location_not_selected">Location is not selected</string>
+    <string name="project_info_title">Project Info</string>
+    <string name="project_id">Project ID</string>
+    <string name="project_name">Project Name</string>
+    <string name="project_display_name">Project Display Name</string>
+    <string name="project_number">Project Number</string>
+    <string name="project_state">Project State</string>
+    <string name="project_hosting_site">Hosting Site</string>
+    <string name="project_location_id">Location ID</string>
+    <string name="project_storage_bucket">Storage Bucket</string>
+    <string name="project_rtdb_instance">Realtime Database Instance</string>
+
+    <string name="step_wait_title">Please wait until operation is done</string>
+
+    <string name="step_one_title">Select how to create your project</string>
+    <string name="step_one_choice_one">Add Firebase to existing GCP project</string>
+    <string name="step_one_choice_two">Create a new Firebase project</string>
+
+    <string name="step_two_title">Enter your project details or select a project</string>
+    <string name="project_name_text_field">Project Name</string>
+    <string name="project_id_text_field">Project ID</string>
+
+    <string name="step_three_title">Link your analytics account or disable Google Analytics</string>
+    <string name="enable_analytics_title">Enable Google Analytics for this project</string>
+
+
+    <string name="step_four_title">Finalize location for your Firebase project</string>
+    <string name="multiregional_supported_title">This location is multiregional</string>
+    <string name="cloud_functions_supported_title">This location supports Cloud Functions</string>
+    <string name="firestore_supported_title">This location supports Firestore</string>
+    <string name="default_cloud_storage_bucket_supported_title">This location supports default Cloud Storage bucket</string>
+</resources>
