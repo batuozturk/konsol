@@ -3,6 +3,12 @@ package com.batuhan.core.util
 enum class ExceptionType(val code: Int) {
     // Firebase Exceptions
 
+    FIREBASE_API_EXCEPTION(1200),
+
+    // Google Cloud Exceptions
+
+    GOOGLE_CLOUD_API_EXCEPTION(1500),
+
     // AppAuth Exceptions
 
     APPAUTH_INTERNAL_ERROR(2000),
