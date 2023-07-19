@@ -2,10 +2,7 @@ package com.batuhan.management.data.source.remote.googlecloud
 
 import com.batuhan.management.data.model.CreateProjectRequest
 import com.batuhan.management.data.model.Operation
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface GoogleCloudService {
 
@@ -18,4 +15,7 @@ interface GoogleCloudService {
 
     @GET("$PATH/{name}")
     suspend fun getGoogleCloudOperation(@Path("name", encoded = true) name: String): Operation
+
+    @DELETE("$PATH/projects/{projectId}")
+    suspend fun deleteGoogleCloudProject(@Path("projectId") projectId: String)
 }
