@@ -26,7 +26,3 @@ data class DefaultResources(
     @SerializedName("storageBucket") val storageBucket: String?,
     @SerializedName("locationId") val locationId: String?
 )
-
-enum class State {
-    STATE_UNSPECIFIED, ACTIVE, DELETED
-}
