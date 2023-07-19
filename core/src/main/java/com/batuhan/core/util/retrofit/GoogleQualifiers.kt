@@ -11,4 +11,8 @@ interface GoogleQualifiers {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class GoogleAnalytics
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class GoogleCloudBilling
 }

@@ -9,8 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.batuhan.fconsole.splashscreen.SplashScreenNavigationKeys.AUTH_SCREEN
-import com.batuhan.navigation.ProjectsScreenGraph
-import com.batuhan.navigation.authScreenGraph
+import com.batuhan.navigation.*
 import com.batuhan.theme.FConsoleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,6 +36,8 @@ fun FConsoleApp(viewModel: MainViewModel = hiltViewModel(), startDestination: St
     ) {
         authScreenGraph(navController)
         ProjectsScreenGraph(navController)
+        projectScreenGraph(navController)
+        projectSettingsGraph(navController)
         // todo other screen graphs
     }
 }
