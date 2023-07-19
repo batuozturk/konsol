@@ -9,4 +9,7 @@ class GoogleCloudRemoteDataSource @Inject constructor(private val service: Googl
         service.createGoogleCloudProject(createProjectRequest)
 
     suspend fun getGoogleCloudOperation(name: String) = service.getGoogleCloudOperation(name)
+
+    suspend fun deleteGoogleCloudProject(projectId: String) =
+        service.deleteGoogleCloudProject(projectId)
 }
