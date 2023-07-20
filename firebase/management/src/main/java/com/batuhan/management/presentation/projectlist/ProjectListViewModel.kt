@@ -55,6 +55,12 @@ class ProjectsViewModel @Inject constructor(
             projectsScreenEvent.send(ProjectsScreenEvent.OpenAlert(message, throwable))
         }
     }
+
+    fun openProject(project: FirebaseProject) {
+        viewModelScope.launch {
+            projectsScreenEvent.send(ProjectsScreenEvent.Project(project))
+        }
+    }
 }
 
 sealed class ProjectsScreenEvent {

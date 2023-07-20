@@ -19,6 +19,7 @@ import com.batuhan.core.data.model.FirebaseProject
 import com.batuhan.management.R
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.AUTH_SCREEN
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.CREATE_PROJECT_SCREEN
+import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.PROJECT_SCREEN
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.START_DESTINATION
 import com.batuhan.theme.FConsoleTheme
 import com.batuhan.theme.Orange
@@ -49,6 +50,13 @@ fun ProjectsScreen(
                 is ProjectsScreenEvent.CreateProject -> {
                     navigate(CREATE_PROJECT_SCREEN, null, false)
                 }
+                is ProjectsScreenEvent.Project -> {
+                    navigate(
+                        "$PROJECT_SCREEN/${event.project.projectId ?: ""}/${event.project.displayName ?: ""}",
+                        null,
+                        false
+                    )
+                }
                 else -> {
                     currentEvent = event
                 }
@@ -60,8 +68,7 @@ fun ProjectsScreen(
         endSession = viewModel::endSession,
         createProject = viewModel::createProject,
         openProjectInfo = viewModel::openProjectInfo,
-        openProject = { // todo
-        },
+        openProject = viewModel::openProject,
         currentEvent = currentEvent,
         closeAlert = viewModel::closeAlert,
         openAlert = viewModel::openAlert
@@ -153,7 +160,7 @@ fun ProjectsScreenContent(
                             },
                             onInfoClick = {
                                 selectedProject = project
-                                openProjectInfo.invoke(it)
+                                openProjectInfo.invoke(project)
                                 showBottomSheet = true
                             }
                         )

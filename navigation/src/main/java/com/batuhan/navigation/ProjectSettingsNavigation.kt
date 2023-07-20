@@ -14,7 +14,7 @@ import com.batuhan.management.presentation.project.settings.actions.createapp.Cr
 import com.batuhan.management.presentation.project.settings.actions.deleteproject.DeleteProject
 import com.batuhan.management.presentation.project.settings.actions.iosapps.IosApps
 import com.batuhan.management.presentation.project.settings.actions.projectdetail.ProjectDetail
-import com.batuhan.management.presentation.project.settings.actions.projectdetail.addlocation.SelectLocation
+import com.batuhan.management.presentation.project.settings.actions.projectdetail.selectlocation.SelectLocation
 import com.batuhan.management.presentation.project.settings.actions.webapps.WebApps
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys
 
