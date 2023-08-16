@@ -29,7 +29,7 @@ import com.batuhan.theme.Orange
 fun ProjectScreen(
     projectName: String,
     onBackPressed: () -> Unit,
-    navigate: (route: FeatureItemRoute) -> Unit,
+    navigate: (route: FeatureItemRoute, projectId: String) -> Unit,
     navigateToProjectSettings: (projectId: String, projectName: String) -> Unit
 ) {
     val viewModel = hiltViewModel<ProjectViewModel>()
@@ -42,7 +42,7 @@ fun ProjectScreen(
                     navigateToProjectSettings(event.projectId, event.projectName)
                 }
                 is ProjectScreenEvent.FeatureRoute -> {
-                    navigate(event.route)
+                    navigate(event.route, event.projectId)
                 }
             }
         }

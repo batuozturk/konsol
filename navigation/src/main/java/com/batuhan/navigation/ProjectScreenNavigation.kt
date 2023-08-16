@@ -5,6 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.batuhan.management.data.model.FeatureItemRoute
 import com.batuhan.management.presentation.project.ProjectScreen
 
 private const val KEY_PROJECT_ID = "projectId"
@@ -31,11 +32,19 @@ fun NavGraphBuilder.projectScreen(navController: NavController) = composable(
     ProjectScreen(
         projectName = it.arguments?.getString(KEY_PROJECT_NAME) ?: "",
         onBackPressed = { navController.popBackStack() },
-        navigate = { route ->
-            // navController.navigate(route) decide route by feature item route
+        navigate = { route, projectId ->
+            val decidedRoute = decideRoute(route, projectId)
+            navController.navigate(decidedRoute)
         },
         navigateToProjectSettings = { projectId, projectName ->
             navController.navigate("$PROJECT_SETTINGS_SCREEN/$projectId/$projectName")
         }
     )
+}
+
+fun decideRoute(featureItemRoute: FeatureItemRoute, projectId: String): String {
+    return when (featureItemRoute) {
+        FeatureItemRoute.FIRESTORE -> "$DATABASE_LIST_SCREEN/$projectId"
+        else -> ""
+    }
 }

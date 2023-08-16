@@ -78,7 +78,7 @@ class ProjectViewModel @Inject constructor(
 sealed class ProjectScreenEvent {
     object Back : ProjectScreenEvent()
     data class FeatureRoute(
-        private val projectId: String,
+        val projectId: String,
         val route: FeatureItemRoute
     ) : ProjectScreenEvent()
 
