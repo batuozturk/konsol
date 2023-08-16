@@ -1,7 +1,8 @@
 package com.batuhan.core.di
 
-import com.batuhan.core.util.retrofit.FirebaseQualifiers.*
 import com.batuhan.core.util.retrofit.FConsoleAuthenticator
+import com.batuhan.core.util.retrofit.FConsoleInterceptor
+import com.batuhan.core.util.retrofit.FirebaseQualifiers.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +18,13 @@ object FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideClient(authenticator: FConsoleAuthenticator): OkHttpClient {
-        return OkHttpClient.Builder().authenticator(authenticator)
+    fun provideClient(
+        interceptor: FConsoleInterceptor,
+        authenticator: FConsoleAuthenticator
+    ): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .authenticator(authenticator)
             .build()
     }
 
