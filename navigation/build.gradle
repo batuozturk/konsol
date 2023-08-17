@@ -45,6 +45,7 @@ dependencies {
     implementation project(path: ':oauth2')
     implementation project(path: ':firebase:management')
     implementation project(path: ':firebase:firestore')
+    implementation project(path: ':firebase:cloudmessaging')
     implementation 'androidx.navigation:navigation-compose:2.5.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
