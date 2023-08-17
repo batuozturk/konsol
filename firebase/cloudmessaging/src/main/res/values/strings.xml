@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">An error occurred, please try again</string>
+    <string name="retry">Retry</string>
+    <string name="title_is_empty">Notification title is empty</string>
+    <string name="body_is_empty">Notification body is empty</string>
+    <string name="application_not_selected">Application was not selected</string>
+    <string name="image_url_validation">Image url contains invalid character</string>
+    <string name="type_not_selected">Sending type was not selected</string>
+    <string name="token_is_empty">Token is empty</string>
+    <string name="topic_is_empty">Topic is empty</string>
+    <string name="campaign_list">Android Campaign List</string>
+
+    <string name="step_one_token_title">With Device Token</string>
+    <string name="step_one_topic_title">With Topic</string>
+    <string name="step_one_token_desc">You can send the notification to one device which matches the given device token</string>
+    <string name="step_one_topic_desc">You can send the notification to multiple devices which have subscribed to the given topic</string>
+    <string name="step_two_token">Device Token</string>
+    <string name="step_two_topic">Topic Name</string>
+    <string name="step_three_notification_title">Notification Title</string>
+    <string name="step_three_notification_body">Notification Body</string>
+    <string name="step_three_notification_image_url">Notification Image URL</string>
+    <string name="notification_type">Notification Type</string>
+    <string name="notification_info">Notification Info</string>
+    <string name="step_preview_token">Token</string>
+    <string name="step_preview_topic">Topic</string>
+    <string name="notification_preview">Notification Preview</string>
+    <string name="create_notification">Create notification</string>
+</resources>

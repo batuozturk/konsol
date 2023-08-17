@@ -39,6 +39,7 @@ fun FConsoleApp(viewModel: MainViewModel = hiltViewModel(), startDestination: St
         projectScreenGraph(navController)
         projectSettingsGraph(navController)
         firestoreScreenGraph(navController)
+        createNotificationScreenGraph(navController)
         // todo other screen graphs
     }
 }

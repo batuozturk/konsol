@@ -45,6 +45,7 @@ fun NavGraphBuilder.projectScreen(navController: NavController) = composable(
 fun decideRoute(featureItemRoute: FeatureItemRoute, projectId: String): String {
     return when (featureItemRoute) {
         FeatureItemRoute.FIRESTORE -> "$DATABASE_LIST_SCREEN/$projectId"
+        FeatureItemRoute.FCM -> "$CREATE_NOTIFICATION_SCREEN/$projectId"
         else -> ""
     }
 }
