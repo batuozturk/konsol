@@ -27,7 +27,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
 import com.batuhan.management.data.model.ProjectInfo
 import com.batuhan.management.presentation.createproject.StepTwoState
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import kotlinx.coroutines.flow.flowOf
 
@@ -209,7 +209,7 @@ fun StepTwoEnterDetails(
 @Preview
 @Composable
 fun StepTwoPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         StepTwo(
             stepTwoState = StepTwoState(),
             currentStep = STEP_TWO,

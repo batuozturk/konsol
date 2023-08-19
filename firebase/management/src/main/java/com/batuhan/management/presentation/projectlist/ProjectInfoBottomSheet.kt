@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.batuhan.core.data.model.FirebaseProject
 import com.batuhan.management.R
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
@@ -93,7 +93,7 @@ private fun FirebaseProject.getAttributesList(): List<Pair<Int, String>> {
 @Preview
 @Composable
 fun ProjectInfoBottomSheetPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         ProjectInfoBottomSheet(project = null, {})
     }
 }

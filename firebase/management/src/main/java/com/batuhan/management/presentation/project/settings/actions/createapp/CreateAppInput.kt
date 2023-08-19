@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.batuhan.management.R
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
@@ -228,7 +228,7 @@ fun CreateAppInputForWeb(
 @Preview
 @Composable
 fun StepOnePreview() {
-    FConsoleTheme {
+    KonsolTheme {
         CreateAppInput(
             createAppInputState = CreateAppInputState.Unspecified,
             appType = AppType.ANDROID,
