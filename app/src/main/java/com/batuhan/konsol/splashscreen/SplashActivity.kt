@@ -1,4 +1,4 @@
-package com.batuhan.fconsole.splashscreen
+package com.batuhan.konsol.splashscreen
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
-import com.batuhan.fconsole.MainActivity
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.konsol.MainActivity
+import com.batuhan.theme.KonsolTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
@@ -19,7 +19,7 @@ class SplashActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val context = LocalContext.current
-            FConsoleTheme {
+            KonsolTheme {
                 SplashScreen(
                     navigate = { screen ->
                         navigateToMainActivity(context, screen)
