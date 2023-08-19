@@ -6,7 +6,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class FConsoleInterceptor @Inject constructor(
+class KonsolInterceptor @Inject constructor(
     private val authStateManager: AuthStateManager
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
