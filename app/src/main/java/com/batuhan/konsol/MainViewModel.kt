@@ -1,4 +1,4 @@
-package com.batuhan.fconsole
+package com.batuhan.konsol
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

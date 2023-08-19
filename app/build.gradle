@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.batuhan.fconsole'
+    namespace 'com.batuhan.konsol'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.batuhan.fconsole"
+        applicationId "com.batuhan.konsol"
         minSdk 24
         targetSdk 33
         versionCode 1

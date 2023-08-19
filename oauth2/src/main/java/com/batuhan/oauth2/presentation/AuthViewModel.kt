@@ -55,7 +55,7 @@ class AuthViewModel @Inject constructor(
                         serviceConfiguration = authorizationServiceConfig,
                         clientId = Constants.OAUTH_CLIENT_ID,
                         email = email!!,
-                        redirectUri = "com.batuhan.fconsole:/auth",
+                        redirectUri = "com.batuhan.konsol:/auth",
                         scope = Constants.OAUTH_SCOPE,
                         authorizationService = authorizationService
                     )

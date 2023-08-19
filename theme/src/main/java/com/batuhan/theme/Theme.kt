@@ -34,7 +34,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun FConsoleTheme(
+fun KonsolTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = LightColorScheme

@@ -1,4 +1,4 @@
-package com.batuhan.fconsole
+package com.batuhan.konsol
 
 import org.junit.Test
 

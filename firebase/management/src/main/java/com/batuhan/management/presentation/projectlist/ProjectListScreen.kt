@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -21,7 +22,8 @@ import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationK
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.CREATE_PROJECT_SCREEN
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.PROJECT_SCREEN
 import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.START_DESTINATION
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolFontFamily
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.flowOf
@@ -302,7 +304,10 @@ fun DefaultTopAppBar(
     TopAppBar(
         title = {
             Text(
-                text = stringResource(id = R.string.welcome)
+                text = "konsol",
+                fontFamily = KonsolFontFamily,
+                color = Orange,
+                fontSize = 32.sp
             )
         },
         actions = {
@@ -325,7 +330,7 @@ fun DefaultTopAppBar(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         ProjectsScreenContent(
             projects = flowOf(
                 PagingData.from(

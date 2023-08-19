@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 // Set of Material typography styles to start with
-val FConsoleFontFamily = FontFamily(
+val KonsolFontFamily = FontFamily(
     Font(R.font.nunito_black, weight = FontWeight.Black),
     Font(R.font.nunito_bold, weight = FontWeight.Bold),
     Font(R.font.nunito_italic, weight = FontWeight.Normal, style = FontStyle.Italic),
@@ -19,7 +19,7 @@ val FConsoleFontFamily = FontFamily(
 )
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = FConsoleFontFamily,
+        fontFamily = KonsolFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,

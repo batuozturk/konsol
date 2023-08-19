@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.batuhan.core.data.model.FirebaseProject
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
@@ -63,7 +63,7 @@ fun ProjectListItem(
 @Preview
 @Composable
 fun ProjectListPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         ProjectListItem(
             project = FirebaseProject(
                 "Project 1",

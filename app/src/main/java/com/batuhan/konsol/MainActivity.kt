@@ -1,4 +1,4 @@
-package com.batuhan.fconsole
+package com.batuhan.konsol
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -8,9 +8,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.batuhan.fconsole.splashscreen.SplashScreenNavigationKeys.AUTH_SCREEN
+import com.batuhan.konsol.splashscreen.SplashScreenNavigationKeys.AUTH_SCREEN
 import com.batuhan.navigation.*
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,16 +19,16 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val screen = intent.extras?.getString("screen_name") ?: AUTH_SCREEN
-            FConsoleTheme {
+            KonsolTheme {
                 // A surface container using the 'background' color from the theme
-                FConsoleApp(startDestination = screen)
+                KonsolApp(startDestination = screen)
             }
         }
     }
 }
 
 @Composable
-fun FConsoleApp(viewModel: MainViewModel = hiltViewModel(), startDestination: String) {
+fun KonsolApp(viewModel: MainViewModel = hiltViewModel(), startDestination: String) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
@@ -47,7 +47,7 @@ fun FConsoleApp(viewModel: MainViewModel = hiltViewModel(), startDestination: St
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    FConsoleTheme {
-        FConsoleApp(startDestination = AUTH_SCREEN)
+    KonsolTheme {
+        KonsolApp(startDestination = AUTH_SCREEN)
     }
 }

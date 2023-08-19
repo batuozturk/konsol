@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.batuhan.management.R
 import com.batuhan.management.data.model.AnalyticsAccount
 import com.batuhan.management.presentation.createproject.StepThreeState
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
@@ -164,7 +164,7 @@ fun SwitchText(title: String, isEnabled: Boolean, onAnalyticsEnabled: (Boolean) 
 @Preview
 @Composable
 fun StepThreePreview() {
-    FConsoleTheme {
+    KonsolTheme {
         StepThree(
             stepThreeState = StepThreeState(),
             currentStep = STEP_THREE,

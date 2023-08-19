@@ -22,7 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.batuhan.management.data.model.FeatureItem
 import com.batuhan.management.data.model.FeatureItemRoute
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
@@ -138,7 +138,7 @@ fun TopAppBarAction(onSettingsClicked: () -> Unit) {
 @Preview
 @Composable
 fun ProjectScreenPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         ProjectScreenContent(
             projectName = "",
             featureList = listOf(),

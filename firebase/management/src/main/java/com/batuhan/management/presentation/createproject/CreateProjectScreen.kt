@@ -27,7 +27,7 @@ import com.batuhan.management.presentation.createproject.CreateProjectViewModel.
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_TWO
 import com.batuhan.management.presentation.createproject.steps.StepContent
 import com.batuhan.theme.DarkGreen
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import kotlinx.coroutines.flow.flowOf
 
@@ -270,7 +270,7 @@ fun StepButtons(
 @Preview
 @Composable
 fun CreateProjectScreenPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         CreateProjectScreenContent(
             onDismiss = { /*TODO*/ },
             availableProjects = flowOf(PagingData.empty<ProjectInfo>()).collectAsLazyPagingItems(),

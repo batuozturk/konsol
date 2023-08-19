@@ -1,7 +1,7 @@
-package com.batuhan.fconsole
+package com.batuhan.konsol
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class FConsoleApplication : Application()
+class KonsolApplication : Application()

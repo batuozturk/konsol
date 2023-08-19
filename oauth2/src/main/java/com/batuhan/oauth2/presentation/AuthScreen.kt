@@ -30,7 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import com.batuhan.theme.R
 import net.openid.appauth.AuthorizationException
@@ -95,6 +95,7 @@ fun AuthScreen(
         lifecycleOwner.lifecycle.addObserver(observer)
 
         onDispose {
+            authorizationService.dispose()
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
@@ -231,7 +232,7 @@ fun AuthScreenContent(
                         contentDescription = null,
                         colorFilter = ColorFilter.tint(Orange)
                     )
-                    Text(text = "What is FConsole")
+                    Text(text = "What is Konsol")
                 }
             }
         }
@@ -241,7 +242,7 @@ fun AuthScreenContent(
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun DefaultPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         AuthScreenContent(AuthScreenState(), onValueChanged = {}, sendAuthRequest = {})
     }
 }

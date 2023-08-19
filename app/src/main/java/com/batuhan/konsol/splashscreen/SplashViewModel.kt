@@ -1,4 +1,4 @@
-package com.batuhan.fconsole.splashscreen
+package com.batuhan.konsol.splashscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

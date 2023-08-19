@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FConsoleAuthenticator @Inject constructor(private val authStateManager: AuthStateManager) :
+class KonsolAuthenticator @Inject constructor(private val authStateManager: AuthStateManager) :
     Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         return runBlocking {

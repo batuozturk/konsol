@@ -1,4 +1,4 @@
-package com.batuhan.fconsole.splashscreen
+package com.batuhan.konsol.splashscreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.batuhan.theme.FConsoleTheme
+import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import com.batuhan.theme.R
 
@@ -49,12 +49,12 @@ fun SplashScreenContent() {
         Box(contentAlignment = Alignment.Center) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Image(
-                    painter = painterResource(id = R.drawable.logo_24),
+                    painter = painterResource(id = R.drawable.konsol_logo),
                     contentDescription = null,
-                    modifier = Modifier.size(150.dp).aspectRatio(1f),
-                    contentScale = ContentScale.FillBounds
+                    modifier = Modifier.size(150.dp),
+                    contentScale = ContentScale.Fit
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(40.dp))
                 LinearProgressIndicator(color = Orange)
             }
         }
@@ -64,7 +64,7 @@ fun SplashScreenContent() {
 @Preview(showSystemUi = false)
 @Composable
 fun SplashScreenPreview() {
-    FConsoleTheme {
+    KonsolTheme {
         SplashScreenContent()
     }
 }
