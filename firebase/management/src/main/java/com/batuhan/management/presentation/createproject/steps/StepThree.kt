@@ -1,7 +1,6 @@
 package com.batuhan.management.presentation.createproject.steps
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -26,32 +25,26 @@ import androidx.compose.ui.unit.dp
 import com.batuhan.management.R
 import com.batuhan.management.data.model.AnalyticsAccount
 import com.batuhan.management.presentation.createproject.StepThreeState
+import com.batuhan.management.presentation.createproject.StepTitle
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 
 @Composable
 fun StepThree(
     stepThreeState: StepThreeState,
-    currentStep: Int,
     analyticsAccounts: List<AnalyticsAccount>,
     saveThirdStep: (Boolean) -> Unit,
     selectAnalyticsAccount: (analyticsAccountId: String) -> Unit
 ) {
-    val isCurrentStep = currentStep == STEP_THREE
-    val isPassedStep = currentStep > STEP_THREE
     Column(
         Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(10.dp)
+            .fillMaxSize()
     ) {
         StepTitle(
-            title = stringResource(id = R.string.step_three_title),
-            isPassedStep = isPassedStep
+            title = stringResource(id = R.string.step_three_title)
         )
         StepThreeContent(
             stepThreeState = stepThreeState,
-            isCurrentStep = isCurrentStep,
             analyticsAccounts = analyticsAccounts,
             selectAnalyticsAccount = selectAnalyticsAccount,
             saveThirdStep = saveThirdStep
@@ -62,29 +55,29 @@ fun StepThree(
 @Composable
 fun StepThreeContent(
     stepThreeState: StepThreeState,
-    isCurrentStep: Boolean,
     analyticsAccounts: List<AnalyticsAccount>,
     selectAnalyticsAccount: (analyticsAccountId: String) -> Unit,
     saveThirdStep: (Boolean) -> Unit
 ) {
-    AnimatedVisibility(isCurrentStep) {
-        Column(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                SwitchText(
-                    title = stringResource(id = R.string.enable_analytics_title),
-                    isEnabled = stepThreeState.isGoogleAnalyticsEnabled,
-                    onAnalyticsEnabled = saveThirdStep
-                )
-            }
-            AnimatedVisibility(stepThreeState.isGoogleAnalyticsEnabled) {
-                LazyColumn(modifier = Modifier.fillMaxWidth()) {
-                    items(analyticsAccounts.size) {
-                        AnalyticsAccountListItem(
-                            analyticsAccount = analyticsAccounts[it],
-                            selectedAccountId = stepThreeState.googleAnalyticsAccountId ?: "",
-                            selectAnalyticsAccount = selectAnalyticsAccount
-                        )
-                    }
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            SwitchText(
+                title = stringResource(id = R.string.enable_analytics_title),
+                isEnabled = stepThreeState.isGoogleAnalyticsEnabled,
+                onAnalyticsEnabled = saveThirdStep
+            )
+        }
+        AnimatedVisibility(stepThreeState.isGoogleAnalyticsEnabled) {
+            LazyColumn(modifier = Modifier.fillMaxWidth()) {
+                items(analyticsAccounts.size) {
+                    AnalyticsAccountListItem(
+                        analyticsAccount = analyticsAccounts[it],
+                        selectedAccountId = stepThreeState.googleAnalyticsAccountId ?: "",
+                        selectAnalyticsAccount = selectAnalyticsAccount
+                    )
                 }
             }
         }
@@ -100,7 +93,7 @@ fun AnalyticsAccountListItem(
     val isSelectedAccount = selectedAccountId == analyticsAccount.id
     Row(
         modifier = Modifier
-            .padding(vertical = 8.dp)
+            .padding(8.dp)
             .fillMaxWidth()
             .border(2.dp, Orange, RoundedCornerShape(10.dp))
             .clickable {
@@ -167,7 +160,6 @@ fun StepThreePreview() {
     KonsolTheme {
         StepThree(
             stepThreeState = StepThreeState(),
-            currentStep = STEP_THREE,
             analyticsAccounts = listOf(),
             saveThirdStep = { },
             selectAnalyticsAccount = {}
