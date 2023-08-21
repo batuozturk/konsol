@@ -1,7 +1,5 @@
 package com.batuhan.management.presentation.createproject.steps
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,11 +19,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
 import com.batuhan.management.data.model.ProjectInfo
+import com.batuhan.management.presentation.createproject.CreateProjectErrorState
+import com.batuhan.management.presentation.createproject.StepTitle
 import com.batuhan.management.presentation.createproject.StepTwoState
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
@@ -34,67 +35,62 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun StepTwo(
     stepTwoState: StepTwoState,
-    currentStep: Int,
+    errorState: CreateProjectErrorState?,
     isCreatingFromScratch: Boolean,
     projects: LazyPagingItems<ProjectInfo>,
     saveSecondStep: (projectId: String?, name: String?) -> Unit,
     onProjectNameChange: (projectName: String) -> Unit,
     onProjectIdChange: (projectId: String) -> Unit
 ) {
-    val isCurrentStep = currentStep == STEP_TWO
-    val isPassedStep = currentStep > STEP_TWO
     Column(
         Modifier
-            .fillMaxWidth()
-            .background(Color.White)
-            .padding(10.dp)
+            .fillMaxSize()
     ) {
         StepTitle(
-            title = stringResource(id = R.string.step_two_title),
-            isPassedStep = isPassedStep
+            title = stringResource(id = R.string.step_two_title)
         )
         StepTwoContent(
             stepTwoState = stepTwoState,
             projects = projects,
-            isCurrentStep = isCurrentStep,
             isCreatingFromScratch = isCreatingFromScratch,
             saveSecondStep = saveSecondStep,
             onProjectNameChange = onProjectNameChange,
             onProjectIdChange = onProjectIdChange
         )
+        errorState?.takeIf {
+            it == CreateProjectErrorState.FIREBASE_ERROR ||
+                it == CreateProjectErrorState.GOOGLE_CLOUD_ERROR
+        }?.let {
+            ErrorInfo(errorState = it)
+        }
     }
 }
 
 @Composable
 fun StepTwoContent(
     stepTwoState: StepTwoState,
-    isCurrentStep: Boolean,
     isCreatingFromScratch: Boolean,
     projects: LazyPagingItems<ProjectInfo>,
     saveSecondStep: (projectId: String?, name: String?) -> Unit,
     onProjectNameChange: (projectName: String) -> Unit,
     onProjectIdChange: (projectId: String) -> Unit
 ) {
-    AnimatedVisibility(isCurrentStep) {
-        if (isCreatingFromScratch) {
-            StepTwoEnterDetails(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                stepTwoState,
-                onProjectNameChange,
-                onProjectIdChange
-            )
-        } else {
-            StepTwoSelectProject(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
-                projects = projects,
-                selectedProject = stepTwoState.projectId ?: "",
-                saveSecondStep = saveSecondStep
-            )
-        }
+    if (isCreatingFromScratch) {
+        StepTwoEnterDetails(
+            modifier = Modifier
+                .fillMaxWidth().padding(8.dp),
+            stepTwoState,
+            onProjectNameChange,
+            onProjectIdChange
+        )
+    } else {
+        StepTwoSelectProject(
+            modifier = Modifier
+                .fillMaxWidth(),
+            projects = projects,
+            selectedProject = stepTwoState.projectId ?: "",
+            saveSecondStep = saveSecondStep
+        )
     }
 }
 
@@ -126,8 +122,7 @@ fun ProjectListItem(
 ) {
     Row(
         modifier = Modifier
-            .padding(vertical = 8.dp)
-            .fillMaxWidth()
+            .fillMaxWidth().padding(8.dp)
             .border(2.dp, Orange, RoundedCornerShape(10.dp))
             .clickable {
                 saveSecondStep(
@@ -140,7 +135,7 @@ fun ProjectListItem(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = project.displayName ?: "undefined"
+            text = project.displayName ?: stringResource(id = R.string.undefined)
         )
         if (isSelectedProject) {
             Icon(
@@ -206,14 +201,40 @@ fun StepTwoEnterDetails(
     }
 }
 
+@Composable
+fun ErrorInfo(errorState: CreateProjectErrorState?) {
+    if (errorState != null) {
+        val textResId = if (errorState == CreateProjectErrorState.FIREBASE_ERROR) {
+            R.string.firebase_error_desc
+        } else {
+            R.string.gcloud_error_desc
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .border(2.dp, Color.Red, RoundedCornerShape(10.dp))
+                .padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Text(
+                text = stringResource(id = textResId),
+                modifier = Modifier.padding(4.dp),
+                fontSize = 12.sp
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun StepTwoPreview() {
     KonsolTheme {
         StepTwo(
             stepTwoState = StepTwoState(),
-            currentStep = STEP_TWO,
             isCreatingFromScratch = true,
+            errorState = null,
             projects = flowOf(PagingData.empty<ProjectInfo>()).collectAsLazyPagingItems(),
             saveSecondStep = { projectId: String?, name: String? -> },
             onProjectNameChange = { projectName: String -> },
