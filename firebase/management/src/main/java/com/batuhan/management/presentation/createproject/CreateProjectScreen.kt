@@ -1,16 +1,19 @@
 package com.batuhan.management.presentation.createproject
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,30 +23,35 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
 import com.batuhan.management.data.model.AnalyticsAccount
-import com.batuhan.management.data.model.AvailableLocation
 import com.batuhan.management.data.model.ProjectInfo
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_SAVE_PROJECT
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_SUCCESS
+import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_ONE
+import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_THREE
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_TWO
-import com.batuhan.management.presentation.createproject.steps.StepContent
-import com.batuhan.theme.DarkGreen
+import com.batuhan.management.presentation.createproject.steps.StepOne
+import com.batuhan.management.presentation.createproject.steps.StepThree
+import com.batuhan.management.presentation.createproject.steps.StepTwo
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun CreateProjectScreen(onDismiss: () -> Unit) {
+fun CreateProjectScreen(onBackPressed: () -> Unit) {
     val viewModel = hiltViewModel<CreateProjectViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val availableProjects = viewModel.availableProjects.collectAsLazyPagingItems()
     val analyticsAccounts by viewModel.analyticsAccounts.collectAsStateWithLifecycle()
-    val availableLocations = viewModel.availableLocations.collectAsLazyPagingItems()
+    LaunchedEffect(key1 = true) {
+        viewModel.createProjectEvent.collect { event ->
+            when (event) {
+                CreateProjectEvent.Back -> onBackPressed.invoke()
+            }
+        }
+    }
     CreateProjectScreenContent(
         uiState = uiState,
         availableProjects = availableProjects,
         analyticsAccounts = analyticsAccounts,
-        availableLocations = availableLocations,
-        onDismiss = onDismiss,
+        onBackPressed = viewModel::onBackPressed,
         updateStep = viewModel::updateStep,
         retryOperation = viewModel::retryOperation,
         saveFirstStep = viewModel::saveFirstStep,
@@ -55,19 +63,20 @@ fun CreateProjectScreen(onDismiss: () -> Unit) {
             if (enabled) viewModel.getAnalyticsAccounts()
         },
         saveThirdStep = viewModel::saveThirdStep,
-        saveFourthStep = viewModel::setFourthStep,
-        saveProjectToFirebase = viewModel::saveProject
+        saveProjectToFirebase = viewModel::saveProject,
+        setSnackbarState = viewModel::setSnackbarState,
+        clearErrorState = viewModel::clearErrorState
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun CreateProjectScreenContent(
     uiState: CreateProjectUiState,
     availableProjects: LazyPagingItems<ProjectInfo>,
     analyticsAccounts: List<AnalyticsAccount>,
-    availableLocations: LazyPagingItems<AvailableLocation>,
-    onDismiss: () -> Unit,
-    updateStep: (step: Int) -> Unit,
+    onBackPressed: () -> Unit,
+    updateStep: (step: Int) -> Boolean,
     retryOperation: (CreateProjectErrorState) -> Unit,
     saveFirstStep: (isCreatingFromScratch: Boolean) -> Unit,
     onProjectNameChange: (projectName: String) -> Unit,
@@ -75,195 +84,199 @@ fun CreateProjectScreenContent(
     saveSecondStep: (projectId: String?, name: String?) -> Unit,
     onAnalyticsEnabled: (Boolean) -> Unit,
     saveThirdStep: (analyticsAccountId: String) -> Unit,
-    saveFourthStep: (projectId: String) -> Unit,
-    saveProjectToFirebase: () -> Unit
+    saveProjectToFirebase: () -> Unit,
+    setSnackbarState: (Boolean) -> Unit,
+    clearErrorState: () -> Unit
 ) {
-    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            TopContent(
-                uiState = uiState,
-                onDismiss = onDismiss,
-                saveProjectToFirebase = saveProjectToFirebase,
-                changeStep = updateStep,
-                retryOperation = retryOperation
+    val errorState by remember(uiState.errorState) {
+        derivedStateOf { uiState.errorState }
+    }
+    val currentStep by remember(uiState.currentStep) {
+        derivedStateOf { uiState.currentStep }
+    }
+    val isLoading by remember(uiState.isLoading) {
+        derivedStateOf { uiState.isLoading }
+    }
+    val isSnackbarOpened by remember(uiState.isSnackbarOpened) {
+        derivedStateOf { uiState.isSnackbarOpened }
+    }
+    val stepOneState by remember(uiState.stepOneState) {
+        derivedStateOf { uiState.stepOneState }
+    }
+    val stepTwoState by remember(uiState.stepTwoState) {
+        derivedStateOf { uiState.stepTwoState }
+    }
+    val stepThreeState by remember(uiState.stepThreeState) {
+        derivedStateOf { uiState.stepThreeState }
+    }
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+    val pagerState = rememberPagerState { 3 }
+    val context = LocalContext.current
+    LaunchedEffect(currentStep) {
+        pagerState.scrollToPage(currentStep)
+    }
+    LaunchedEffect(isSnackbarOpened) {
+        errorState?.titleResId?.takeIf { isSnackbarOpened }?.let {
+            val titleText = context.getString(it)
+            val actionText = errorState?.actionResId?.let { resId -> context.getString(resId) }
+            val result = snackbarHostState.showSnackbar(
+                message = titleText,
+                actionLabel = actionText,
+                withDismissAction = actionText == null,
+                duration = SnackbarDuration.Indefinite
             )
-            StepContent(
-                uiState = uiState,
-                projects = availableProjects,
-                analyticsAccounts = analyticsAccounts,
-                availableLocations = availableLocations,
-                onProjectNameChange = onProjectNameChange,
-                onProjectIdChange = onProjectIdChange,
-                onAnalyticsEnabled = onAnalyticsEnabled,
-                saveThirdStep = saveThirdStep,
-                saveFirstStep = saveFirstStep,
-                saveSecondStep = saveSecondStep,
-                saveFourthStep = saveFourthStep
+            when (result) {
+                SnackbarResult.ActionPerformed -> {
+                    retryOperation(errorState!!)
+                    setSnackbarState.invoke(false)
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                }
+                else -> {
+                    setSnackbarState.invoke(false)
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                }
+            }
+        }
+    }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
+            TopAppBar(
+                navigationIcon = {
+                    IconButton(onClick = onBackPressed) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = null,
+                            tint = Orange
+                        )
+                    }
+                },
+                actions = {
+                    if (currentStep > 0) {
+                        IconButton(
+                            onClick = {
+                                updateStep.invoke(currentStep - 1)
+                                clearErrorState.invoke()
+                                setSnackbarState.invoke(false)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.NavigateBefore,
+                                contentDescription = null,
+                                tint = Orange
+                            )
+                        }
+                    }
+                    Text("${currentStep + 1}/3")
+                    if (errorState != null) {
+                        IconButton(
+                            onClick = {
+                                setSnackbarState.invoke(true)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ErrorOutline,
+                                contentDescription = null,
+                                tint = Color.Red
+                            )
+                        }
+                    } else if (isLoading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.padding(horizontal = 12.dp).size(24.dp),
+                            strokeWidth = 2.dp,
+                            color = Orange,
+                            trackColor = Color.White
+                        )
+                    } else {
+                        if (currentStep > STEP_TWO) {
+                            IconButton(saveProjectToFirebase) {
+                                Icon(
+                                    imageVector = Icons.Default.Save,
+                                    contentDescription = null,
+                                    tint = Orange
+                                )
+                            }
+                        } else {
+                            IconButton(onClick = {
+                                updateStep.invoke(currentStep + 1)
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.NavigateNext,
+                                    contentDescription = null,
+                                    tint = Orange
+                                )
+                            }
+                        }
+                    }
+                },
+                title = {
+                    Text(stringResource(R.string.create_project))
+                }
             )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) {
+                Snackbar(
+                    snackbarData = it,
+                    contentColor = Color.White,
+                    containerColor = Color.Red,
+                    actionColor = Color.White,
+                    shape = RoundedCornerShape(10.dp)
+                )
+            }
+        }
+    ) {
+        HorizontalPager(
+            modifier = Modifier.fillMaxSize().padding(it),
+            state = pagerState
+        ) { page ->
+            when (page) {
+                STEP_ONE -> {
+                    StepOne(
+                        stepOneState = stepOneState,
+                        saveFirstStep = saveFirstStep
+                    )
+                }
+                STEP_TWO -> {
+                    StepTwo(
+                        stepTwoState = stepTwoState,
+                        errorState = errorState,
+                        isCreatingFromScratch = stepOneState.isCreatingFromScratch ?: false,
+                        projects = availableProjects,
+                        saveSecondStep = saveSecondStep,
+                        onProjectNameChange = onProjectNameChange,
+                        onProjectIdChange = onProjectIdChange
+                    )
+                }
+                STEP_THREE -> {
+                    StepThree(
+                        stepThreeState = stepThreeState,
+                        analyticsAccounts = analyticsAccounts,
+                        selectAnalyticsAccount = saveThirdStep,
+                        saveThirdStep = onAnalyticsEnabled
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
-fun TopContent(
-    uiState: CreateProjectUiState,
-    onDismiss: () -> Unit,
-    saveProjectToFirebase: () -> Unit,
-    changeStep: (Int) -> Unit,
-    retryOperation: (CreateProjectErrorState) -> Unit
+fun StepTitle(
+    title: String
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(onClick = { onDismiss.invoke() }) {
-            Icon(Icons.Default.Close, contentDescription = null, tint = Orange)
-        }
-        StepButtons(
-            currentStep = uiState.currentStep,
-            errorState = uiState.errorState,
-            isLoading = uiState.isLoading,
-            onDismiss = onDismiss,
-            changeStep = changeStep,
-            saveProjectToFirebase = saveProjectToFirebase,
-            retryOperation = retryOperation
+        Text(
+            text = title
         )
-    }
-}
-
-@Composable
-fun StepButtons(
-    currentStep: Int,
-    errorState: CreateProjectErrorState?,
-    isLoading: Boolean,
-    onDismiss: () -> Unit,
-    changeStep: (Int) -> Unit,
-    saveProjectToFirebase: () -> Unit,
-    retryOperation: (CreateProjectErrorState) -> Unit
-) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        if (currentStep in STEP_TWO until STEP_SUCCESS) {
-            OutlinedButton(
-                onClick = {
-                    changeStep(currentStep - 1)
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                border = BorderStroke(2.dp, Orange)
-            ) {
-                Text(stringResource(id = R.string.button_back), color = Orange)
-            }
-        }
-        Spacer(modifier = Modifier.width(10.dp))
-        if (errorState != null) {
-            Button(
-                onClick = {
-                    retryOperation(errorState)
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
-            ) {
-                Text(
-                    text = stringResource(id = errorState.messageResId),
-                    color = Color.White,
-                    textAlign = TextAlign.Center
-                )
-            }
-        } else {
-            when (currentStep) {
-                STEP_SAVE_PROJECT -> {
-                    Button(
-                        onClick = {
-                            if (!isLoading) {
-                                saveProjectToFirebase.invoke()
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Orange)
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                color = Color.White,
-                                modifier = Modifier
-                                    .height(16.dp)
-                                    .aspectRatio(1f),
-                                strokeWidth = 2.dp
-                            )
-                            Text(
-                                modifier = Modifier.padding(start = 8.dp),
-                                text = stringResource(id = R.string.step_wait_title),
-                                color = Color.White
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(id = R.string.button_save),
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
-                STEP_SUCCESS -> {
-                    Button(
-                        onClick = {
-                            if (!isLoading) {
-                                onDismiss.invoke()
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = DarkGreen)
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                color = Color.White,
-                                modifier = Modifier
-                                    .height(16.dp)
-                                    .aspectRatio(1f),
-                                strokeWidth = 2.dp
-                            )
-                            Text(
-                                modifier = Modifier.padding(start = 8.dp),
-                                text = stringResource(id = R.string.step_wait_title),
-                                color = Color.White
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(id = R.string.step_success),
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
-                else -> {
-                    Button(
-                        onClick = {
-                            if (!isLoading) {
-                                changeStep(currentStep + 1)
-                            }
-                        },
-                        colors = ButtonDefaults.outlinedButtonColors(containerColor = Orange)
-                    ) {
-                        if (isLoading) {
-                            CircularProgressIndicator(
-                                color = Color.White,
-                                modifier = Modifier
-                                    .height(16.dp)
-                                    .aspectRatio(1f),
-                                strokeWidth = 2.dp
-                            )
-                            Text(
-                                modifier = Modifier.padding(start = 8.dp),
-                                text = stringResource(id = R.string.step_wait_title),
-                                color = Color.White
-                            )
-                        } else {
-                            Text(
-                                text = stringResource(id = R.string.button_next),
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -272,21 +285,21 @@ fun StepButtons(
 fun CreateProjectScreenPreview() {
     KonsolTheme {
         CreateProjectScreenContent(
-            onDismiss = { /*TODO*/ },
+            onBackPressed = { /*TODO*/ },
             availableProjects = flowOf(PagingData.empty<ProjectInfo>()).collectAsLazyPagingItems(),
             analyticsAccounts = listOf(),
             uiState = CreateProjectUiState(),
-            availableLocations = flowOf(PagingData.empty<AvailableLocation>()).collectAsLazyPagingItems(),
             onAnalyticsEnabled = { _ -> },
             saveThirdStep = { _ -> },
             saveFirstStep = { _ -> },
             saveSecondStep = { _, _ -> },
-            saveFourthStep = { _ -> },
             saveProjectToFirebase = {},
             onProjectNameChange = {},
             onProjectIdChange = {},
-            updateStep = {},
-            retryOperation = {}
+            updateStep = { false },
+            retryOperation = {},
+            setSnackbarState = {},
+            clearErrorState = {}
         )
     }
 }

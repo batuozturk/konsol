@@ -24,7 +24,7 @@ fun NavGraphBuilder.ProjectsScreenGraph(navController: NavController) {
     }
     composable(CREATE_PROJECT_SCREEN) {
         CreateProjectScreen(
-            onDismiss = { navController.popBackStack() }
+            onBackPressed = { navController.popBackStack() }
         )
     }
 }

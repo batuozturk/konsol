@@ -3,7 +3,6 @@ package com.batuhan.management.presentation.createproject
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.batuhan.core.util.Result
 import com.batuhan.core.util.UiState
@@ -11,18 +10,13 @@ import com.batuhan.management.R
 import com.batuhan.management.data.model.AnalyticsAccount
 import com.batuhan.management.data.model.CreateProjectRequest
 import com.batuhan.management.data.model.Status
-import com.batuhan.management.domain.*
 import com.batuhan.management.domain.firebase.*
 import com.batuhan.management.domain.googleanalytics.GetGoogleAnalyticsAccounts
 import com.batuhan.management.domain.googlecloud.CreateGoogleCloudProject
 import com.batuhan.management.domain.googlecloud.GetGoogleCloudOperation
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_FOUR
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_ONE
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_SAVE_PROJECT
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_THREE
-import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_TWO
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -35,20 +29,16 @@ class CreateProjectViewModel @Inject constructor(
     private val addGoogleAnalytics: AddGoogleAnalytics,
     private val addFirebase: AddFirebase,
     private val createGoogleCloudProject: CreateGoogleCloudProject,
-    private val finalizeLocation: FinalizeLocation,
-    private val getAvailableLocations: GetAvailableLocations,
     private val getGoogleCloudOperation: GetGoogleCloudOperation,
     private val getFirebaseOperation: GetFirebaseOperation
 ) :
     ViewModel() {
 
     companion object {
-        internal const val STEP_ONE = 1
-        internal const val STEP_TWO = 2
-        internal const val STEP_THREE = 3
-        internal const val STEP_FOUR = 4
-        internal const val STEP_SAVE_PROJECT = 5
-        internal const val STEP_SUCCESS = 6
+        internal const val STEP_ONE = 0
+        internal const val STEP_TWO = 1
+        internal const val STEP_THREE = 2
+        internal const val STEP_SAVE_PROJECT = 3
     }
 
     val availableProjects = getAvailableProjects.invoke().cachedIn(viewModelScope)
@@ -56,43 +46,33 @@ class CreateProjectViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CreateProjectUiState())
     val uiState = _uiState.asStateFlow()
 
-    private var projectName = MutableStateFlow("")
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val availableLocations = projectName.asSharedFlow().flatMapLatest {
-        if (it.isNotEmpty()) {
-            val project = getProjectId(it)
-            getAvailableLocations.invoke(GetAvailableLocations.Params(project))
-                .cachedIn(viewModelScope)
-        } else {
-            flowOf(PagingData.empty())
-        }
-    }
-
     private val _analyticsAccounts = MutableStateFlow<List<AnalyticsAccount>>(listOf())
     val analyticsAccounts = _analyticsAccounts.asStateFlow()
 
-    fun updateStep(nextStep: Int) {
+    private val _createProjectEvent = Channel<CreateProjectEvent> { Channel.BUFFERED }
+    val createProjectEvent = _createProjectEvent.receiveAsFlow()
+
+    fun updateStep(nextStep: Int): Boolean {
         removeErrorState()
         val currentStep = uiState.value.currentStep
-        when (currentStep to nextStep) {
+        return when (currentStep to nextStep) {
             STEP_ONE to STEP_TWO -> stepOne(nextStep)
             STEP_TWO to STEP_THREE -> stepTwo(nextStep)
-            STEP_THREE to STEP_FOUR -> stepThree(nextStep)
-            STEP_FOUR to STEP_SAVE_PROJECT -> stepFour(nextStep)
             else -> {
                 _uiState.update {
                     it.copy(currentStep = nextStep)
                 }
+                return true
             }
         }
     }
 
-    fun stepOne(nextStep: Int) {
-        if (uiState.value.stepOneState.isCreatingFromScratch == null) {
+    fun stepOne(nextStep: Int): Boolean {
+        return if (uiState.value.stepOneState.isCreatingFromScratch == null) {
             setErrorState(
                 CreateProjectErrorState.CREATION_TYPE_NOT_SELECTED
             )
+            false
         } else {
             _uiState.update {
                 it.copy(
@@ -100,22 +80,23 @@ class CreateProjectViewModel @Inject constructor(
                     stepTwoState = StepTwoState()
                 )
             }
+            true
         }
     }
 
-    fun stepTwo(nextStep: Int) {
+    fun stepTwo(nextStep: Int): Boolean {
         val isCreatingFromScratch = uiState.value.stepOneState.isCreatingFromScratch
         val projectId = uiState.value.stepTwoState.projectId
         val projectName = uiState.value.stepTwoState.projectName
         if (isCreatingFromScratch == false && uiState.value.stepTwoState.projectId == null) {
             setErrorState(CreateProjectErrorState.GCP_NOT_SELECTED)
-            return
+            return false
         } else if (isCreatingFromScratch == true && projectName == null) {
             setErrorState(CreateProjectErrorState.PROJECT_NAME_EMPTY)
-            return
+            return false
         } else if (isCreatingFromScratch == true && projectId == null) {
             setErrorState(CreateProjectErrorState.ID_EMPTY)
-            return
+            return false
         }
         if (isCreatingFromScratch == false) {
             _uiState.update {
@@ -124,8 +105,10 @@ class CreateProjectViewModel @Inject constructor(
                     stepThreeState = StepThreeState()
                 )
             }
+            return true
         } else {
             setLoadingState(true)
+            var result = false
             viewModelScope.launch {
                 val isSuccessful =
                     executeGoogleCloudOperation(uiState.value, ::createGoogleCloudProject)
@@ -138,33 +121,12 @@ class CreateProjectViewModel @Inject constructor(
                             stepThreeState = StepThreeState()
                         )
                     }
+                    result = true
+                } else {
+                    result = false
                 }
             }
-        }
-    }
-
-    fun stepThree(nextStep: Int) {
-        val stepThreeState = uiState.value.stepThreeState
-        if (stepThreeState.isGoogleAnalyticsEnabled && stepThreeState.googleAnalyticsAccountId == null) {
-            setErrorState(CreateProjectErrorState.ANALYTICS_ACCOUNT_NOT_SELECTED)
-        } else {
-            getAvailableLocations()
-            _uiState.update {
-                it.copy(
-                    currentStep = nextStep,
-                    stepFourState = StepFourState()
-                )
-            }
-        }
-    }
-
-    fun stepFour(nextStep: Int) {
-        if (uiState.value.stepFourState.locationId == null) {
-            setErrorState(CreateProjectErrorState.LOCATION_NOT_SELECTED)
-        } else {
-            _uiState.update {
-                it.copy(currentStep = nextStep)
-            }
+            return result
         }
     }
 
@@ -205,9 +167,6 @@ class CreateProjectViewModel @Inject constructor(
                 }
                 CreateProjectErrorState.ADD_ANALYTICS -> {
                     saveProject(resumeStep = 1)
-                }
-                CreateProjectErrorState.FINALIZE_LOCATION -> {
-                    saveProject(resumeStep = 2)
                 }
                 CreateProjectErrorState.GCP_PROJECT_QUOTA_FULL,
                 CreateProjectErrorState.GOOGLE_CLOUD_ERROR,
@@ -252,17 +211,6 @@ class CreateProjectViewModel @Inject constructor(
 
     fun updateProjectName(projectName: String) {
         _uiState.update {
-            val projectId = it.stepTwoState.projectId
-            if (projectName.isBlank() || projectName.isEmpty() || projectName.contains(" ")) {
-                setErrorState(
-                    CreateProjectErrorState.PROJECT_NAME_EMPTY
-                )
-            } else if (projectId.isNullOrEmpty() || projectId.isBlank() || projectId.contains(" ")) {
-                setErrorState(
-                    CreateProjectErrorState.ID_EMPTY
-                )
-            } else removeErrorState()
-
             val updatedSecondStep =
                 it.stepTwoState.copy(projectName = projectName)
             it.copy(stepTwoState = updatedSecondStep)
@@ -271,17 +219,6 @@ class CreateProjectViewModel @Inject constructor(
 
     fun updateProjectId(projectId: String) {
         _uiState.update {
-            val projectName = it.stepTwoState.projectName
-            if (projectName.isNullOrEmpty() || projectName.isBlank() || projectName.contains(" ")) {
-                setErrorState(
-                    CreateProjectErrorState.PROJECT_NAME_EMPTY
-                )
-            } else if (projectId.isBlank() || projectId.isEmpty() || projectId.contains(" ")) {
-                setErrorState(
-                    CreateProjectErrorState.ID_EMPTY
-                )
-            } else removeErrorState()
-
             val updatedSecondStep =
                 it.stepTwoState.copy(projectId = projectId)
             it.copy(stepTwoState = updatedSecondStep)
@@ -404,25 +341,13 @@ class CreateProjectViewModel @Inject constructor(
 
     // end-region
 
-    // region Step Four
-    fun setFourthStep(locationId: String) {
-        removeErrorState()
-        _uiState.update {
-            val updatedFourthStep = it.stepFourState.copy(locationId = locationId)
-            it.copy(stepFourState = updatedFourthStep)
-        }
-    }
-
-    fun getAvailableLocations() {
-        viewModelScope.launch {
-            projectName.emit(uiState.value.stepTwoState.projectId ?: "")
-        }
-    }
-
-    // end-region
-
     // region Step Save Project
     fun saveProject(resumeStep: Int = 0) {
+        val stepThreeState = uiState.value.stepThreeState
+        if (stepThreeState.isGoogleAnalyticsEnabled && stepThreeState.googleAnalyticsAccountId == null) {
+            setErrorState(CreateProjectErrorState.ANALYTICS_ACCOUNT_NOT_SELECTED)
+            return
+        }
         var step = resumeStep
         viewModelScope.launch {
             setLoadingState(true)
@@ -440,17 +365,8 @@ class CreateProjectViewModel @Inject constructor(
                 step++
             }
 
-            if (step == 2) {
-                val operationResult = executeOperation(uiState.value, ::finalizeLocation)
-                if (!operationResult) return@launch
-                step++
-            }
-
             removeLoadingState()
-
-            _uiState.update {
-                it.copy(currentStep = STEP_SUCCESS)
-            }
+            onBackPressed()
         }
     }
 
@@ -511,26 +427,6 @@ class CreateProjectViewModel @Inject constructor(
         }
     }
 
-    suspend fun finalizeLocation(state: CreateProjectUiState): String? {
-        var projectId = state.stepTwoState.projectId ?: return null
-        projectId = getProjectId(projectId)
-        val result = finalizeLocation.invoke(
-            FinalizeLocation.Params(
-                projectId,
-                state.stepFourState.locationId ?: return null
-            )
-        )
-        return when (result) {
-            is Result.Success -> {
-                result.data.name
-            }
-            is Result.Error -> {
-                setErrorState(CreateProjectErrorState.FINALIZE_LOCATION)
-                null
-            }
-        }
-    }
-
     suspend fun getFirebaseOperation(operationId: String): Boolean {
         var isDone = false
         var error: Status? = null
@@ -555,6 +451,25 @@ class CreateProjectViewModel @Inject constructor(
             false
         }
     }
+
+    fun setSnackbarState(isSnackbarOpened: Boolean) {
+        _uiState.update {
+            it.copy(isSnackbarOpened = isSnackbarOpened)
+        }
+        if (!isSnackbarOpened) clearErrorState()
+    }
+
+    fun clearErrorState() {
+        _uiState.update {
+            it.copy(errorState = null)
+        }
+    }
+
+    fun onBackPressed() {
+        viewModelScope.launch {
+            _createProjectEvent.send(CreateProjectEvent.Back)
+        }
+    }
 }
 
 data class CreateProjectUiState(
@@ -564,8 +479,8 @@ data class CreateProjectUiState(
     val stepOneState: StepOneState = StepOneState(),
     val stepTwoState: StepTwoState = StepTwoState(),
     val stepThreeState: StepThreeState = StepThreeState(),
-    val stepFourState: StepFourState = StepFourState(),
-    val errorState: CreateProjectErrorState? = null
+    val errorState: CreateProjectErrorState? = null,
+    val isSnackbarOpened: Boolean = false
 ) : UiState()
 
 data class StepOneState(
@@ -582,27 +497,25 @@ data class StepThreeState(
     val googleAnalyticsAccountId: String? = null
 )
 
-data class StepFourState(
-    val locationId: String? = null
-)
+sealed class CreateProjectEvent {
+    object Back : CreateProjectEvent()
+}
 
 enum class CreateProjectErrorState(
-    @StringRes val messageResId: Int = R.string.error_occurred,
-    val currentStep: Int? = null
+    @StringRes val titleResId: Int = R.string.error_occurred,
+    @StringRes val actionResId: Int? = R.string.retry
 
 ) {
-    ADD_FIREBASE(currentStep = STEP_SAVE_PROJECT),
-    ADD_ANALYTICS(currentStep = STEP_SAVE_PROJECT),
-    FINALIZE_LOCATION(currentStep = STEP_SAVE_PROJECT),
-    GCP_PROJECT_QUOTA_FULL(currentStep = STEP_TWO),
-    ID_DUPLICATE(currentStep = STEP_TWO),
-    ID_EMPTY(R.string.project_id_empty, STEP_TWO),
-    PROJECT_NAME_EMPTY(R.string.project_name_empty, STEP_TWO),
+    ADD_FIREBASE(),
+    ADD_ANALYTICS(),
+    GCP_PROJECT_QUOTA_FULL(),
+    ID_DUPLICATE(),
+    ID_EMPTY(R.string.project_id_empty, null),
+    PROJECT_NAME_EMPTY(R.string.project_name_empty, null),
     NO_CONNECTION(R.string.no_connection),
-    GOOGLE_CLOUD_ERROR(currentStep = STEP_TWO),
-    FIREBASE_ERROR(currentStep = STEP_SAVE_PROJECT),
-    CREATION_TYPE_NOT_SELECTED(R.string.creation_type_not_selected, STEP_ONE),
-    GCP_NOT_SELECTED(R.string.project_not_selected, STEP_TWO),
-    ANALYTICS_ACCOUNT_NOT_SELECTED(R.string.analytics_account_not_selected, STEP_THREE),
-    LOCATION_NOT_SELECTED(R.string.location_not_selected, STEP_FOUR)
+    GOOGLE_CLOUD_ERROR(),
+    FIREBASE_ERROR(),
+    CREATION_TYPE_NOT_SELECTED(R.string.creation_type_not_selected, null),
+    GCP_NOT_SELECTED(R.string.project_not_selected, null),
+    ANALYTICS_ACCOUNT_NOT_SELECTED(R.string.analytics_account_not_selected, null),
 }
