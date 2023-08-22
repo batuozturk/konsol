@@ -4,18 +4,19 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.batuhan.oauth2.presentation.AuthScreen
-import com.batuhan.oauth2.presentation.AuthScreenNavigationKeys.START_DESTINATION
+
+internal const val AUTH_SCREEN = "auth_screen"
 
 fun NavGraphBuilder.authScreenGraph(navController: NavController) {
-    composable(START_DESTINATION) {
-        AuthScreen(navigate = { screen, popUpScreen, popUpInclusive ->
-            navController.navigate(screen) {
-                popUpScreen?.let {
-                    popUpTo(it) {
-                        inclusive = popUpInclusive
+    composable(AUTH_SCREEN) {
+        AuthScreen(
+            navigateToProjectListScreen = {
+                navController.navigate("projects_screen") {
+                    popUpTo(AUTH_SCREEN) {
+                        inclusive = true
                     }
                 }
             }
-        })
+        )
     }
 }

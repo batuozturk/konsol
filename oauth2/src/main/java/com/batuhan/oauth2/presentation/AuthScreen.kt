@@ -3,61 +3,58 @@ package com.batuhan.oauth2.presentation
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.QuestionMark
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.ConstraintSet
-import androidx.constraintlayout.compose.Dimension
+import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.*
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.batuhan.oauth2.R
+import com.batuhan.oauth2.presentation.pages.CloudMessagingInfoScreen
+import com.batuhan.oauth2.presentation.pages.CloudStorageInfoScreen
+import com.batuhan.oauth2.presentation.pages.FirestoreInfoScreen
+import com.batuhan.oauth2.presentation.pages.TestLabInfoScreen
+import com.batuhan.theme.KonsolFontFamily
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
-import com.batuhan.theme.R
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
 
 private object ConstraintParams {
-    const val REF_TEXT = "text"
-    const val REF_LOGO = "logo"
     const val REF_EMAIL_INPUT = "email_input"
     const val REF_SIGN_IN_BUTTON = "button"
-    const val REF_QUESTION_BOX = "question_box"
-    val DP_64 = 64.dp
-    val DP_48 = 48.dp
-    val DP_32 = 32.dp
-    val DP_16 = 16.dp
-}
-
-object AuthScreenNavigationKeys {
-    const val START_DESTINATION = "auth_screen"
-    const val PROJECTS_SCREEN = "projects_screen"
+    const val REF_HORIZONTAL_PAGER = "horizontal_pager"
+    const val REF_PAGE_INDICATOR = "page_indicator"
+    const val REF_PRIVACY_POLICY_TOS_ROW = "privacy_policy_tos"
 }
 
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
-    navigate: (key: String, popUpToScreen: String?, popUpInclusive: Boolean) -> Unit
+    navigateToProjectListScreen: () -> Unit
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -99,140 +96,223 @@ fun AuthScreen(
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
-    LaunchedEffect(key1 = true, block = {
+    LaunchedEffect(true) {
         viewModel.authEvent.collect { event ->
             when (event) {
-                is AuthEvent.Success -> navigate(
-                    AuthScreenNavigationKeys.PROJECTS_SCREEN,
-                    AuthScreenNavigationKeys.START_DESTINATION,
-                    true
-                )
-                is AuthEvent.LaunchIntent -> oauth2Result.launch(event.intent)
-                else -> { // no-op
+                is AuthScreenEvent.Success -> navigateToProjectListScreen.invoke()
+                is AuthScreenEvent.LaunchIntent -> oauth2Result.launch(event.intent)
+            }
+        }
+    }
+    val uiState by viewModel.authScreenUiState.collectAsStateWithLifecycle()
+    AuthScreenContent(
+        uiState = uiState,
+        onValueChanged = viewModel::updateEmail,
+        sendAuthRequest = {
+            viewModel.sendAuthRequest(authorizationService)
+        },
+        clearErrorState = viewModel::clearErrorState,
+        retryOperation = viewModel::retryOperation
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@Composable
+fun AuthScreenContent(
+    uiState: AuthScreenUiState,
+    onValueChanged: (String) -> Unit,
+    sendAuthRequest: () -> Unit,
+    clearErrorState: () -> Unit,
+    retryOperation: (AuthScreenErrorState) -> Unit
+) {
+    val constraint = ConstraintSet {
+        val horizontalPager = createRefFor(ConstraintParams.REF_HORIZONTAL_PAGER)
+        val emailInput = createRefFor(ConstraintParams.REF_EMAIL_INPUT)
+        val signInButton = createRefFor(ConstraintParams.REF_SIGN_IN_BUTTON)
+        val pageIndicator = createRefFor(ConstraintParams.REF_PAGE_INDICATOR)
+        val privacyPolicyAndTermsOfService =
+            createRefFor(ConstraintParams.REF_PRIVACY_POLICY_TOS_ROW)
+        constrain(horizontalPager) {
+            top.linkTo(parent.top)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(pageIndicator.top)
+            width = Dimension.matchParent
+            height = Dimension.fillToConstraints
+        }
+        constrain(pageIndicator) {
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(emailInput.top)
+            width = Dimension.matchParent
+            height = Dimension.wrapContent
+        }
+        constrain(emailInput) {
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(signInButton.top)
+            width = Dimension.matchParent
+            height = Dimension.wrapContent
+        }
+        constrain(signInButton) {
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+            bottom.linkTo(privacyPolicyAndTermsOfService.top)
+            width = Dimension.matchParent
+            height = Dimension.wrapContent
+        }
+        constrain(privacyPolicyAndTermsOfService) {
+            bottom.linkTo(parent.bottom)
+            end.linkTo(parent.end)
+            start.linkTo(parent.start)
+            width = Dimension.wrapContent
+            height = Dimension.wrapContent
+        }
+    }
+    val errorState by remember(uiState.errorState) {
+        derivedStateOf { uiState.errorState }
+    }
+
+    val email by remember(uiState.email) {
+        derivedStateOf { uiState.email }
+    }
+
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+    val pagerState = rememberPagerState { 4 }
+    val context = LocalContext.current
+    LaunchedEffect(errorState) {
+        errorState?.titleResId?.let {
+            val titleText = context.getString(it)
+            val actionText = errorState?.actionResId?.let { resId -> context.getString(resId) }
+            val result = snackbarHostState.showSnackbar(
+                message = titleText,
+                actionLabel = actionText,
+                withDismissAction = actionText == null,
+                duration = SnackbarDuration.Indefinite
+            )
+            when (result) {
+                SnackbarResult.ActionPerformed -> {
+                    clearErrorState.invoke()
+                    snackbarHostState.currentSnackbarData?.dismiss()
+                    retryOperation.invoke(errorState!!)
+                }
+                SnackbarResult.Dismissed -> {
+                    clearErrorState.invoke()
+                    snackbarHostState.currentSnackbarData?.dismiss()
                 }
             }
         }
-    })
-    val state by viewModel.authScreenState.collectAsStateWithLifecycle()
-    AuthScreenContent(state, viewModel::onValueChanged) {
-        viewModel.sendAuthRequest(authorizationService)
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AuthScreenContent(
-    state: AuthScreenState,
-    onValueChanged: (String) -> Unit,
-    sendAuthRequest: () -> Unit
-) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.White
-    ) {
-        val constraint = ConstraintSet {
-            val logo = createRefFor(ConstraintParams.REF_LOGO)
-            val text = createRefFor(ConstraintParams.REF_TEXT)
-            val emailInput = createRefFor(ConstraintParams.REF_EMAIL_INPUT)
-            val signInButton = createRefFor(ConstraintParams.REF_SIGN_IN_BUTTON)
-            val questionBox = createRefFor(ConstraintParams.REF_QUESTION_BOX)
-            constrain(logo) {
-                top.linkTo(parent.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                width = Dimension.value(250.dp)
-                height = Dimension.value(250.dp)
-            }
-            constrain(text) {
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-            }
-            constrain(emailInput) {
-                top.linkTo(text.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-            }
-            constrain(signInButton) {
-                top.linkTo(emailInput.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-            }
-            constrain(questionBox) {
-                bottom.linkTo(parent.bottom)
-                end.linkTo(parent.end)
-                start.linkTo(parent.start)
-                width = Dimension.wrapContent
-                height = Dimension.wrapContent
-            }
-            val chain =
-                createVerticalChain(text, emailInput, signInButton, chainStyle = ChainStyle.Packed)
-            constrain(chain) {
-                top.linkTo(logo.bottom)
-                bottom.linkTo(questionBox.top)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = stringResource(id = R.string.app_name_title),
+                        fontFamily = KonsolFontFamily,
+                        color = Orange,
+                        fontSize = 32.sp
+                    )
+                }
+            )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState) {
+                Snackbar(
+                    snackbarData = it,
+                    contentColor = Color.White,
+                    containerColor = Color.Red,
+                    actionColor = Color.White,
+                    shape = RoundedCornerShape(10.dp)
+                )
             }
         }
+    ) {
         ConstraintLayout(
             constraint,
-            modifier = Modifier.padding(
-                horizontal = ConstraintParams.DP_48,
-                vertical = ConstraintParams.DP_32
-            )
+            modifier = Modifier.fillMaxSize()
+                .padding(it).padding(8.dp)
         ) {
-            Image(
-                modifier = Modifier.layoutId(ConstraintParams.REF_LOGO),
-                painter = painterResource(R.drawable.baseline_fireplace_24),
-                contentDescription = null
-            )
-            Text(
-                textAlign = TextAlign.Center,
-                text = "You can enter your email to use Firebase services like FCM, Firestore etc.",
-                modifier = Modifier.padding(bottom = ConstraintParams.DP_16)
-                    .layoutId(ConstraintParams.REF_TEXT)
-            )
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                    .layoutId(ConstraintParams.REF_HORIZONTAL_PAGER)
+            ) { page ->
+                when (page) {
+                    0 -> FirestoreInfoScreen()
+                    1 -> TestLabInfoScreen()
+                    2 -> CloudStorageInfoScreen()
+                    3 -> CloudMessagingInfoScreen()
+                }
+            }
+            Row(
+                Modifier.fillMaxWidth().layoutId(ConstraintParams.REF_PAGE_INDICATOR),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                repeat(4) { iteration ->
+                    val color =
+                        if (pagerState.currentPage == iteration) Orange else Orange.copy(alpha = 0.4f)
+                    Box(
+                        modifier = Modifier
+                            .padding(2.dp)
+                            .clip(CircleShape)
+                            .background(color)
+                            .size(10.dp)
+
+                    )
+                }
+            }
             OutlinedTextField(
-                value = state.email ?: "",
+                value = email ?: "",
                 onValueChange = onValueChanged,
                 label = {
-                    Text(text = "Email", style = TextStyle(color = Orange))
+                    Text(
+                        text = stringResource(id = R.string.email),
+                        style = TextStyle(color = Orange)
+                    )
                 },
                 colors = OutlinedTextFieldDefaults.colors(
-                    cursorColor = Orange,
+                    focusedLabelColor = Orange,
+                    unfocusedLabelColor = Orange,
                     focusedBorderColor = Orange,
                     unfocusedBorderColor = Orange,
-                    focusedLabelColor = Orange
+                    cursorColor = Orange,
+                    selectionColors = TextSelectionColors(
+                        handleColor = Orange,
+                        backgroundColor = Orange.copy(alpha = 0.4f)
+                    )
                 ),
-                modifier = Modifier.padding(vertical = ConstraintParams.DP_16)
+                modifier = Modifier.padding(16.dp)
                     .layoutId(ConstraintParams.REF_EMAIL_INPUT)
             )
-            Spacer(modifier = Modifier.height(20.dp))
             Button(
                 onClick = { sendAuthRequest.invoke() },
-                modifier = Modifier.fillMaxWidth().layoutId(ConstraintParams.REF_SIGN_IN_BUTTON),
+                modifier = Modifier.padding(horizontal = 16.dp)
+                    .layoutId(ConstraintParams.REF_SIGN_IN_BUTTON),
                 colors = ButtonDefaults.buttonColors(containerColor = Orange)
             ) {
-                Text(text = "Sign in")
+                Text(text = stringResource(id = R.string.sign_in))
             }
-            Spacer(modifier = Modifier.height(100.dp))
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.clickable { }.layoutId(ConstraintParams.REF_QUESTION_BOX)
+            Row(
+                modifier = Modifier.padding(top = 64.dp, bottom = 32.dp)
+                    .layoutId(ConstraintParams.REF_PRIVACY_POLICY_TOS_ROW),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
+                    modifier = Modifier.weight(1f).clickable { },
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Image(
-                        Icons.Outlined.QuestionMark,
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(Orange)
-                    )
-                    Text(text = "What is Konsol")
+                    Text(text = stringResource(id = R.string.privacy_policy))
+                }
+
+                Row(
+                    modifier = Modifier.weight(1f).clickable { },
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(text = stringResource(id = R.string.terms_of_service))
                 }
             }
         }
@@ -243,6 +323,12 @@ fun AuthScreenContent(
 @Composable
 fun DefaultPreview() {
     KonsolTheme {
-        AuthScreenContent(AuthScreenState(), onValueChanged = {}, sendAuthRequest = {})
+        AuthScreenContent(
+            AuthScreenUiState(),
+            onValueChanged = {},
+            sendAuthRequest = {},
+            clearErrorState = {},
+            retryOperation = {}
+        )
     }
 }
