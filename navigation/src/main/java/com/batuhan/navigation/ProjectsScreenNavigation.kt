@@ -5,20 +5,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.batuhan.management.presentation.createproject.CreateProjectScreen
 import com.batuhan.management.presentation.projectlist.ProjectsScreen
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.CREATE_PROJECT_SCREEN
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.START_DESTINATION
+import com.batuhan.management.presentation.projectlist.ProjectsScreenEvent
 
-fun NavGraphBuilder.ProjectsScreenGraph(navController: NavController) {
-    composable(START_DESTINATION) {
+internal const val PROJECT_LIST_SCREEN = "projects_screen"
+private const val CREATE_PROJECT_SCREEN = "create_project_screen"
+
+fun NavGraphBuilder.projectListScreenGraph(navController: NavController) {
+    composable(PROJECT_LIST_SCREEN) {
         ProjectsScreen(
-            navigate = { screen, popUpScreen, popUpInclusive ->
-                navController.navigate(screen) {
-                    popUpScreen?.let {
-                        popUpTo(it) {
-                            inclusive = popUpInclusive
-                        }
-                    }
-                }
+            navigate = { event ->
+                navController.navigate(event)
             }
         )
     }
@@ -26,5 +22,23 @@ fun NavGraphBuilder.ProjectsScreenGraph(navController: NavController) {
         CreateProjectScreen(
             onBackPressed = { navController.popBackStack() }
         )
+    }
+}
+
+fun NavController.navigate(event: ProjectsScreenEvent) {
+    when (event) {
+        ProjectsScreenEvent.Logout -> {
+            navigate(AUTH_SCREEN) {
+                popUpTo(PROJECT_LIST_SCREEN) {
+                    inclusive = true
+                }
+            }
+        }
+        ProjectsScreenEvent.CreateProject -> {
+            navigate(CREATE_PROJECT_SCREEN)
+        }
+        is ProjectsScreenEvent.Project -> {
+            navigate("$PROJECT_SCREEN/${event.project.projectId ?: ""}/${event.project.displayName ?: ""}")
+        }
     }
 }

@@ -16,7 +16,6 @@ import com.batuhan.management.presentation.project.settings.actions.iosapps.IosA
 import com.batuhan.management.presentation.project.settings.actions.projectdetail.ProjectDetail
 import com.batuhan.management.presentation.project.settings.actions.projectdetail.selectlocation.SelectLocation
 import com.batuhan.management.presentation.project.settings.actions.webapps.WebApps
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys
 
 private const val KEY_PROJECT_ID = "projectId"
 private const val KEY_PROJECT_NAME = "projectName"
@@ -198,9 +197,9 @@ fun NavGraphBuilder.deleteProjectScreen(navController: NavController) = composab
         },
         onStartDestination = {
             navController.navigate(
-                ProjectsScreenNavigationKeys.START_DESTINATION,
+                PROJECT_LIST_SCREEN,
                 navOptions = navOptions {
-                    popUpTo(ProjectsScreenNavigationKeys.START_DESTINATION) {
+                    popUpTo(PROJECT_LIST_SCREEN) {
                         inclusive = true
                     }
                 }

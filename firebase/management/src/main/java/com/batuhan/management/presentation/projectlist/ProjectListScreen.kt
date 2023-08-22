@@ -23,10 +23,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.core.data.model.FirebaseProject
 import com.batuhan.management.R
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.AUTH_SCREEN
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.CREATE_PROJECT_SCREEN
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.PROJECT_SCREEN
-import com.batuhan.management.presentation.projectlist.ProjectsScreenNavigationKeys.START_DESTINATION
 import com.batuhan.theme.KonsolFontFamily
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
@@ -36,37 +32,16 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
-object ProjectsScreenNavigationKeys {
-    const val START_DESTINATION = "projects_screen"
-    const val PROJECT_SCREEN = "project_screen"
-    const val AUTH_SCREEN = "auth_screen"
-    const val CREATE_PROJECT_SCREEN = "create_project_screen"
-}
-
 @Composable
 fun ProjectsScreen(
-    navigate: (route: String, popUpToScreen: String?, popUpInclusive: Boolean) -> Unit
+    navigate: (event: ProjectsScreenEvent) -> Unit
 ) {
     val viewModel = hiltViewModel<ProjectListViewModel>()
     val projects: LazyPagingItems<FirebaseProject> = viewModel.projects.collectAsLazyPagingItems()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = true) {
         viewModel.projectsScreenEventFlow.collect { event ->
-            when (event) {
-                is ProjectsScreenEvent.Logout -> {
-                    navigate(AUTH_SCREEN, START_DESTINATION, true)
-                }
-                is ProjectsScreenEvent.CreateProject -> {
-                    navigate(CREATE_PROJECT_SCREEN, null, false)
-                }
-                is ProjectsScreenEvent.Project -> {
-                    navigate(
-                        "$PROJECT_SCREEN/${event.project.projectId ?: ""}/${event.project.displayName ?: ""}",
-                        null,
-                        false
-                    )
-                }
-            }
+            navigate(event)
         }
     }
     ProjectsScreenContent(
