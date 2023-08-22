@@ -19,7 +19,7 @@ import com.batuhan.theme.R
 
 internal object SplashScreenNavigationKeys {
     const val START_DESTINATION = "splash_screen"
-    const val PROJECTS_SCREEN = "projects_screen"
+    const val PROJECTS_SCREEN = "project_list_screen"
     const val AUTH_SCREEN = "auth_screen"
 }
 
@@ -34,7 +34,7 @@ fun SplashScreen(
                 is SplashRouting.AuthScreen -> navigate(
                     SplashScreenNavigationKeys.AUTH_SCREEN
                 )
-                is SplashRouting.ProjectsScreen -> navigate(
+                is SplashRouting.ProjectListScreen -> navigate(
                     SplashScreenNavigationKeys.PROJECTS_SCREEN
                 )
             }
