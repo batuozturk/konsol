@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
                     result.data?.let {
                         authStateManager.setAuthState(it)
                         delay(3000L)
-                        route.send(SplashRouting.ProjectsScreen)
+                        route.send(SplashRouting.ProjectListScreen)
                     } ?: run {
                         authStateManager.clearAuthState()
                         route.send(SplashRouting.AuthScreen)
@@ -45,6 +45,6 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
 }
 
 sealed class SplashRouting {
-    object ProjectsScreen : SplashRouting()
+    object ProjectListScreen : SplashRouting()
     object AuthScreen : SplashRouting()
 }

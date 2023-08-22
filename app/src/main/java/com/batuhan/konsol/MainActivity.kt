@@ -35,7 +35,7 @@ fun KonsolApp(viewModel: MainViewModel = hiltViewModel(), startDestination: Stri
         startDestination = startDestination
     ) {
         authScreenGraph(navController)
-        ProjectsScreenGraph(navController)
+        projectListScreenGraph(navController)
         projectScreenGraph(navController)
         projectSettingsGraph(navController)
         firestoreScreenGraph(navController)

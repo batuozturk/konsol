@@ -11,7 +11,7 @@ fun NavGraphBuilder.authScreenGraph(navController: NavController) {
     composable(AUTH_SCREEN) {
         AuthScreen(
             navigateToProjectListScreen = {
-                navController.navigate("projects_screen") {
+                navController.navigate(PROJECT_LIST_SCREEN) {
                     popUpTo(AUTH_SCREEN) {
                         inclusive = true
                     }
