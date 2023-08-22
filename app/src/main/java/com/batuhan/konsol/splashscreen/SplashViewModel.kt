@@ -24,11 +24,11 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
 
     private fun getAuthenticatedUser() {
         viewModelScope.launch {
-            delay(3000L)
             when (val result = authStateManager.getAuthState()) {
                 is Result.Success -> {
                     result.data?.let {
                         authStateManager.setAuthState(it)
+                        delay(3000L)
                         route.send(SplashRouting.ProjectsScreen)
                     } ?: run {
                         authStateManager.clearAuthState()
@@ -36,7 +36,8 @@ class SplashViewModel @Inject constructor(private val authStateManager: AuthStat
                     }
                 }
                 is Result.Error -> {
-                    // todo error handling
+                    authStateManager.clearAuthState()
+                    route.send(SplashRouting.AuthScreen)
                 }
             }
         }
