@@ -1,12 +1,14 @@
 package com.batuhan.oauth2.presentation
 
 import android.content.Intent
+import androidx.annotation.StringRes
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.AuthStateManager
 import com.batuhan.core.util.Constants
 import com.batuhan.core.util.Result
-import com.batuhan.core.util.UiState
+import com.batuhan.oauth2.R
 import com.batuhan.oauth2.domain.GetAuthorizationRequestIntent
 import com.batuhan.oauth2.domain.GetOauthToken
 import com.batuhan.oauth2.domain.GetServiceConfiguration
@@ -31,21 +33,28 @@ class AuthViewModel @Inject constructor(
     private val getServiceConfiguration: GetServiceConfiguration,
     private val getOauthToken: GetOauthToken,
     private val authStateManager: AuthStateManager
-) : ViewModel(), TextFieldEventHandler {
+) : ViewModel() {
 
-    private val _authScreenState = MutableStateFlow(AuthScreenState())
-    val authScreenState = _authScreenState.asStateFlow()
+    private val _uiState = MutableStateFlow(AuthScreenUiState())
+    val authScreenUiState = _uiState.asStateFlow()
 
-    // todo channel ile ayarla intent ve authstate'i
-
-    private val _authEvent = Channel<AuthEvent> { Channel.BUFFERED }
-    val authEvent = _authEvent.receiveAsFlow()
+    private val _authScreenEvent = Channel<AuthScreenEvent> { Channel.BUFFERED }
+    val authEvent = _authScreenEvent.receiveAsFlow()
 
     var email: String? = null
     internal var authState: AuthState? = null
 
     fun sendAuthRequest(authorizationService: AuthorizationService) {
-        email ?: return
+        if (email == null) {
+            setErrorState(AuthScreenErrorState.EMAIL_NOT_VALID)
+            return
+        }
+        if (email?.matches(PatternsCompat.EMAIL_ADDRESS.toRegex()) == false) {
+            setErrorState(AuthScreenErrorState.EMAIL_NOT_VALID)
+            return
+        }
+
+        clearErrorState()
 
         getServiceConfiguration { authorizationServiceConfig ->
             viewModelScope.launch {
@@ -63,11 +72,11 @@ class AuthViewModel @Inject constructor(
                 when (result) {
                     is Result.Success -> {
                         val intent = result.data
-                        _authEvent.send(AuthEvent.LaunchIntent(intent))
+                        _authScreenEvent.send(AuthScreenEvent.LaunchIntent(intent))
                     }
 
                     is Result.Error -> {
-                        // to-do error handling
+                        setErrorState(AuthScreenErrorState.APPAUTH_ERROR)
                     }
                 }
             }
@@ -84,24 +93,18 @@ class AuthViewModel @Inject constructor(
                 }
 
                 is Result.Error -> {
-                    // to-do error handling
+                    setErrorState(AuthScreenErrorState.APPAUTH_ERROR)
                 }
             }
         }
     }
 
-    override fun onValueChanged(text: String) {
+    fun updateEmail(text: String) {
         email = text
-        _authScreenState.update {
+        _uiState.update {
             it.copy(email = text)
         }
     }
-
-//    fun clearIntent() {
-//        _authScreenState.update {
-//            it.copy(intent = null)
-//        }
-//    }
 
     fun getOauth2Token(
         authorizationResponse: AuthorizationResponse,
@@ -120,7 +123,7 @@ class AuthViewModel @Inject constructor(
                 }
 
                 is Result.Error -> {
-                    // to-do error handling
+                    setErrorState(AuthScreenErrorState.APPAUTH_ERROR)
                 }
             }
         }
@@ -140,31 +143,43 @@ class AuthViewModel @Inject constructor(
                 update(response, exception)
                 viewModelScope.launch {
                     authStateManager.addAuthState(authState = this@apply)
-                    _authEvent.send(AuthEvent.Success(this@apply))
+                    _authScreenEvent.send(AuthScreenEvent.Success(this@apply))
                 }
             }
         }
     }
 
-    fun clearAuthState() {
-        authState = null
+    fun setErrorState(errorState: AuthScreenErrorState) {
+        _uiState.update {
+            it.copy(errorState = errorState)
+        }
+    }
+
+    fun clearErrorState() {
+        _uiState.update {
+            it.copy(errorState = null)
+        }
+    }
+
+    fun retryOperation(errorState: AuthScreenErrorState) {
+        // todo decide retry operation
     }
 }
 
-data class AuthScreenState(
-    override val isError: Boolean = false,
-    override val isLoading: Boolean = false,
-    internal val routing: String? = null,
-    internal val email: String? = null
-) : UiState()
+data class AuthScreenUiState(
+    val errorState: AuthScreenErrorState? = null,
+    val isLoading: Boolean = false,
+    val routing: String? = null,
+    val email: String? = null
 
-interface TextFieldEventHandler {
+)
 
-    fun onValueChanged(text: String)
+enum class AuthScreenErrorState(@StringRes val titleResId: Int, @StringRes val actionResId: Int?) {
+    APPAUTH_ERROR(R.string.error_occurred, null),
+    EMAIL_NOT_VALID(R.string.email_not_valid, null)
 }
 
-sealed class AuthEvent {
-    data class Success(val authState: AuthState) : AuthEvent()
-    data class LaunchIntent(val intent: Intent) : AuthEvent()
-    object Error : AuthEvent()
+sealed class AuthScreenEvent {
+    data class Success(val authState: AuthState) : AuthScreenEvent()
+    data class LaunchIntent(val intent: Intent) : AuthScreenEvent()
 }
