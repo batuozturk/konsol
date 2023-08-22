@@ -25,8 +25,8 @@ class ProjectListViewModel @Inject constructor(
     val projects: Flow<PagingData<FirebaseProject>> =
         getProjects.invoke().cachedIn(viewModelScope)
 
-    private val projectsScreenEvent = Channel<ProjectsScreenEvent> { Channel.BUFFERED }
-    val projectsScreenEventFlow = projectsScreenEvent.receiveAsFlow()
+    private val projectListEvent = Channel<ProjectListEvent> { Channel.BUFFERED }
+    val projectListEventFlow = projectListEvent.receiveAsFlow()
 
     private val _uiState = MutableStateFlow(ProjectListUiState())
     val uiState = _uiState.asStateFlow()
@@ -34,7 +34,7 @@ class ProjectListViewModel @Inject constructor(
     fun endSession() {
         viewModelScope.launch {
             authStateManager.deleteAuthState()
-            projectsScreenEvent.send(ProjectsScreenEvent.Logout)
+            projectListEvent.send(ProjectListEvent.Logout)
         }
     }
 
@@ -49,13 +49,13 @@ class ProjectListViewModel @Inject constructor(
 
     fun createProject() {
         viewModelScope.launch {
-            projectsScreenEvent.send(ProjectsScreenEvent.CreateProject)
+            projectListEvent.send(ProjectListEvent.CreateProject)
         }
     }
 
     fun openProject(project: FirebaseProject) {
         viewModelScope.launch {
-            projectsScreenEvent.send(ProjectsScreenEvent.Project(project))
+            projectListEvent.send(ProjectListEvent.Project(project.projectId, project.displayName))
         }
     }
 
@@ -121,8 +121,8 @@ enum class ProjectListErrorState(@StringRes val titleResId: Int, @StringRes val 
     PROJECT_LIST(R.string.error_occurred, R.string.retry)
 }
 
-sealed class ProjectsScreenEvent {
-    data class Project(val project: FirebaseProject) : ProjectsScreenEvent()
-    object CreateProject : ProjectsScreenEvent()
-    object Logout : ProjectsScreenEvent()
+sealed class ProjectListEvent {
+    data class Project(val projectId: String?, val displayName: String?) : ProjectListEvent()
+    object CreateProject : ProjectListEvent()
+    object Logout : ProjectListEvent()
 }

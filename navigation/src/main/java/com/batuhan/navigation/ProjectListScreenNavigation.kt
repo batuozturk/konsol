@@ -4,15 +4,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.batuhan.management.presentation.createproject.CreateProjectScreen
-import com.batuhan.management.presentation.projectlist.ProjectsScreen
-import com.batuhan.management.presentation.projectlist.ProjectsScreenEvent
+import com.batuhan.management.presentation.projectlist.ProjectListEvent
+import com.batuhan.management.presentation.projectlist.ProjectListScreen
 
-internal const val PROJECT_LIST_SCREEN = "projects_screen"
+internal const val PROJECT_LIST_SCREEN = "project_list_screen"
 private const val CREATE_PROJECT_SCREEN = "create_project_screen"
 
 fun NavGraphBuilder.projectListScreenGraph(navController: NavController) {
     composable(PROJECT_LIST_SCREEN) {
-        ProjectsScreen(
+        ProjectListScreen(
             navigate = { event ->
                 navController.navigate(event)
             }
@@ -25,20 +25,20 @@ fun NavGraphBuilder.projectListScreenGraph(navController: NavController) {
     }
 }
 
-fun NavController.navigate(event: ProjectsScreenEvent) {
+fun NavController.navigate(event: ProjectListEvent) {
     when (event) {
-        ProjectsScreenEvent.Logout -> {
+        ProjectListEvent.Logout -> {
             navigate(AUTH_SCREEN) {
                 popUpTo(PROJECT_LIST_SCREEN) {
                     inclusive = true
                 }
             }
         }
-        ProjectsScreenEvent.CreateProject -> {
+        ProjectListEvent.CreateProject -> {
             navigate(CREATE_PROJECT_SCREEN)
         }
-        is ProjectsScreenEvent.Project -> {
-            navigate("$PROJECT_SCREEN/${event.project.projectId ?: ""}/${event.project.displayName ?: ""}")
+        is ProjectListEvent.Project -> {
+            navigate("$PROJECT_SCREEN/${event.projectId ?: ""}/${event.displayName ?: ""}")
         }
     }
 }

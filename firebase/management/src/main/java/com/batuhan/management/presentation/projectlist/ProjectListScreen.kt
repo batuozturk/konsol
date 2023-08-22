@@ -33,18 +33,18 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @Composable
-fun ProjectsScreen(
-    navigate: (event: ProjectsScreenEvent) -> Unit
+fun ProjectListScreen(
+    navigate: (event: ProjectListEvent) -> Unit
 ) {
     val viewModel = hiltViewModel<ProjectListViewModel>()
     val projects: LazyPagingItems<FirebaseProject> = viewModel.projects.collectAsLazyPagingItems()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     LaunchedEffect(key1 = true) {
-        viewModel.projectsScreenEventFlow.collect { event ->
+        viewModel.projectListEventFlow.collect { event ->
             navigate(event)
         }
     }
-    ProjectsScreenContent(
+    ProjectListScreenContent(
         uiState = uiState,
         projects = projects,
         endSession = viewModel::endSession,
@@ -62,7 +62,7 @@ fun ProjectsScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProjectsScreenContent(
+fun ProjectListScreenContent(
     uiState: ProjectListUiState,
     projects: LazyPagingItems<FirebaseProject>,
     endSession: () -> Unit,
@@ -283,7 +283,7 @@ fun ProjectListEmptyView() {
 @Composable
 fun DefaultPreview() {
     KonsolTheme {
-        ProjectsScreenContent(
+        ProjectListScreenContent(
             uiState = ProjectListUiState(),
             projects = flowOf(
                 PagingData.from(
