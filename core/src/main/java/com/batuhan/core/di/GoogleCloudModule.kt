@@ -1,5 +1,6 @@
 package com.batuhan.core.di
 
+import com.batuhan.core.util.retrofit.GoogleQualifiers.CloudStorage
 import com.batuhan.core.util.retrofit.GoogleQualifiers.GoogleCloudServiceUsage
 import com.batuhan.core.util.retrofit.GoogleQualifiers.GoogleCloudProjects
 import dagger.Module
@@ -30,6 +31,15 @@ object GoogleCloudModule {
     fun provideServiceUsageRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://serviceusage.googleapis.com/").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    @CloudStorage
+    fun provideCloudStorageRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://storage.googleapis.com/").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 }
