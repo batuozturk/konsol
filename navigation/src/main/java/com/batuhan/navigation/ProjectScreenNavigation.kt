@@ -46,6 +46,7 @@ fun decideRoute(featureItemRoute: FeatureItemRoute, projectId: String): String {
     return when (featureItemRoute) {
         FeatureItemRoute.FIRESTORE -> "$DATABASE_LIST_SCREEN/$projectId"
         FeatureItemRoute.FCM -> "$CREATE_NOTIFICATION_SCREEN/$projectId"
+        FeatureItemRoute.TEST_LAB -> "$RESULT_LIST_SCREEN/$projectId"
         else -> ""
     }
 }

@@ -15,4 +15,16 @@ interface FirebaseQualifiers {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class CloudMessaging
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class TestLabTesting
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class TestLabToolResults
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class FirebaseCloudStorage
 }

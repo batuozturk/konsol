@@ -19,4 +19,8 @@ interface GoogleQualifiers {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class GoogleCloudServiceUsage
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class CloudStorage
 }

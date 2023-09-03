@@ -51,4 +51,28 @@ object FirebaseModule {
         return Retrofit.Builder().baseUrl("https://fcm.googleapis.com/").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
+
+    @Provides
+    @Singleton
+    @TestLabTesting
+    fun provideTestLabTestingRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl("https://testing.googleapis.com/").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    @TestLabToolResults
+    fun provideTestLabToolResultsRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl("https://toolresults.googleapis.com/").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    @FirebaseCloudStorage
+    fun provideFirebaseCloudStorageRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl("https://firebasestorage.googleapis.com/").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
 }
