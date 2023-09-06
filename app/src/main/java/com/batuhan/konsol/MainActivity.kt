@@ -41,6 +41,7 @@ fun KonsolApp(viewModel: MainViewModel = hiltViewModel(), startDestination: Stri
         firestoreScreenGraph(navController)
         createNotificationScreenGraph(navController)
         testLabScreenGraph(navController)
+        cloudStorageScreenGraph(navController)
         // todo other screen graphs
     }
 }
