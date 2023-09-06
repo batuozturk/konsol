@@ -1,4 +1,4 @@
-package com.batuhan.core.domain
+package com.batuhan.core.domain.cloudstorage
 
 import com.batuhan.core.data.model.BucketObject
 import com.batuhan.core.data.repository.CloudStorageRepository
@@ -10,11 +10,11 @@ class UploadFile @Inject constructor(
     private val cloudStorageRepository: CloudStorageRepository
 ) {
     data class Params(
-        val contentLength: Long,
-        val contentType: String,
+        val contentLength: Long?,
+        val contentType: String?,
         val bucketName: String,
         val name: String,
-        val data: ByteArray
+        val data: ByteArray?,
     )
 
     suspend operator fun invoke(params: Params): Result<BucketObject> {

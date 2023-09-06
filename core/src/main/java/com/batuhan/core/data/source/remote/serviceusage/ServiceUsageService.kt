@@ -1,7 +1,7 @@
-package com.batuhan.firestore.data.source.remote.serviceusage
+package com.batuhan.core.data.source.remote.serviceusage
 
 import com.batuhan.core.data.model.Operation
-import com.batuhan.firestore.data.model.ApiService
+import com.batuhan.core.data.model.ApiService
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path

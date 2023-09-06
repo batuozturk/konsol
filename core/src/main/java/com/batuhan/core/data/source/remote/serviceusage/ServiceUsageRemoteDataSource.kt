@@ -1,4 +1,4 @@
-package com.batuhan.firestore.data.source.remote.serviceusage
+package com.batuhan.core.data.source.remote.serviceusage
 
 import javax.inject.Inject
 

@@ -3,6 +3,7 @@ package com.batuhan.core.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.batuhan.core.data.model.DefaultBucket
 import com.batuhan.core.data.source.remote.CloudStorageDataSource
 import com.batuhan.core.data.source.remote.CloudStorageService
 import com.batuhan.core.data.source.remote.GetObjectListPagingSource
@@ -31,13 +32,30 @@ class CloudStorageRepositoryImpl @Inject constructor(
         ).flow
 
     override suspend fun uploadFile(
-        contentLength: Long,
-        contentType: String,
+        contentLength: Long?,
+        contentType: String?,
         bucketName: String,
         name: String,
-        data: ByteArray
-    ) = cloudStorageDataSource.uploadFile(contentLength, contentType, bucketName, name, data)
+        data: ByteArray?
+    ) = cloudStorageDataSource.uploadFile(
+        contentLength,
+        contentType,
+        bucketName,
+        name,
+        data
+    )
 
     override suspend fun getDefaultBucket(projectId: String) =
         cloudStorageDataSource.getDefaultBucket(projectId)
+
+    override suspend fun createDefaultBucket(
+        projectId: String,
+        defaultBucket: DefaultBucket
+    ) = cloudStorageDataSource.createDefaultBucket(projectId, defaultBucket)
+
+    override suspend fun addFirebase(bucketId: String) =
+        cloudStorageDataSource.addFirebase(bucketId)
+
+    override suspend fun deleteFile(bucketName: String, objectName: String) =
+        cloudStorageDataSource.deleteFile(bucketName, objectName)
 }

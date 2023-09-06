@@ -1,7 +1,7 @@
-package com.batuhan.firestore.data.repository.serviceusage
+package com.batuhan.core.data.repository.serviceusage
 
+import com.batuhan.core.data.model.ApiService
 import com.batuhan.core.data.model.Operation
-import com.batuhan.firestore.data.model.ApiService
 
 interface ServiceUsageRepository {
 
