@@ -1,4 +1,4 @@
-package com.batuhan.core.domain
+package com.batuhan.core.domain.cloudstorage
 
 import com.batuhan.core.data.model.DefaultBucket
 import com.batuhan.core.data.repository.CloudStorageRepository
