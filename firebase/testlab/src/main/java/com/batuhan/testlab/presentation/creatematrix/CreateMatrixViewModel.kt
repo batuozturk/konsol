@@ -6,8 +6,8 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.batuhan.core.domain.GetDefaultBucket
-import com.batuhan.core.domain.UploadFile
+import com.batuhan.core.domain.cloudstorage.GetDefaultBucket
+import com.batuhan.core.domain.cloudstorage.UploadFile
 import com.batuhan.core.util.Result
 import com.batuhan.testlab.R
 import com.batuhan.testlab.data.model.devicecatalog.AndroidModel
