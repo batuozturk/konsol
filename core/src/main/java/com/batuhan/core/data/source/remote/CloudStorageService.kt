@@ -3,13 +3,14 @@ package com.batuhan.core.data.source.remote
 import com.batuhan.core.data.model.BucketObject
 import com.batuhan.core.data.model.CloudStorageObjectResponse
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.File
 
 interface CloudStorageService {
 
@@ -37,11 +38,17 @@ interface CloudStorageService {
 
     @POST("$PATH_UPLOAD/b/{bucketName}/o")
     suspend fun uploadFile(
-        @Header("Content-Length") contentLength: Long,
-        @Header("Content-Type") contentType: String,
+        @Header("Content-Length") contentLength: Long?,
+        @Header("Content-Type") contentType: String?,
         @Path("bucketName", encoded = true) bucketName: String,
         @Query("name", encoded = true) name: String,
-        @Query("uploadType") uploadType: String = UPLOAD_TYPE_MEDIA,
+        @Query("uploadType") uploadType: String? = null,
         @Body requestBody: RequestBody
     ): BucketObject
+
+    @DELETE("$PATH/b/{bucket}/o/{object}")
+    suspend fun deleteFile(
+        @Path("bucket", encoded = true) bucketName: String,
+        @Path("object") objectName: String
+    ): Response<Unit>
 }
