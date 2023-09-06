@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.batuhan.core.domain.GetObjectList
+import com.batuhan.core.domain.cloudstorage.GetObjectList
 import com.batuhan.testlab.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -54,8 +54,9 @@ class SelectFileViewModel @Inject constructor(
             }
         } else {
             val prefix = this.prefix.value!!
+            // second last slash character index + 1
             val newPrefix = prefix.substring(0, prefix.lastIndexOf("/"))
-            setPrefix(newPrefix)
+            setPrefix(newPrefix.substring(0, newPrefix.lastIndexOf("/") + 1))
         }
     }
 
