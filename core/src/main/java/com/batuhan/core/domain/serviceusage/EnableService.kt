@@ -1,9 +1,9 @@
-package com.batuhan.firestore.domain.serviceusage
+package com.batuhan.core.domain.serviceusage
 
 import com.batuhan.core.data.model.Operation
+import com.batuhan.core.data.repository.serviceusage.ServiceUsageRepository
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.repository.serviceusage.ServiceUsageRepository
 import javax.inject.Inject
 
 class EnableService @Inject constructor(private val serviceUsageRepository: ServiceUsageRepository) {

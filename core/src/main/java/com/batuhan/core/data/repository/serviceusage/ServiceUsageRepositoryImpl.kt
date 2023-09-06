@@ -1,6 +1,6 @@
-package com.batuhan.firestore.data.repository.serviceusage
+package com.batuhan.core.data.repository.serviceusage
 
-import com.batuhan.firestore.data.source.remote.serviceusage.ServiceUsageRemoteDataSource
+import com.batuhan.core.data.source.remote.serviceusage.ServiceUsageRemoteDataSource
 import javax.inject.Inject
 
 class ServiceUsageRepositoryImpl @Inject constructor(
