@@ -35,10 +35,10 @@ function App(props) {
 
 
   const handleRoute = (id) => {
-    if (id === 'Features') navigate("/info")
-    else if (id === 'Privacy Policy') navigate("/privacy-policy")
-    else if (id === 'Terms Of Use') navigate("/terms-of-use")
-    else navigate("/")
+    if (id === 'Features') navigate("/konsol/info")
+    else if (id === 'Privacy Policy') navigate("/konsol/privacy-policy")
+    else if (id === 'Terms Of Use') navigate("/konsol/terms-of-use")
+    else navigate("/konsol")
   }
 
   const drawer = (
@@ -92,7 +92,7 @@ function App(props) {
               flexGrow: 1, display: { sm: 'block' },
               color: "#FD6C01", fontSize: 40, fontWeight: 500
             }}
-            href="/"
+            href="/konsol"
           >
             konsol
           </Typography>
@@ -143,10 +143,10 @@ function App(props) {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Routes>
-          <Route exact path='/' element={< Home />}></Route>
-          <Route exact path='/info' element={< Info />}></Route>
-          <Route exact path='/privacy-policy' element={< PrivacyPolicy />}></Route>
-          <Route exact path='/terms-of-use' element={< TermsOfUse />}></Route>
+          <Route exact path='/konsol' element={< Home />}></Route>
+          <Route exact path='/konsol/info' element={< Info />}></Route>
+          <Route exact path='/konsol/privacy-policy' element={< PrivacyPolicy />}></Route>
+          <Route exact path='/konsol/terms-of-use' element={< TermsOfUse />}></Route>
         </Routes>
       </Box>
     </Box>
