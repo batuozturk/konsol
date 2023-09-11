@@ -31,7 +31,9 @@ class CreateFolderViewModel @Inject constructor(
     }
 
     private val bucketName = savedStateHandle.get<String>(KEY_BUCKET_NAME)
-    private val prefix = Uri.decode(savedStateHandle.get<String>(KEY_PREFIX))
+    private val prefix = savedStateHandle.get<String?>(KEY_PREFIX).takeIf { it != null.toString() }?.let {
+        Uri.decode(it)
+    }
 
     private val _uiState = MutableStateFlow(CreateFolderUiState())
     val uiState = _uiState.asStateFlow()

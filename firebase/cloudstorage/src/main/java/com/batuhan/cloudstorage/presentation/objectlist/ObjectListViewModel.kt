@@ -198,7 +198,9 @@ class ObjectListViewModel @Inject constructor(
             _selectFileEvent.send(
                 ObjectListEvent.CreateFolder(
                     bucketName!!,
-                    Uri.encode(prefix.value)
+                    prefix.value?.let {
+                        Uri.encode(it)
+                    }
                 )
             )
         }
