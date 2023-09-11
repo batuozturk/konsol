@@ -69,19 +69,20 @@ fun NavGraphBuilder.objectListScreen(navController: NavController) = composable(
     ObjectListScreen(
         onBackPressed = { navController.popBackStack() },
         navigateToCreateFolderScreen = { bucketName,prefix ->
-            navController.navigate("$CREATE_FOLDER_SCREEN/$bucketName/$prefix")
+            navController.navigate("$CREATE_FOLDER_SCREEN/$bucketName?prefix=$prefix")
         }
     )
 }
 
 fun NavGraphBuilder.createFolderScreen(navController: NavController) = composable(
-    route = "$CREATE_FOLDER_SCREEN/{$KEY_BUCKET_NAME}/{$KEY_PREFIX}",
+    route = "$CREATE_FOLDER_SCREEN/{$KEY_BUCKET_NAME}?$KEY_PREFIX={$KEY_PREFIX}",
     arguments = listOf(
         navArgument(KEY_BUCKET_NAME) {
             type = NavType.StringType
         },
         navArgument(KEY_PREFIX) {
             type = NavType.StringType
+            nullable = true
         }
     )
 ) {
