@@ -35,10 +35,10 @@ function App(props) {
 
 
   const handleRoute = (id) => {
-    if (id === 'Features') navigate("/features")
-    else if (id === 'Privacy Policy') navigate("/privacy-policy")
-    else if (id === 'Terms Of Use') navigate("/terms-of-use")
-    else navigate("/")
+    if (id === 'Features') navigate(process.env.PUBLIC_URL + "/features")
+    else if (id === 'Privacy Policy') navigate(process.env.PUBLIC_URL + "/privacy-policy")
+    else if (id === 'Terms Of Use') navigate(process.env.PUBLIC_URL + "/terms-of-use")
+    else navigate(process.env.PUBLIC_URL + '/')
   }
 
   const drawer = (
@@ -92,7 +92,7 @@ function App(props) {
               flexGrow: 1, display: { sm: 'block' },
               color: "#FD6C01", fontSize: 40, fontWeight: 500
             }}
-            href="/"
+            href={process.env.PUBLIC_URL + '/'}
           >
             konsol
           </Typography>
@@ -143,10 +143,10 @@ function App(props) {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <Routes>
-          <Route exact path='/' element={< Home />}></Route>
-          <Route exact path='/features' element={< Info />}></Route>
-          <Route exact path='/privacy-policy' element={< PrivacyPolicy />}></Route>
-          <Route exact path='/terms-of-use' element={< TermsOfUse />}></Route>
+          <Route exact path={process.env.PUBLIC_URL + '/'} element={< Home />}></Route>
+          <Route exact path={process.env.PUBLIC_URL +'/features'} element={< Info />}></Route>
+          <Route exact path={process.env.PUBLIC_URL +'/privacy-policy'} element={< PrivacyPolicy />}></Route>
+          <Route exact path={process.env.PUBLIC_URL +'/terms-of-use'} element={< TermsOfUse />}></Route>
         </Routes>
       </Box>
     </Box>
