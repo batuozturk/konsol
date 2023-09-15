@@ -119,4 +119,8 @@
     <string name="undefined">Undefined</string>
     <string name="project_list_empty_view_title">It looks like you didn\'t create any project, you can create your first project by pressing plus icon!</string>
     <string name="create_project">Create Project</string>
+    <string name="feature_fcm_description">Send notifications to one device or devices subscribed to the topic</string>
+    <string name="feature_firestore_description">Do collection/document operations</string>
+    <string name="feature_cloud_storage_description">Create/delete folder &amp; upload/delete objects</string>
+    <string name="feature_test_lab_description">Create tests for your Android app or view matrices</string>
 </resources>
