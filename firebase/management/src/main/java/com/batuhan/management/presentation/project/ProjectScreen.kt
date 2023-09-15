@@ -3,8 +3,7 @@ package com.batuhan.management.presentation.project
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -88,7 +87,7 @@ fun ProjectScreenContent(
         }
     ) {
         Surface(modifier = Modifier.fillMaxSize().padding(it)) {
-            LazyVerticalGrid(columns = GridCells.Fixed(2)) {
+            LazyColumn {
                 items(featureList.size) {
                     FeatureListItem(
                         featureItem = featureList[it],
@@ -103,7 +102,7 @@ fun ProjectScreenContent(
 @Composable
 fun FeatureListItem(featureItem: FeatureItem, onFeatureClicked: (FeatureItem) -> Unit) {
     Column(
-        modifier = Modifier
+        modifier = Modifier.fillMaxWidth()
             .padding(8.dp)
             .clickable {
                 onFeatureClicked.invoke(featureItem)
@@ -115,10 +114,16 @@ fun FeatureListItem(featureItem: FeatureItem, onFeatureClicked: (FeatureItem) ->
             imageVector = featureItem.icon,
             contentDescription = null,
             tint = featureItem.tintColor,
-            modifier = Modifier.size(42.dp)
+            modifier = Modifier.size(36.dp)
         )
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = stringResource(id = featureItem.titleResId),
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Text(
+            text = stringResource(id = featureItem.descriptionResId),
             color = Color.Black
         )
     }
