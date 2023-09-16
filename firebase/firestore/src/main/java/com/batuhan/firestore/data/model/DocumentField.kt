@@ -1,5 +1,6 @@
 package com.batuhan.firestore.data.model
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import com.batuhan.firestore.R
 
@@ -8,6 +9,7 @@ open class DocumentField(
     open val fieldType: Type,
     open val errorState: DocumentFieldErrorState?
 ) {
+    @Keep
     data class StringValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.STRING,
@@ -15,6 +17,7 @@ open class DocumentField(
         val value: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class BooleanValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.BOOLEAN,
@@ -22,6 +25,7 @@ open class DocumentField(
         val value: Boolean = false
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class IntegerValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.INTEGER,
@@ -29,6 +33,7 @@ open class DocumentField(
         val value: String = "0"
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class DoubleValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.DOUBLE,
@@ -36,6 +41,7 @@ open class DocumentField(
         val value: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class TimestampValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.TIMESTAMP,
@@ -44,6 +50,7 @@ open class DocumentField(
         val stringValue: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class BytesValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.BYTES,
@@ -51,6 +58,7 @@ open class DocumentField(
         val value: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class ReferenceValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.REFERENCE,
@@ -58,6 +66,7 @@ open class DocumentField(
         val value: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class GeoPointValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.GEOPOINT,
@@ -66,6 +75,7 @@ open class DocumentField(
         val longitude: String = ""
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class ArrayValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.ARRAY,
@@ -73,6 +83,7 @@ open class DocumentField(
         val values: List<DocumentField> = listOf()
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     data class MapValue(
         override val attributeName: String = "",
         override val fieldType: Type = Type.MAP,
@@ -80,6 +91,7 @@ open class DocumentField(
         val values: List<DocumentField> = listOf()
     ) : DocumentField(attributeName, fieldType, errorState)
 
+    @Keep
     enum class Type(@StringRes val typeResId: Int) {
         STRING(R.string.document_string_type),
         INTEGER(R.string.document_integer_type),

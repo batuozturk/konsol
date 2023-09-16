@@ -1,5 +1,6 @@
 package com.batuhan.cloudmessaging.presentation.campaign.create
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.SavedStateHandle
@@ -229,6 +230,7 @@ data class StepThreeState(
     val imageUrl: String? = null
 )
 
+@Keep
 enum class CampaignType {
     TOPIC, TOKEN
 }

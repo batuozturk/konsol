@@ -1,13 +1,16 @@
 package com.batuhan.core.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class FirebaseProjectResponse(
     @SerializedName("results") val results: List<FirebaseProject>?,
     @SerializedName("nextPageToken") val nextPageToken: String?
 )
 
+@Keep
 data class FirebaseProject(
     @SerializedName("name") val name: String?,
     @SerializedName("projectId") val projectId: String?,
@@ -20,6 +23,7 @@ data class FirebaseProject(
     @Expose(serialize = false, deserialize = false) val prevPageToken: String?
 )
 
+@Keep
 data class DefaultResources(
     @SerializedName("hostingSite") val hostingSite: String?,
     @SerializedName("realtimeDatabaseInstance") val realtimeDatabaseInstance: String?,

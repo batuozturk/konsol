@@ -1,5 +1,6 @@
 package com.batuhan.management.presentation.project.settings.actions.createapp
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -339,6 +340,7 @@ sealed class CreateAppEvent {
     object Back : CreateAppEvent()
 }
 
+@Keep
 enum class AppType {
     ANDROID, IOS, WEB
 }

@@ -1,19 +1,23 @@
 package com.batuhan.testlab.data.model.matrix
 
+import androidx.annotation.Keep
 import com.batuhan.testlab.data.model.devicecatalog.DeviceForm
 import com.batuhan.testlab.data.model.devicecatalog.Locale
 import com.batuhan.testlab.data.model.devicecatalog.Orientation
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class EnvironmentMatrix(
     @SerializedName("androidDeviceList") val androidDeviceList: AndroidDeviceList?
 )
 
+@Keep
 data class AndroidDeviceList(
     @SerializedName("androidDevices") val androidDevices: List<AndroidDevice>?
 )
 
+@Keep
 data class AndroidDevice(
     @SerializedName("androidModelId")
     val androidModelId: String? = null,

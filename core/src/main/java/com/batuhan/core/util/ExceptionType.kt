@@ -1,5 +1,8 @@
 package com.batuhan.core.util
 
+import androidx.annotation.Keep
+
+@Keep
 enum class ExceptionType(val code: Int) {
     // Firebase Exceptions
 

@@ -1,8 +1,10 @@
 package com.batuhan.testlab.data.model.devicecatalog
 
+import androidx.annotation.Keep
 import com.batuhan.testlab.data.model.matrix.AndroidDevice
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class AndroidModel(
     @SerializedName("id") val id: String?,
     @SerializedName("name") val name: String?,
@@ -22,23 +24,27 @@ data class AndroidModel(
     @SerializedName("thumbnailUrl") val thumbnailUrl: String?
 )
 
+@Keep
 enum class DeviceForm {
     VIRTUAL,
     PHYSICAL,
     EMULATOR
 }
 
+@Keep
 enum class DeviceFormFactor {
     PHONE,
     TABLET,
     WEARABLE
 }
 
+@Keep
 data class PerAndroidVersionInfo(
     @SerializedName("versionId") val versionId: String?,
     @SerializedName("deviceCapacity") val deviceCapacity: DeviceCapacity?
 )
 
+@Keep
 enum class DeviceCapacity {
     DEVICE_CAPACITY_UNSPECIFIED,
     DEVICE_CAPACITY_HIGH,
