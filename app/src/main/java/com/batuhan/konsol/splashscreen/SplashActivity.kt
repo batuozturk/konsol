@@ -9,14 +9,20 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import com.batuhan.konsol.MainActivity
 import com.batuhan.theme.KonsolTheme
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashActivity : ComponentActivity() {
 
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAnalytics = Firebase.analytics
         setContent {
             val context = LocalContext.current
             KonsolTheme {
