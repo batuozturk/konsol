@@ -124,7 +124,7 @@ class CreateItemViewModel @Inject constructor(
         val currentEditedFieldParentIndex = uiState.value.currentEditedFieldParentIndex
         val parentDocumentField =
             currentEditedFieldParentIndex?.let { uiState.value.valuesList[it] }
-        val currentEditedFieldIndex = uiState.value.currentEditedFieldIndex ?: return
+        val currentEditedFieldIndex = uiState.value.currentEditedFieldIndex
         editDocumentFieldList(
             currentEditedField,
             parentDocumentField,
@@ -136,7 +136,7 @@ class CreateItemViewModel @Inject constructor(
     fun editDocumentFieldList(
         field: DocumentField,
         parentDocumentField: DocumentField? = null,
-        fieldIndex: Int,
+        fieldIndex: Int?,
         parentDocumentFieldIndex: Int? = null
     ) {
         _uiState.update {
@@ -157,10 +157,10 @@ class CreateItemViewModel @Inject constructor(
                 if (isDuplicateAttributeName && !isSameIndex) {
                     valuesList[attributeIndex] = field
                 } else {
-                    if (fieldIndex >= valuesList.size) {
+                    if ((fieldIndex ?: valuesList.size) >= valuesList.size) {
                         valuesList.add(field)
                     } else {
-                        valuesList[fieldIndex] = field
+                        valuesList[fieldIndex!!] = field
                     }
                 }
             }
@@ -178,43 +178,26 @@ class CreateItemViewModel @Inject constructor(
     fun editParentFieldList(
         field: DocumentField,
         parentDocumentField: DocumentField,
-        fieldIndex: Int
+        fieldIndex: Int?
     ): DocumentField? {
         return when (parentDocumentField) {
             is DocumentField.ArrayValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
-                val isDuplicateAttributeName =
-                    parentList.any { it.attributeName == field.attributeName }
-                val attributeIndex =
-                    parentList.indexOfFirst { it.attributeName == field.attributeName }
-                val isSameIndex = attributeIndex == fieldIndex
-                if (isDuplicateAttributeName && !isSameIndex) {
-                    parentList[attributeIndex] = field
+                if ((fieldIndex ?: parentList.size) >= parentList.size) {
+                    parentList.add(field)
                 } else {
-                    if (fieldIndex >= parentList.size) {
-                        parentList.add(field)
-                    } else {
-                        parentList[fieldIndex] = field
-                    }
+                    parentList[fieldIndex!!] = field
                 }
 
                 parentDocumentField.copy(values = parentList)
             }
             is DocumentField.MapValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
-                val isDuplicateAttributeName =
-                    parentList.any { it.attributeName == field.attributeName }
-                val attributeIndex =
-                    parentList.indexOfFirst { it.attributeName == field.attributeName }
-                val isSameIndex = attributeIndex == fieldIndex
-                if (isDuplicateAttributeName && !isSameIndex) {
-                    parentList[attributeIndex] = field
+
+                if ((fieldIndex ?: parentList.size) >= parentList.size) {
+                    parentList.add(field)
                 } else {
-                    if (fieldIndex >= parentList.size) {
-                        parentList.add(field)
-                    } else {
-                        parentList[fieldIndex] = field
-                    }
+                    parentList[fieldIndex!!] = field
                 }
                 parentDocumentField.copy(values = parentList)
             }
@@ -291,6 +274,7 @@ class CreateItemViewModel @Inject constructor(
         _uiState.update {
             it.copy(isBottomSheetOpened = isBottomSheetOpened)
         }
+        if (!isBottomSheetOpened) setDocumentFieldEdited(false)
     }
 
     fun updateCollectionId(collectionId: String) {
@@ -320,6 +304,12 @@ class CreateItemViewModel @Inject constructor(
         }
     }
 
+    fun setDocumentFieldEdited(isDocumentFieldEditing: Boolean) {
+        _uiState.update {
+            it.copy(isDocumentFieldEditing = isDocumentFieldEditing)
+        }
+    }
+
     fun String.splitPath(): Array<String> {
         val slashIndex = lastIndexOf("/")
         val path = substring(0, slashIndex)
@@ -339,7 +329,8 @@ data class CreateItemUiState(
     val isBottomSheetOpened: Boolean = false,
     val createCollection: Boolean = false,
     val collectionId: String? = null,
-    val documentId: String? = null
+    val documentId: String? = null,
+    val isDocumentFieldEditing: Boolean = false
 )
 
 sealed class CreateItemEvent {

@@ -9,6 +9,7 @@ fun DocumentFieldItemByType(
     field: DocumentField,
     fieldIndex: Int,
     parentFieldIndex: Int? = null,
+    parentCount: Int = 0,
     editDocumentField: (DocumentField, Int?, Int?) -> Unit,
     removeDocumentField: (Int?, Int?) -> Unit,
     setEditingState: (Boolean) -> Unit
@@ -18,6 +19,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -26,6 +28,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -34,6 +37,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -42,6 +46,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -50,6 +55,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -58,6 +64,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -66,6 +73,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -74,6 +82,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -82,6 +91,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState
@@ -90,6 +100,7 @@ fun DocumentFieldItemByType(
             field = field,
             fieldIndex = fieldIndex,
             parentFieldIndex = parentFieldIndex,
+            parentCount = parentCount,
             editDocumentField = editDocumentField,
             removeDocumentField = removeDocumentField,
             setEditingState = setEditingState

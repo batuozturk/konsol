@@ -54,7 +54,8 @@ private object ConstraintParams {
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
-    navigateToProjectListScreen: () -> Unit
+    navigateToProjectListScreen: () -> Unit,
+    launchUrl: (String) -> Unit
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -112,7 +113,8 @@ fun AuthScreen(
             viewModel.sendAuthRequest(authorizationService)
         },
         clearErrorState = viewModel::clearErrorState,
-        retryOperation = viewModel::retryOperation
+        retryOperation = viewModel::retryOperation,
+        launchUrl = launchUrl
     )
 }
 
@@ -123,7 +125,8 @@ fun AuthScreenContent(
     onValueChanged: (String) -> Unit,
     sendAuthRequest: () -> Unit,
     clearErrorState: () -> Unit,
-    retryOperation: (AuthScreenErrorState) -> Unit
+    retryOperation: (AuthScreenErrorState) -> Unit,
+    launchUrl: (String) -> Unit
 ) {
     val constraint = ConstraintSet {
         val horizontalPager = createRefFor(ConstraintParams.REF_HORIZONTAL_PAGER)
@@ -302,14 +305,18 @@ fun AuthScreenContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    modifier = Modifier.weight(1f).clickable { },
+                    modifier = Modifier.weight(1f).clickable {
+                        launchUrl.invoke("https://getkonsol.app/privacy-policy")
+                    },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(text = stringResource(id = R.string.privacy_policy))
                 }
 
                 Row(
-                    modifier = Modifier.weight(1f).clickable { },
+                    modifier = Modifier.weight(1f).clickable {
+                        launchUrl.invoke("https://getkonsol.app/terms-of-service")
+                    },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(text = stringResource(id = R.string.terms_of_service))
@@ -328,7 +335,8 @@ fun DefaultPreview() {
             onValueChanged = {},
             sendAuthRequest = {},
             clearErrorState = {},
-            retryOperation = {}
+            retryOperation = {},
+            launchUrl = {}
         )
     }
 }

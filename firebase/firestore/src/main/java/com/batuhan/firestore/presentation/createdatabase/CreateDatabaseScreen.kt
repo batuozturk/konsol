@@ -230,7 +230,8 @@ fun CreateDatabaseContent(
             state = pagerState,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(it)
+                .padding(it),
+            userScrollEnabled = false
         ) { page ->
             when (page) {
                 STEP_ONE -> {

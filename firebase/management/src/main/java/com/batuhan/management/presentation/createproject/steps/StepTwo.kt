@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Icon
@@ -19,7 +20,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -175,7 +175,11 @@ fun StepTwoEnterDetails(
                 focusedLabelColor = Orange,
                 errorBorderColor = Color.Red,
                 errorLabelColor = Color.Red,
-                errorPlaceholderColor = Color.Red
+                errorPlaceholderColor = Color.Red,
+                selectionColors = TextSelectionColors(
+                    handleColor = Orange,
+                    backgroundColor = Orange.copy(alpha = 0.4f)
+                )
             )
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -195,7 +199,11 @@ fun StepTwoEnterDetails(
                 unfocusedBorderColor = Orange,
                 focusedLabelColor = Orange,
                 errorBorderColor = Color.Red,
-                errorLabelColor = Color.Red
+                errorLabelColor = Color.Red,
+                selectionColors = TextSelectionColors(
+                    handleColor = Orange,
+                    backgroundColor = Orange.copy(alpha = 0.4f)
+                )
             )
         )
     }
@@ -212,16 +220,15 @@ fun ErrorInfo(errorState: CreateProjectErrorState?) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(8.dp)
                 .border(2.dp, Color.Red, RoundedCornerShape(10.dp))
-                .padding(8.dp),
+                .padding(10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
                 text = stringResource(id = textResId),
-                modifier = Modifier.padding(4.dp),
-                fontSize = 12.sp
+                modifier = Modifier.padding(4.dp)
             )
         }
     }

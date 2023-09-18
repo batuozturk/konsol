@@ -48,6 +48,7 @@ fun CreateItemScreen(onBackPressed: (Boolean) -> Unit) {
         updateCollectionId = viewModel::updateCollectionId,
         updateDocumentId = viewModel::updateDocumentId,
         retryOperation = viewModel::retryOperation,
+        setEditingState = viewModel::setDocumentFieldEdited,
         onSave = viewModel::onSave
     )
 }
@@ -65,6 +66,7 @@ fun CreateItemContent(
     updateCollectionId: (String) -> Unit,
     updateDocumentId: (String) -> Unit,
     retryOperation: (CreateItemErrorState) -> Unit,
+    setEditingState: (Boolean) -> Unit,
     onSave: () -> Unit
 ) {
     val errorState by remember(uiState.errorState) {
@@ -103,6 +105,9 @@ fun CreateItemContent(
     }
     val documentId by remember(uiState.documentId) {
         derivedStateOf { uiState.documentId }
+    }
+    val isDocumentFieldEditing by remember(uiState.isDocumentFieldEditing) {
+        derivedStateOf { uiState.isDocumentFieldEditing }
     }
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -272,7 +277,7 @@ fun CreateItemContent(
                     fieldIndex = index,
                     editDocumentField = editDocumentField,
                     removeDocumentField = removeDocumentField,
-                    setEditingState = { } // no-op, it will be false in this screen
+                    setEditingState = setEditingState // no-op, it will be false in this screen
                 )
             }
         }
@@ -281,6 +286,7 @@ fun CreateItemContent(
         DocumentFieldBottomSheet(
             coroutineScope = coroutineScope,
             field = editableField,
+            isEditing = isDocumentFieldEditing,
             parentDocumentFieldIndex = currentEditedFieldParentIndex,
             fieldIndex = currentEditedFieldIndex,
             bottomSheetState = bottomSheetState,
