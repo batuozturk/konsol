@@ -183,22 +183,22 @@ class CreateItemViewModel @Inject constructor(
         return when (parentDocumentField) {
             is DocumentField.ArrayValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
-                    if ((fieldIndex ?: parentList.size) >= parentList.size) {
-                        parentList.add(field)
-                    } else {
-                        parentList[fieldIndex!!] = field
-                    }
+                if ((fieldIndex ?: parentList.size) >= parentList.size) {
+                    parentList.add(field)
+                } else {
+                    parentList[fieldIndex!!] = field
+                }
 
                 parentDocumentField.copy(values = parentList)
             }
             is DocumentField.MapValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
 
-                    if ((fieldIndex ?: parentList.size) >= parentList.size) {
-                        parentList.add(field)
-                    } else {
-                        parentList[fieldIndex!!] = field
-                    }
+                if ((fieldIndex ?: parentList.size) >= parentList.size) {
+                    parentList.add(field)
+                } else {
+                    parentList[fieldIndex!!] = field
+                }
                 parentDocumentField.copy(values = parentList)
             }
             else -> null
@@ -274,6 +274,7 @@ class CreateItemViewModel @Inject constructor(
         _uiState.update {
             it.copy(isBottomSheetOpened = isBottomSheetOpened)
         }
+        if (!isBottomSheetOpened) setDocumentFieldEdited(false)
     }
 
     fun updateCollectionId(collectionId: String) {
@@ -303,6 +304,12 @@ class CreateItemViewModel @Inject constructor(
         }
     }
 
+    fun setDocumentFieldEdited(isDocumentFieldEditing: Boolean) {
+        _uiState.update {
+            it.copy(isDocumentFieldEditing = isDocumentFieldEditing)
+        }
+    }
+
     fun String.splitPath(): Array<String> {
         val slashIndex = lastIndexOf("/")
         val path = substring(0, slashIndex)
@@ -322,7 +329,8 @@ data class CreateItemUiState(
     val isBottomSheetOpened: Boolean = false,
     val createCollection: Boolean = false,
     val collectionId: String? = null,
-    val documentId: String? = null
+    val documentId: String? = null,
+    val isDocumentFieldEditing: Boolean = false
 )
 
 sealed class CreateItemEvent {
