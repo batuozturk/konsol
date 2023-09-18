@@ -30,6 +30,7 @@ fun ArrayField(
     field: DocumentField.ArrayValue,
     fieldIndex: Int,
     parentFieldIndex: Int? = null,
+    parentCount: Int = 0,
     editDocumentField: (DocumentField, Int?, Int?) -> Unit,
     removeDocumentField: (Int?, Int?) -> Unit,
     setEditingState: (Boolean) -> Unit
@@ -53,45 +54,47 @@ fun ArrayField(
                 field.attributeName.takeIf { it.isNotEmpty() }?.let { Text(field.attributeName) }
                 Text(field.fieldType.name.lowercase())
             }
-            IconButton(
-                modifier = Modifier.weight(1f),
-                onClick = {
-                    setEditingState.invoke(false)
-                    editDocumentField.invoke(
-                        createDocumentField(DocumentField.Type.STRING),
-                        null,
-                        fieldIndex
+            if (parentCount < 1) {
+                IconButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = {
+                        setEditingState.invoke(false)
+                        editDocumentField.invoke(
+                            createDocumentField(DocumentField.Type.STRING),
+                            null,
+                            fieldIndex
+                        )
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AddCircleOutline,
+                        contentDescription = null,
+                        tint = Orange
                     )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.AddCircleOutline,
-                    contentDescription = null,
-                    tint = Orange
-                )
-            }
-            IconButton(
-                modifier = Modifier.weight(1f),
-                onClick = {
-                    setEditingState.invoke(true)
-                    editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+                IconButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = {
+                        setEditingState.invoke(true)
+                        editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = null,
+                        tint = Orange
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = null,
-                    tint = Orange
-                )
-            }
-            IconButton(
-                modifier = Modifier.weight(1f),
-                onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = null,
-                    tint = Orange
-                )
+                IconButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null,
+                        tint = Orange
+                    )
+                }
             }
             IconButton(
                 modifier = Modifier.weight(1f),
@@ -110,6 +113,7 @@ fun ArrayField(
                     DocumentFieldItemByType(
                         field = documentField,
                         fieldIndex = index,
+                        parentCount = parentCount + 1,
                         parentFieldIndex = fieldIndex,
                         editDocumentField = editDocumentField,
                         removeDocumentField = removeDocumentField,

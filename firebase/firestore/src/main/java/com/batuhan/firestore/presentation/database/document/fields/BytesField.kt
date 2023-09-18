@@ -29,6 +29,7 @@ fun BytesField(
     field: DocumentField.BytesValue,
     fieldIndex: Int,
     parentFieldIndex: Int? = null,
+    parentCount: Int = 0,
     editDocumentField: (DocumentField, Int?, Int?) -> Unit,
     removeDocumentField: (Int?, Int?) -> Unit,
     setEditingState: (Boolean) -> Unit
@@ -50,28 +51,30 @@ fun BytesField(
             Text(field.value)
             Text(field.fieldType.name.lowercase())
         }
-        IconButton(
-            modifier = Modifier.weight(1f),
-            onClick = {
-                setEditingState.invoke(true)
-                editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+        if (parentCount < 2) {
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    setEditingState.invoke(true)
+                    editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = null,
+                    tint = Orange
+                )
             }
-        ) {
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = null,
-                tint = Orange
-            )
-        }
-        IconButton(
-            modifier = Modifier.weight(1f),
-            onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
-                tint = Orange
-            )
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = Orange
+                )
+            }
         }
     }
 }

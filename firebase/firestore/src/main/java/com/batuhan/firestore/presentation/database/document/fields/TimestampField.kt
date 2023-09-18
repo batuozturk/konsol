@@ -33,6 +33,7 @@ fun TimestampField(
     field: DocumentField.TimestampValue,
     fieldIndex: Int,
     parentFieldIndex: Int? = null,
+    parentCount: Int = 0,
     editDocumentField: (DocumentField, Int?, Int?) -> Unit,
     removeDocumentField: (Int?, Int?) -> Unit,
     setEditingState: (Boolean) -> Unit
@@ -54,28 +55,30 @@ fun TimestampField(
             Text(field.value.toFormattedTimestamp())
             Text(field.fieldType.name.lowercase())
         }
-        IconButton(
-            modifier = Modifier.weight(1f),
-            onClick = {
-                setEditingState.invoke(true)
-                editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+        if (parentCount < 2) {
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    setEditingState.invoke(true)
+                    editDocumentField.invoke(field, fieldIndex, parentFieldIndex)
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = null,
+                    tint = Orange
+                )
             }
-        ) {
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = null,
-                tint = Orange
-            )
-        }
-        IconButton(
-            modifier = Modifier.weight(1f),
-            onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
-        ) {
-            Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = null,
-                tint = Orange
-            )
+            IconButton(
+                modifier = Modifier.weight(1f),
+                onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = null,
+                    tint = Orange
+                )
+            }
         }
     }
 }
