@@ -72,6 +72,8 @@ fun MapField(
                         tint = Orange
                     )
                 }
+            }
+            if (parentCount < 2) {
                 IconButton(
                     modifier = Modifier.weight(1f),
                     onClick = {
@@ -85,8 +87,6 @@ fun MapField(
                         tint = Orange
                     )
                 }
-            }
-            if (parentCount < 2) {
                 IconButton(
                     modifier = Modifier.weight(1f),
                     onClick = { removeDocumentField.invoke(fieldIndex, parentFieldIndex) }
