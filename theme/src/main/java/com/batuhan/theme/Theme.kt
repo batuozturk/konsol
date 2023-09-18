@@ -42,7 +42,9 @@ fun KonsolTheme(
     if (!view.isInEditMode) {
         SideEffect {
             (view.context as Activity).window.statusBarColor = Color.White.toArgb()
+            (view.context as Activity).window.navigationBarColor = Color.White.toArgb()
             ViewCompat.getWindowInsetsController(view)?.isAppearanceLightStatusBars = true
+            ViewCompat.getWindowInsetsController(view)?.isAppearanceLightNavigationBars = true
         }
     }
 

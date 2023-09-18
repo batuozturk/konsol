@@ -124,7 +124,7 @@ class CreateItemViewModel @Inject constructor(
         val currentEditedFieldParentIndex = uiState.value.currentEditedFieldParentIndex
         val parentDocumentField =
             currentEditedFieldParentIndex?.let { uiState.value.valuesList[it] }
-        val currentEditedFieldIndex = uiState.value.currentEditedFieldIndex ?: return
+        val currentEditedFieldIndex = uiState.value.currentEditedFieldIndex
         editDocumentFieldList(
             currentEditedField,
             parentDocumentField,
@@ -136,7 +136,7 @@ class CreateItemViewModel @Inject constructor(
     fun editDocumentFieldList(
         field: DocumentField,
         parentDocumentField: DocumentField? = null,
-        fieldIndex: Int,
+        fieldIndex: Int?,
         parentDocumentFieldIndex: Int? = null
     ) {
         _uiState.update {
@@ -157,10 +157,10 @@ class CreateItemViewModel @Inject constructor(
                 if (isDuplicateAttributeName && !isSameIndex) {
                     valuesList[attributeIndex] = field
                 } else {
-                    if (fieldIndex >= valuesList.size) {
+                    if ((fieldIndex ?: valuesList.size) >= valuesList.size) {
                         valuesList.add(field)
                     } else {
-                        valuesList[fieldIndex] = field
+                        valuesList[fieldIndex!!] = field
                     }
                 }
             }
@@ -178,44 +178,27 @@ class CreateItemViewModel @Inject constructor(
     fun editParentFieldList(
         field: DocumentField,
         parentDocumentField: DocumentField,
-        fieldIndex: Int
+        fieldIndex: Int?
     ): DocumentField? {
         return when (parentDocumentField) {
             is DocumentField.ArrayValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
-                val isDuplicateAttributeName =
-                    parentList.any { it.attributeName == field.attributeName }
-                val attributeIndex =
-                    parentList.indexOfFirst { it.attributeName == field.attributeName }
-                val isSameIndex = attributeIndex == fieldIndex
-                if (isDuplicateAttributeName && !isSameIndex) {
-                    parentList[attributeIndex] = field
-                } else {
-                    if (fieldIndex >= parentList.size) {
+                    if ((fieldIndex ?: parentList.size) >= parentList.size) {
                         parentList.add(field)
                     } else {
-                        parentList[fieldIndex] = field
+                        parentList[fieldIndex!!] = field
                     }
-                }
 
                 parentDocumentField.copy(values = parentList)
             }
             is DocumentField.MapValue -> {
                 val parentList = parentDocumentField.values.toMutableList()
-                val isDuplicateAttributeName =
-                    parentList.any { it.attributeName == field.attributeName }
-                val attributeIndex =
-                    parentList.indexOfFirst { it.attributeName == field.attributeName }
-                val isSameIndex = attributeIndex == fieldIndex
-                if (isDuplicateAttributeName && !isSameIndex) {
-                    parentList[attributeIndex] = field
-                } else {
-                    if (fieldIndex >= parentList.size) {
+
+                    if ((fieldIndex ?: parentList.size) >= parentList.size) {
                         parentList.add(field)
                     } else {
-                        parentList[fieldIndex] = field
+                        parentList[fieldIndex!!] = field
                     }
-                }
                 parentDocumentField.copy(values = parentList)
             }
             else -> null

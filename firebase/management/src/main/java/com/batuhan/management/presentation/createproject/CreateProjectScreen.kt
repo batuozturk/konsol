@@ -230,7 +230,8 @@ fun CreateProjectScreenContent(
     ) {
         HorizontalPager(
             modifier = Modifier.fillMaxSize().padding(it),
-            state = pagerState
+            state = pagerState,
+            userScrollEnabled = false
         ) { page ->
             when (page) {
                 STEP_ONE -> {
