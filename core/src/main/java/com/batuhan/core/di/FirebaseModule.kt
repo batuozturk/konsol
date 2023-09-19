@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +25,7 @@ object FirebaseModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .authenticator(authenticator)
+            .authenticator(authenticator).readTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
