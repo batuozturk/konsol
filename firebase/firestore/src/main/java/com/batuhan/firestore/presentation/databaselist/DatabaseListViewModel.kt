@@ -67,9 +67,9 @@ class DatabaseListViewModel @Inject constructor(
             when (result) {
                 is Result.Success -> {
                     result.data.databases?.let {
-                        setLoadingState(false)
                         _databaseList.value = it
                     }
+                    setLoadingState(false)
                 }
                 is Result.Error -> {
                     val throwable = result.throwable as? HttpException
