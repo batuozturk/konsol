@@ -1,9 +1,11 @@
 package com.batuhan.firestore.data.model
 
+import androidx.annotation.Keep
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 
+@Keep
 data class TimestampFormat(
     val nanoSecond: String = "0",
     val second: String = "0",

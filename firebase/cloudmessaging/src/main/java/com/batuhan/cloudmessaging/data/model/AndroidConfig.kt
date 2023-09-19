@@ -1,9 +1,11 @@
 package com.batuhan.cloudmessaging.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 // won't be used for now, stays for future use
 
+@Keep
 data class AndroidConfig(
     @SerializedName("priority") val androidMessagePriority: AndroidMessagePriority?,
     @SerializedName("ttl") val ttl: String,
@@ -11,18 +13,22 @@ data class AndroidConfig(
     @SerializedName("notification") val androidNotification: AndroidNotification?,
 )
 
+@Keep
 enum class AndroidMessagePriority {
     NORMAL, HIGH
 }
 
+@Keep
 enum class NotificationPriority {
     PRIORITY_UNSPECIFIED, PRIORITY_MIN, PRIORITY_LOW, PRIORITY_DEFAULT, PRIORITY_HIGH, PRIORITY_MAX
 }
 
+@Keep
 enum class Visibility {
     VISIBILITY_UNSPECIFIED, PRIVATE, PUBLIC, SECRET
 }
 
+@Keep
 data class AndroidNotification(
     @SerializedName("channel_id") val channelId: String?,
     @SerializedName("sound") val sound: String?,

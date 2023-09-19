@@ -1,5 +1,6 @@
 package com.batuhan.cloudmessaging.presentation.campaign.create
 
+import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.SavedStateHandle
@@ -237,6 +238,7 @@ sealed class CreateNotificationEvent {
     object Back : CreateNotificationEvent()
 }
 
+@Keep
 enum class CreateNotificationErrorState(
     @StringRes val titleResId: Int = R.string.error_occurred,
     @StringRes val actionResId: Int? = R.string.retry

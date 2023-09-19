@@ -1,13 +1,16 @@
 package com.batuhan.management.data.model
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class ProjectInfoResponse(
     @SerializedName("projectInfo") val projectInfos: List<ProjectInfo>?,
     @SerializedName("nextPageToken") val nextPageToken: String?
 )
 
+@Keep
 data class ProjectInfo(
     @SerializedName("project") val project: String?,
     @SerializedName("displayName") val displayName: String?,

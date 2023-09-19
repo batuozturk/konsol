@@ -1,7 +1,9 @@
 package com.batuhan.testlab.data.model.matrix
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class TestMatrix(
     @SerializedName("testMatrixId") val testMatrixId: String? = null,
     @SerializedName("projectId") val projectId: String?,

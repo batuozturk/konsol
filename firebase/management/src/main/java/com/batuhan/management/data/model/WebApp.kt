@@ -1,8 +1,10 @@
 package com.batuhan.management.data.model
 
+import androidx.annotation.Keep
 import com.batuhan.core.data.model.State
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class WebApp(
     @SerializedName("name") val name: String? = null,
     @SerializedName("appId") val appId: String? = null,
@@ -14,6 +16,7 @@ data class WebApp(
     @SerializedName("etag") val etag: String? = null
 )
 
+@Keep
 data class WebAppResponse(
     @SerializedName("apps") val apps: List<WebApp>?,
     @SerializedName("nextPageToken") val nextPageToken: String?
