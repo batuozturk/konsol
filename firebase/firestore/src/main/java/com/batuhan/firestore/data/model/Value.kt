@@ -1,8 +1,10 @@
 package com.batuhan.firestore.data.model
 
+import androidx.annotation.Keep
 import com.batuhan.firestore.util.createDocumentField
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class Value(
     @SerializedName("booleanValue") val booleanValue: Boolean? = null,
     @SerializedName("integerValue") val integerValue: String? = null,
@@ -16,15 +18,18 @@ data class Value(
     @SerializedName("mapValue") val mapValue: MapValue? = null
 )
 
+@Keep
 data class LatLng(
     @SerializedName("latitude") val latitude: Double? = null,
     @SerializedName("longitude") val longitude: Double? = null
 )
 
+@Keep
 data class ArrayValue(
     @SerializedName("values") val values: List<Value>?
 )
 
+@Keep
 data class MapValue(
     @SerializedName("fields") val fields: Map<String, Value>?
 )

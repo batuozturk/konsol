@@ -1,5 +1,6 @@
 package com.batuhan.testlab.data.model.execution
 
+import androidx.annotation.Keep
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.ErrorOutline
@@ -10,6 +11,7 @@ import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Keep
 data class Execution(
     @SerializedName("executionId") val executionId: String?,
     @SerializedName("state") val state: ExecutionState?,
@@ -20,17 +22,20 @@ data class Execution(
     @SerializedName("testExecutionMatrixId") val textExecutionMatrixId: String?
 )
 
+@Keep
 data class ExecutionListResponse(
     @SerializedName("executions") val executions: List<Execution>?,
     @SerializedName("nextPageToken") val nextPageToken: String?
 )
 
+@Keep
 enum class ExecutionState {
     pending,
     inProgress,
     complete;
 }
 
+@Keep
 data class Timestamp(
     @SerializedName("seconds") val seconds: Long?,
     @SerializedName("nanoseconds") val nanoseconds: Long?
@@ -41,10 +46,12 @@ data class Timestamp(
     }
 }
 
+@Keep
 data class Outcome(
     @SerializedName("summary") val summary: OutcomeSummary?
 )
 
+@Keep
 enum class OutcomeSummary(val imageVector: ImageVector, val tint: Color) {
     success(Icons.Default.Done, DarkGreen),
     failure(Icons.Default.ErrorOutline, Color.Red),
@@ -53,6 +60,7 @@ enum class OutcomeSummary(val imageVector: ImageVector, val tint: Color) {
     flaky(Icons.Default.ErrorOutline, Color.Gray);
 }
 
+@Keep
 data class Specification(
     @SerializedName("androidTest") val androidTest: AndroidTest?,
     @SerializedName("iosTest") val iosTest: IosTest?

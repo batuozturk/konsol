@@ -1,7 +1,9 @@
 package com.batuhan.testlab.data.model.matrix
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class TestExecution(
     @SerializedName("id") val id: String?,
     @SerializedName("matrixId") val matrixId: String?,
@@ -15,16 +17,19 @@ data class TestExecution(
     @SerializedName("testDetails") val testDetails: TestDetails?
 )
 
+@Keep
 data class Environment(
     @SerializedName("androidDevice") val androidDevice: AndroidDevice?
 )
 
+@Keep
 enum class TestState {
     TEST_STATE_UNSPECIFIED, VALIDATING, PENDING, RUNNING,
     FINISHED, ERROR, UNSUPPORTED_ENVIRONMENT, INCOMPATIBLE_ENVIRONMENT,
     INCOMPATIBLE_ARCHITECTURE, CANCELLED, INVALID
 }
 
+@Keep
 data class ToolResultsStep(
     @SerializedName("projectId") val projectId: String?,
     @SerializedName("historyId") val historyId: String?,
@@ -32,6 +37,7 @@ data class ToolResultsStep(
     @SerializedName("stepId") val stepId: String?
 )
 
+@Keep
 data class TestDetails(
     @SerializedName("progressMessages") val progressMessages: List<String>?,
     @SerializedName("errorMessage") val errorMessage: String?
