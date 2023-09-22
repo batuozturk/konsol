@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.batuhan.cloudstorage.R
 import com.batuhan.cloudstorage.domain.CreateDefaultBucket
 import com.batuhan.core.data.model.ApiServiceState
+import com.batuhan.core.data.model.BucketObject
 import com.batuhan.core.data.model.DefaultBucket
 import com.batuhan.core.data.model.Status
 import com.batuhan.core.domain.cloudstorage.AddFirebase
@@ -88,6 +89,8 @@ class BucketViewModel @Inject constructor(
                         ?.contains("enable") == true
                     ) {
                         getServiceEnableState()
+                    } else if (throwable?.code() == 404) {
+                        setLoadingState(false)
                     } else {
                         setErrorState(BucketErrorState.GET_DEFAULT_BUCKET)
                         setLoadingState(false)
