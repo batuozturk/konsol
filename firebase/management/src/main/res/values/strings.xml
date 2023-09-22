@@ -126,4 +126,5 @@
     <string name="feature_test_lab_description">Create tests for your Android app or view matrices</string>
     <string name="step_one_choice_one_description">Select existing Google Cloud Project you previously created, then add Firebase configuration.</string>
     <string name="step_one_choice_two_description">Enter details of the project and create Google Cloud Project, then add Firebase configuration to this project.</string>
+    <string name="firestore_location_info">Firestore location was selected as %s, project location must be the same as Firestore location</string>
 </resources>

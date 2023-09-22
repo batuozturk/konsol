@@ -22,8 +22,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.batuhan.core.data.model.management.AvailableLocation
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AvailableLocation
 import com.batuhan.theme.Orange
 
 @Composable
@@ -81,6 +81,9 @@ fun SelectLocationContent(
     }
     val isSnackbarOpened by remember(uiState.isSnackbarOpened) {
         derivedStateOf { uiState.isSnackbarOpened }
+    }
+    val firestoreLocationSelected by remember(uiState.isFirestoreLocationSelected) {
+        derivedStateOf { uiState.isFirestoreLocationSelected }
     }
     val context = LocalContext.current
     LaunchedEffect(isSnackbarOpened) {
@@ -190,13 +193,32 @@ fun SelectLocationContent(
             modifier = Modifier.padding(it)
                 .fillMaxWidth()
         ) {
+            if (firestoreLocationSelected) {
+                item {
+                    Text(
+                        modifier = Modifier.fillMaxWidth().padding(8.dp).border(
+                            2.dp,
+                            Orange,
+                            RoundedCornerShape(10.dp)
+                        ).padding(10.dp),
+                        text = stringResource(
+                            R.string.firestore_location_info,
+                            selectedLocationId ?: ""
+                        )
+                    )
+                }
+            }
             items(availableLocations.itemCount) {
                 availableLocations[it]?.let { location ->
                     AvailableLocationItem(
                         selectedLocationInfoId == location.locationId,
                         availableLocation = location,
                         isSelected = selectedLocationId == location.locationId,
-                        selectLocation = selectLocation,
+                        selectLocation = { selectedLocation ->
+                            if (!firestoreLocationSelected) {
+                                selectLocation.invoke(selectedLocation)
+                            }
+                        },
                         setSelectedLocationInfoId = onLocationInfoSelected
                     )
                 }
