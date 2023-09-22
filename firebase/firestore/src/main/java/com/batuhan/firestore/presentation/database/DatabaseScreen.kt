@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.Document
+import com.batuhan.core.data.model.firestore.Document
 import com.batuhan.firestore.data.model.DocumentField
 import com.batuhan.firestore.util.createDocumentField
 import com.batuhan.firestore.presentation.database.collection.CollectionScreen

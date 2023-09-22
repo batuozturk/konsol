@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsProperty
-import com.batuhan.management.data.model.RemoveGoogleAnalyticsRequest
-import com.batuhan.management.data.model.Status
+import com.batuhan.core.data.model.management.AnalyticsProperty
+import com.batuhan.core.data.model.management.RemoveGoogleAnalyticsRequest
+import com.batuhan.core.data.model.management.Status
 import com.batuhan.management.domain.firebase.GetAnalyticsDetails
 import com.batuhan.management.domain.firebase.GetFirebaseOperation
 import com.batuhan.management.domain.firebase.RemoveGoogleAnalytics

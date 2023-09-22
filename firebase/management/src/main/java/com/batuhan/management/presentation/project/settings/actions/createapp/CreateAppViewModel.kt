@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AndroidApp
-import com.batuhan.management.data.model.IosApp
-import com.batuhan.management.data.model.Status
-import com.batuhan.management.data.model.WebApp
+import com.batuhan.core.data.model.management.AndroidApp
+import com.batuhan.core.data.model.management.IosApp
+import com.batuhan.core.data.model.management.Status
+import com.batuhan.core.data.model.management.WebApp
 import com.batuhan.management.domain.firebase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

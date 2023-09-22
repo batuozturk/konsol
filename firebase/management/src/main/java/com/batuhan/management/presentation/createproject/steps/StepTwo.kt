@@ -24,7 +24,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
-import com.batuhan.management.data.model.ProjectInfo
+import com.batuhan.core.data.model.management.ProjectInfo
 import com.batuhan.management.presentation.createproject.CreateProjectErrorState
 import com.batuhan.management.presentation.createproject.StepTitle
 import com.batuhan.management.presentation.createproject.StepTwoState

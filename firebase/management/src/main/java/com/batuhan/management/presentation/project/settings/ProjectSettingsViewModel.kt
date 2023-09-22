@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.data.model.FirebaseProject
 import com.batuhan.core.util.Result
-import com.batuhan.management.data.model.*
+import com.batuhan.core.data.model.management.*
+import com.batuhan.management.data.model.SettingsItem
+import com.batuhan.management.data.model.SettingsItemRoute
 import com.batuhan.management.domain.firebase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

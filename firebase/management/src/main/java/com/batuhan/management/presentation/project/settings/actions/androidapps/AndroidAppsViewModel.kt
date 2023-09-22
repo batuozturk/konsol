@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AndroidApp
+import com.batuhan.core.data.model.management.AndroidApp
 import com.batuhan.management.domain.firebase.GetAndroidApps
 import com.batuhan.management.domain.firebase.GetAndroidConfig
 import dagger.hilt.android.lifecycle.HiltViewModel

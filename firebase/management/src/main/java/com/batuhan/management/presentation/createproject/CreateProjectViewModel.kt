@@ -4,12 +4,12 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.batuhan.core.data.model.management.AnalyticsAccount
+import com.batuhan.core.data.model.management.CreateProjectRequest
+import com.batuhan.core.data.model.management.Status
 import com.batuhan.core.util.Result
 import com.batuhan.core.util.UiState
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsAccount
-import com.batuhan.management.data.model.CreateProjectRequest
-import com.batuhan.management.data.model.Status
 import com.batuhan.management.domain.firebase.*
 import com.batuhan.management.domain.googleanalytics.GetGoogleAnalyticsAccounts
 import com.batuhan.management.domain.googlecloud.CreateGoogleCloudProject
@@ -46,7 +46,8 @@ class CreateProjectViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(CreateProjectUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _analyticsAccounts = MutableStateFlow<List<AnalyticsAccount>>(listOf())
+    private val _analyticsAccounts =
+        MutableStateFlow<List<AnalyticsAccount>>(listOf())
     val analyticsAccounts = _analyticsAccounts.asStateFlow()
 
     private val _createProjectEvent = Channel<CreateProjectEvent> { Channel.BUFFERED }

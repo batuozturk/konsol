@@ -11,7 +11,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.management.data.model.*
+import com.batuhan.core.data.model.management.*
+import com.batuhan.management.data.model.SettingsItem
+import com.batuhan.management.data.model.SettingsItemRoute
 import com.batuhan.theme.Orange
 
 @Composable

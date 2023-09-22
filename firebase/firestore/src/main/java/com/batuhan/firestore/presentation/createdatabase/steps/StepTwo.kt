@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.FirestoreLocation
+import com.batuhan.core.data.model.firestore.FirestoreLocation
 import com.batuhan.firestore.presentation.createdatabase.CreateDatabaseErrorState
 import com.batuhan.firestore.presentation.createdatabase.StepTwoState
 import com.batuhan.theme.Orange

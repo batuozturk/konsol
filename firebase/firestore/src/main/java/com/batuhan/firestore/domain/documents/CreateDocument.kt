@@ -2,8 +2,8 @@ package com.batuhan.firestore.domain.documents
 
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.model.Document
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.model.firestore.Document
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 
 class CreateDocument @Inject constructor(private val firestoreRepository: FirestoreRepository) {

@@ -1,6 +1,6 @@
 package com.batuhan.management.domain.firebase
 
-import com.batuhan.management.data.repository.ManagementRepository
+import com.batuhan.core.data.repository.management.ManagementRepository
 import javax.inject.Inject
 
 class GetWebApps @Inject constructor(private val managementRepository: ManagementRepository) {

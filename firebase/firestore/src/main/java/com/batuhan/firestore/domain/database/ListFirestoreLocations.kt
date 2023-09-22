@@ -1,6 +1,6 @@
 package com.batuhan.firestore.domain.database
 
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 
 class ListFirestoreLocations @Inject constructor(private val firestoreRepository: FirestoreRepository){

@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.WebApp
+import com.batuhan.core.data.model.management.WebApp
 import com.batuhan.management.domain.firebase.GetWebApps
 import com.batuhan.management.domain.firebase.GetWebConfig
 import com.google.gson.Gson

@@ -23,7 +23,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsAccount
+import com.batuhan.core.data.model.management.AnalyticsAccount
 import com.batuhan.management.presentation.createproject.StepThreeState
 import com.batuhan.management.presentation.createproject.StepTitle
 import com.batuhan.theme.KonsolTheme

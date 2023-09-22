@@ -5,11 +5,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.batuhan.core.data.model.management.Status
+import com.batuhan.core.domain.firestore.ListDatabases
+import com.batuhan.core.domain.management.GetAvailableLocations
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.Status
 import com.batuhan.management.domain.firebase.FinalizeLocation
-import com.batuhan.management.domain.firebase.GetAvailableLocations
 import com.batuhan.management.domain.firebase.GetFirebaseOperation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -26,11 +27,16 @@ class SelectLocationViewModel @Inject constructor(
     private val finalizeLocation: FinalizeLocation,
     private val getFirebaseOperation: GetFirebaseOperation,
     private val getAvailableLocations: GetAvailableLocations,
+    private val listDatabases: ListDatabases,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     companion object {
         internal const val KEY_PROJECT_ID = "projectId"
+        internal const val FIRESTORE_LOCATION_NAM5 = "nam5"
+        internal const val FIRESTORE_LOCATION_EUR3 = "eur3"
+        internal const val FIRESTORE_LOCATION_EUROPE_WEST = "europe-west"
+        internal const val FIRESTORE_LOCATION_US_CENTRAL = "us-central"
     }
 
     private val projectId = savedStateHandle.get<String>(KEY_PROJECT_ID)
@@ -44,6 +50,31 @@ class SelectLocationViewModel @Inject constructor(
     val availableLocations =
         getAvailableLocations.invoke(GetAvailableLocations.Params("projects/" + projectId!!))
             .cachedIn(viewModelScope)
+
+    init {
+        listDatabases()
+    }
+
+    fun listDatabases() {
+        viewModelScope.launch {
+            val result = listDatabases.invoke(ListDatabases.Params(projectId!!))
+
+            when (result) {
+                is Result.Error -> {
+                    // no-op
+                }
+                is Result.Success -> {
+                    val locationId = result.data.databases?.get(0)?.locationId?.getLocationId()
+                    _uiState.update {
+                        it.copy(
+                            selectedLocationId = locationId,
+                            isFirestoreLocationSelected = locationId != null
+                        )
+                    }
+                }
+            }
+        }
+    }
 
     suspend fun executeOperation(operation: suspend (String) -> String?): Boolean {
         val operationId = operation.invoke(uiState.value.selectedLocationId ?: return false)
@@ -80,10 +111,14 @@ class SelectLocationViewModel @Inject constructor(
         setLoadingState(true)
         return when (
             val result =
-                finalizeLocation.invoke(FinalizeLocation.Params("projects/${projectId!!}", locationId))
+                finalizeLocation.invoke(
+                    FinalizeLocation.Params(
+                        "projects/${projectId!!}",
+                        locationId
+                    )
+                )
         ) {
             is Result.Success -> {
-                setLoadingState(false)
                 result.data.name
             }
             is Result.Error -> {
@@ -101,7 +136,9 @@ class SelectLocationViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
+            setLoadingState(true)
             executeOperation(::setLocation)
+            setLoadingState(false)
         }
     }
 
@@ -165,6 +202,14 @@ class SelectLocationViewModel @Inject constructor(
             it.copy(selectedLocationId = locationId)
         }
     }
+
+    fun String.getLocationId(): String {
+        return when (this) {
+            FIRESTORE_LOCATION_NAM5 -> FIRESTORE_LOCATION_US_CENTRAL
+            FIRESTORE_LOCATION_EUR3 -> FIRESTORE_LOCATION_EUROPE_WEST
+            else -> this
+        }
+    }
 }
 
 sealed class SelectLocationEvent {
@@ -177,7 +222,8 @@ data class SelectLocationUiState(
     val isLoading: Boolean = false,
     val selectedLocationId: String? = null,
     val isSnackbarOpened: Boolean = false,
-    val selectedLocationInfoId: String? = null
+    val selectedLocationInfoId: String? = null,
+    val isFirestoreLocationSelected: Boolean = false
 )
 
 enum class SelectLocationErrorState(

@@ -1,12 +1,11 @@
 package com.batuhan.firestore.domain.database
 
 import com.batuhan.core.data.model.Operation
+import com.batuhan.core.data.model.firestore.Database
 import com.batuhan.core.util.ExceptionType
-import com.batuhan.firestore.data.model.Document
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.model.Database
 
 class PatchDatabase @Inject constructor(private val firestoreRepository: FirestoreRepository) {
 

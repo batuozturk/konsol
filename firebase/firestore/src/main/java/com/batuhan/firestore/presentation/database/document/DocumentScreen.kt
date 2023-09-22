@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.Document
+import com.batuhan.core.data.model.firestore.Document
 import com.batuhan.firestore.data.model.DocumentField
 import com.batuhan.firestore.data.model.toDocumentFieldList
 import com.batuhan.firestore.presentation.database.DatabaseErrorState

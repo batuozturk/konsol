@@ -9,10 +9,10 @@ import com.batuhan.core.data.model.ApiServiceState
 import com.batuhan.core.data.model.Status
 import com.batuhan.core.util.Result
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.Database
-import com.batuhan.firestore.data.model.DatabaseType
+import com.batuhan.core.data.model.firestore.Database
+import com.batuhan.core.data.model.firestore.DatabaseType
 import com.batuhan.firestore.domain.database.GetFirestoreDatabaseOperation
-import com.batuhan.firestore.domain.database.ListDatabases
+import com.batuhan.core.domain.firestore.ListDatabases
 import com.batuhan.firestore.domain.database.PatchDatabase
 import com.batuhan.core.domain.serviceusage.EnableService
 import com.batuhan.core.domain.serviceusage.GetServiceEnableState

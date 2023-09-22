@@ -22,8 +22,8 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsAccount
-import com.batuhan.management.data.model.ProjectInfo
+import com.batuhan.core.data.model.management.AnalyticsAccount
+import com.batuhan.core.data.model.management.ProjectInfo
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_ONE
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_THREE
 import com.batuhan.management.presentation.createproject.CreateProjectViewModel.Companion.STEP_TWO

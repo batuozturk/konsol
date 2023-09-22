@@ -24,7 +24,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
-import com.batuhan.management.data.model.BillingAccount
+import com.batuhan.core.data.model.management.BillingAccount
 import com.batuhan.theme.Orange
 
 @Composable

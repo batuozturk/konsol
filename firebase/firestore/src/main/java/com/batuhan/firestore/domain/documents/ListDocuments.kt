@@ -1,6 +1,6 @@
 package com.batuhan.firestore.domain.documents
 
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 
 class ListDocuments @Inject constructor(private val firestoreRepository: FirestoreRepository) {

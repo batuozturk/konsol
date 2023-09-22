@@ -2,8 +2,8 @@ package com.batuhan.management.domain.firebase
 
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.management.data.model.Operation
-import com.batuhan.management.data.repository.ManagementRepository
+import com.batuhan.core.data.model.management.Operation
+import com.batuhan.core.data.repository.management.ManagementRepository
 import javax.inject.Inject
 
 class AddFirebase @Inject constructor(private val managementRepository: ManagementRepository) {

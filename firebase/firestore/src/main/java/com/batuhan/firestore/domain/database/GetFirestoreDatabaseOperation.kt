@@ -3,7 +3,7 @@ package com.batuhan.firestore.domain.database
 import com.batuhan.core.data.model.Operation
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 
 class GetFirestoreDatabaseOperation @Inject constructor(private val firestoreRepository: FirestoreRepository) {
