@@ -1,7 +1,6 @@
-package com.batuhan.firestore.data.model
+package com.batuhan.core.data.model.firestore
 
 import androidx.annotation.Keep
-import com.batuhan.firestore.util.createDocumentField
 import com.google.gson.annotations.SerializedName
 
 @Keep
@@ -33,13 +32,3 @@ data class ArrayValue(
 data class MapValue(
     @SerializedName("fields") val fields: Map<String, Value>?
 )
-
-fun Map<String, Value>.toDocumentFieldList(): List<DocumentField> {
-    val list = mutableListOf<DocumentField>()
-    keys.sorted().forEach { attributeName ->
-        this[attributeName]?.let { value ->
-            list.add(createDocumentField(attributeName, value))
-        }
-    }
-    return list
-}

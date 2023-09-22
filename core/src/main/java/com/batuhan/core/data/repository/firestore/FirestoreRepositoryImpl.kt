@@ -1,13 +1,13 @@
-package com.batuhan.firestore.data.repository
+package com.batuhan.core.data.repository.firestore
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.batuhan.firestore.data.model.Database
-import com.batuhan.firestore.data.model.Document
-import com.batuhan.firestore.data.model.DocumentMask
-import com.batuhan.firestore.data.model.FirestoreLocation
-import com.batuhan.firestore.data.source.remote.*
+import com.batuhan.core.data.model.firestore.Database
+import com.batuhan.core.data.model.firestore.Document
+import com.batuhan.core.data.model.firestore.DocumentMask
+import com.batuhan.core.data.model.firestore.FirestoreLocation
+import com.batuhan.core.data.source.remote.firestore.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

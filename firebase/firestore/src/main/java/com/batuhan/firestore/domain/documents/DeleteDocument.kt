@@ -2,7 +2,7 @@ package com.batuhan.firestore.domain.documents
 
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.repository.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import javax.inject.Inject
 
 class DeleteDocument @Inject constructor(private val firestoreRepository: FirestoreRepository) {

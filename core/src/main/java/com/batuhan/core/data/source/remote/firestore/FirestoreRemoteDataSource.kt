@@ -1,8 +1,8 @@
-package com.batuhan.firestore.data.source.remote
+package com.batuhan.core.data.source.remote.firestore
 
-import com.batuhan.firestore.data.model.Database
-import com.batuhan.firestore.data.model.Document
-import com.batuhan.firestore.data.model.DocumentMask
+import com.batuhan.core.data.model.firestore.Database
+import com.batuhan.core.data.model.firestore.Document
+import com.batuhan.core.data.model.firestore.DocumentMask
 import javax.inject.Inject
 
 class FirestoreRemoteDataSource @Inject constructor(private val firestoreService: FirestoreService) {
@@ -40,5 +40,5 @@ class FirestoreRemoteDataSource @Inject constructor(private val firestoreService
         databasePath: String,
         databaseUpdateMask: String,
         database: Database
-    ) = firestoreService.patchDatabase(databasePath,databaseUpdateMask,database)
+    ) = firestoreService.patchDatabase(databasePath, databaseUpdateMask, database)
 }

@@ -1,6 +1,8 @@
 package com.batuhan.firestore.util
 
+import com.batuhan.core.data.model.firestore.*
 import com.batuhan.firestore.data.model.*
+import com.batuhan.firestore.data.model.DocumentField
 
 fun DocumentField.getValue(): Value {
     return when (this) {
@@ -141,13 +143,13 @@ fun createDocumentField(attributeName: String, value: Value): DocumentField {
             documentField = DocumentField.BooleanValue(attributeName, value = it)
         }
         arrayValue?.let {
-            val values = arrayValue.values?.map {
+            val values = it.values?.map {
                 createDocumentField("", it)
             } ?: listOf()
             documentField = DocumentField.ArrayValue(attributeName, values = values)
         }
         mapValue?.let {
-            val values = mapValue.fields?.map { (attributeName, value) ->
+            val values = it.fields?.map { (attributeName, value) ->
                 createDocumentField(attributeName, value)
             } ?: listOf()
             documentField = DocumentField.MapValue(attributeName, values = values)

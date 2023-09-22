@@ -1,8 +1,8 @@
-package com.batuhan.firestore.data.repository
+package com.batuhan.core.data.repository.firestore
 
 import androidx.paging.PagingData
 import com.batuhan.core.data.model.Operation
-import com.batuhan.firestore.data.model.*
+import com.batuhan.core.data.model.firestore.*
 import kotlinx.coroutines.flow.Flow
 
 interface FirestoreRepository {

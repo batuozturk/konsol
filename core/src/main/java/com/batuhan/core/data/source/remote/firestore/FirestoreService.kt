@@ -1,7 +1,8 @@
-package com.batuhan.firestore.data.source.remote
+package com.batuhan.core.data.source.remote.firestore
 
 import com.batuhan.core.data.model.Operation
-import com.batuhan.firestore.data.model.*
+import com.batuhan.core.data.model.firestore.ListCollectionIdsResponse
+import com.batuhan.core.data.model.firestore.*
 import retrofit2.http.*
 
 interface FirestoreService {

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.Document
+import com.batuhan.core.data.model.firestore.Document
 import com.batuhan.firestore.presentation.database.DatabaseErrorState
 import com.batuhan.theme.Orange
 
@@ -64,7 +64,7 @@ fun DocumentItem(document: Document, onDocumentClicked: (Document) -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            document.name?.substring(document.name.lastIndexOf("/") + 1)
+            document.name?.substring(document.name!!.lastIndexOf("/") + 1)
                 ?: stringResource(id = R.string.undefined)
         )
     }

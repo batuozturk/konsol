@@ -2,7 +2,9 @@ package com.batuhan.firestore.data.model
 
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
+import com.batuhan.core.data.model.firestore.Value
 import com.batuhan.firestore.R
+import com.batuhan.firestore.util.createDocumentField
 
 open class DocumentField(
     open val attributeName: String,
@@ -118,4 +120,14 @@ open class DocumentField(
         TIMESTAMP_MINUTE_VALUE_INVALID(R.string.timestamp_minute_value_invalid),
         TIMESTAMP_SECOND_VALUE_INVALID(R.string.timestamp_second_value_invalid);
     }
+}
+
+fun Map<String, Value>.toDocumentFieldList(): List<DocumentField> {
+    val list = mutableListOf<DocumentField>()
+    keys.sorted().forEach { attributeName ->
+        this[attributeName]?.let { value ->
+            list.add(createDocumentField(attributeName, value))
+        }
+    }
+    return list
 }

@@ -1,4 +1,4 @@
-package com.batuhan.firestore.data.source.remote
+package com.batuhan.core.data.source.remote.firestore
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

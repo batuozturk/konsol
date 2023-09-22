@@ -5,6 +5,10 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.batuhan.core.data.model.firestore.Document
+import com.batuhan.firestore.data.model.DocumentField
+import com.batuhan.core.data.model.firestore.DocumentMask
+import com.batuhan.firestore.data.model.toDocumentFieldList
 import com.batuhan.core.util.Result
 import com.batuhan.firestore.R
 import com.batuhan.firestore.data.model.*

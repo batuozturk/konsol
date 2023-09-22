@@ -1,4 +1,4 @@
-package com.batuhan.firestore.data.model
+package com.batuhan.core.data.model.firestore
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName

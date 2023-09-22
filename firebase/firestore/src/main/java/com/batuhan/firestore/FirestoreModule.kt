@@ -1,10 +1,10 @@
 package com.batuhan.firestore
 
 import com.batuhan.core.util.retrofit.FirebaseQualifiers.Firestore
-import com.batuhan.firestore.data.repository.FirestoreRepository
-import com.batuhan.firestore.data.repository.FirestoreRepositoryImpl
-import com.batuhan.firestore.data.source.remote.FirestoreRemoteDataSource
-import com.batuhan.firestore.data.source.remote.FirestoreService
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
+import com.batuhan.core.data.repository.firestore.FirestoreRepositoryImpl
+import com.batuhan.core.data.source.remote.firestore.FirestoreRemoteDataSource
+import com.batuhan.core.data.source.remote.firestore.FirestoreService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

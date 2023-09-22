@@ -1,10 +1,9 @@
-package com.batuhan.firestore.domain.database
+package com.batuhan.core.domain.firestore
 
+import com.batuhan.core.data.model.firestore.ListDatabaseResponse
+import com.batuhan.core.data.repository.firestore.FirestoreRepository
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.firestore.data.model.Database
-import com.batuhan.firestore.data.model.ListDatabaseResponse
-import com.batuhan.firestore.data.repository.FirestoreRepository
 import javax.inject.Inject
 
 class ListDatabases @Inject constructor(private val firestoreRepository: FirestoreRepository) {

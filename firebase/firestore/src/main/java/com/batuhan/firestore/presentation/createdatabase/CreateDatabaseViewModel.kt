@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.batuhan.core.data.model.Status
+import com.batuhan.core.data.model.firestore.Database
+import com.batuhan.core.data.model.firestore.DatabaseType
 import com.batuhan.core.util.Result
 import com.batuhan.firestore.R
-import com.batuhan.firestore.data.model.Database
-import com.batuhan.firestore.data.model.DatabaseType
 import com.batuhan.firestore.domain.database.CreateDatabase
 import com.batuhan.firestore.domain.database.GetFirestoreDatabaseOperation
 import com.batuhan.firestore.domain.database.ListFirestoreLocations

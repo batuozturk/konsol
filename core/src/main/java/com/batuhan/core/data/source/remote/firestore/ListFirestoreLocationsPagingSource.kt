@@ -1,8 +1,8 @@
-package com.batuhan.firestore.data.source.remote
+package com.batuhan.core.data.source.remote.firestore
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.batuhan.firestore.data.model.FirestoreLocation
+import com.batuhan.core.data.model.firestore.FirestoreLocation
 import javax.inject.Inject
 
 class ListFirestoreLocationsPagingSource @Inject constructor(private val firestoreService: FirestoreService) :
