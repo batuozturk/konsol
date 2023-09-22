@@ -23,7 +23,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.batuhan.management.R
-import com.batuhan.management.data.model.WebApp
+import com.batuhan.core.data.model.management.WebApp
 import com.batuhan.theme.Orange
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState

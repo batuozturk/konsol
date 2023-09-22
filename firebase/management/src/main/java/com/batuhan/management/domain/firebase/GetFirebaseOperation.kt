@@ -1,10 +1,10 @@
 package com.batuhan.management.domain.firebase
 
 import com.batuhan.core.util.ExceptionType
-import com.batuhan.management.data.repository.ManagementRepository
+import com.batuhan.core.data.repository.management.ManagementRepository
 import javax.inject.Inject
 import com.batuhan.core.util.Result
-import com.batuhan.management.data.model.Operation
+import com.batuhan.core.data.model.management.Operation
 
 class GetFirebaseOperation @Inject constructor(private val managementRepository: ManagementRepository) {
 

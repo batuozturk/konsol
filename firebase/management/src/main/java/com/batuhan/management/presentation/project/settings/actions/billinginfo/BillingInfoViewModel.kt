@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.ProjectBillingInfo
-import com.batuhan.management.data.model.UpdateBillingInfoRequest
+import com.batuhan.core.data.model.management.ProjectBillingInfo
+import com.batuhan.core.data.model.management.UpdateBillingInfoRequest
 import com.batuhan.management.domain.googlecloud.GetBillingAccounts
 import com.batuhan.management.domain.googlecloud.GetBillingInfo
 import com.batuhan.management.domain.googlecloud.UpdateBillingInfo

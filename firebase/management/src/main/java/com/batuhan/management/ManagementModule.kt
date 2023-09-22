@@ -1,25 +1,23 @@
 package com.batuhan.management
 
+import com.batuhan.core.data.repository.management.ManagementRepository
+import com.batuhan.core.data.repository.management.ManagementRepositoryImpl
+import com.batuhan.core.data.source.remote.management.ManagementRemoteDataSource
+import com.batuhan.core.data.source.remote.management.ManagementService
+import com.batuhan.core.data.source.remote.management.googleanalytics.GoogleAnalyticsRemoteDataSource
+import com.batuhan.core.data.source.remote.management.googleanalytics.GoogleAnalyticsService
+import com.batuhan.core.data.source.remote.management.googlecloud.GoogleCloudRemoteDataSource
+import com.batuhan.core.data.source.remote.management.googlecloud.GoogleCloudService
+import com.batuhan.core.data.source.remote.management.googlecloud.billing.GoogleCloudBillingDataSource
+import com.batuhan.core.data.source.remote.management.googlecloud.billing.GoogleCloudBillingService
 import com.batuhan.core.util.retrofit.FirebaseQualifiers.Management
 import com.batuhan.core.util.retrofit.GoogleQualifiers.*
-import com.batuhan.management.data.repository.ManagementRepository
-import com.batuhan.management.data.repository.ManagementRepositoryImpl
-import com.batuhan.management.data.source.remote.*
-import com.batuhan.management.data.source.remote.firebase.ManagementRemoteDataSource
-import com.batuhan.management.data.source.remote.firebase.ManagementService
-import com.batuhan.management.data.source.remote.googleanalytics.GoogleAnalyticsRemoteDataSource
-import com.batuhan.management.data.source.remote.googleanalytics.GoogleAnalyticsService
-import com.batuhan.management.data.source.remote.googlecloud.GoogleCloudRemoteDataSource
-import com.batuhan.management.data.source.remote.googlecloud.GoogleCloudService
-import com.batuhan.management.data.source.remote.googlecloud.billing.GoogleCloudBillingDataSource
-import com.batuhan.management.data.source.remote.googlecloud.billing.GoogleCloudBillingService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import retrofit2.Retrofit
-import retrofit2.create
 
 @Module
 @InstallIn(ViewModelComponent::class)

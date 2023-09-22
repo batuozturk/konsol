@@ -2,9 +2,9 @@ package com.batuhan.management.domain.googlecloud
 
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.management.data.model.ProjectBillingInfo
-import com.batuhan.management.data.model.UpdateBillingInfoRequest
-import com.batuhan.management.data.repository.ManagementRepository
+import com.batuhan.core.data.model.management.ProjectBillingInfo
+import com.batuhan.core.data.model.management.UpdateBillingInfoRequest
+import com.batuhan.core.data.repository.management.ManagementRepository
 import javax.inject.Inject
 
 class UpdateBillingInfo @Inject constructor(private val managementRepository: ManagementRepository) {

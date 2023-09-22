@@ -2,7 +2,7 @@ package com.batuhan.management.domain.googlecloud
 
 import com.batuhan.core.util.ExceptionType
 import com.batuhan.core.util.Result
-import com.batuhan.management.data.repository.ManagementRepository
+import com.batuhan.core.data.repository.management.ManagementRepository
 import javax.inject.Inject
 
 class DeleteGoogleCloudProject @Inject constructor(private val managementRepository: ManagementRepository) {

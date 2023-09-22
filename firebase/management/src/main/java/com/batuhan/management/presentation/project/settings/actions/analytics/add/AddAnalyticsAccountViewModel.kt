@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsAccount
-import com.batuhan.management.data.model.Status
+import com.batuhan.core.data.model.management.AnalyticsAccount
+import com.batuhan.core.data.model.management.Status
 import com.batuhan.management.domain.firebase.AddGoogleAnalytics
 import com.batuhan.management.domain.firebase.GetFirebaseOperation
 import com.batuhan.management.domain.googleanalytics.GetGoogleAnalyticsAccounts

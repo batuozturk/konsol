@@ -9,7 +9,7 @@ import com.batuhan.core.data.model.FirebaseProject
 import com.batuhan.core.data.model.State
 import com.batuhan.core.util.Result
 import com.batuhan.management.R
-import com.batuhan.management.data.model.UpdateFirebaseProjectRequest
+import com.batuhan.core.data.model.management.UpdateFirebaseProjectRequest
 import com.batuhan.management.domain.firebase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel

@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.batuhan.management.R
-import com.batuhan.management.data.model.AnalyticsAccount
+import com.batuhan.core.data.model.management.AnalyticsAccount
 import com.batuhan.theme.Orange
 
 @Composable
