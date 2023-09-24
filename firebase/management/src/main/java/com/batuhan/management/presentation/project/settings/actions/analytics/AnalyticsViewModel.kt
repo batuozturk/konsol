@@ -41,10 +41,6 @@ class AnalyticsViewModel @Inject constructor(
     private val _analyticsInfoEvent = Channel<AnalyticsInfoEvent> { Channel.BUFFERED }
     val analyticsInfoEvent = _analyticsInfoEvent.receiveAsFlow()
 
-    init {
-        getAnalyticsDetails()
-    }
-
     fun getAnalyticsDetails() {
         viewModelScope.launch {
             setLoadingState(true)
@@ -176,7 +172,7 @@ sealed class AnalyticsInfoEvent {
 
 data class AnalyticsInfoUiState(
     val errorState: AnalyticsInfoErrorState? = null,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isSnackbarOpened: Boolean = false,
     val analyticsProperty: AnalyticsProperty? = null
 )

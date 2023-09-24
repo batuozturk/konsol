@@ -55,11 +55,7 @@ class DatabaseListViewModel @Inject constructor(
     private val _databaseListEvent = Channel<DatabaseListEvent> { Channel.BUFFERED }
     val databaseListEvent = _databaseListEvent.receiveAsFlow()
 
-    init {
-        listDatabases()
-    }
-
-    private fun listDatabases(delayEnabled: Boolean = false) {
+    fun listDatabases(delayEnabled: Boolean = false) {
         setLoadingState(true)
         viewModelScope.launch {
             Log.d("projectId", projectId!!)
@@ -308,7 +304,7 @@ class DatabaseListViewModel @Inject constructor(
 
 data class DatabaseListUiState(
     val errorState: DatabaseListErrorState? = null,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isSnackbarOpened: Boolean = false,
     val selectedDatabase: Database? = null
 )

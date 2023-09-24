@@ -14,9 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.batuhan.cloudstorage.R
 import com.batuhan.theme.Orange
@@ -29,6 +32,7 @@ fun BucketScreen(
 ) {
     val viewModel = hiltViewModel<BucketViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(true) {
         viewModel.bucketEvent.collect { event ->
             when (event) {
@@ -36,6 +40,18 @@ fun BucketScreen(
                 is BucketEvent.CreateBucket -> navigateToCreateBucketScreen.invoke(event.projectId)
                 is BucketEvent.ObjectList -> navigateToObjectListScreen.invoke(event.bucketName)
             }
+        }
+    }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.getDefaultBucket()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
     BucketScreenContent(
