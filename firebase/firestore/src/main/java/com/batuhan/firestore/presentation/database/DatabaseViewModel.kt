@@ -149,15 +149,8 @@ class DatabaseViewModel @Inject constructor(
         path.value = newPath
     }
 
-    fun onDocumentRefreshed() {
-        setDocumentRefreshed(true)
+    fun refreshDocument() {
         getDocument()
-    }
-
-    fun setDocumentRefreshed(isDocumentRefreshed: Boolean) {
-        _uiState.update {
-            it.copy(isDocumentRefreshed = isDocumentRefreshed)
-        }
     }
 
     fun setCollectionClicked(isCollectionClicked: Boolean) {
@@ -435,7 +428,6 @@ data class DatabaseUiState(
     val isRefreshing: Boolean = false,
     val isSnackbarOpened: Boolean = false,
     val isCollectionClicked: Boolean = false,
-    val isDocumentRefreshed: Boolean = false,
     val currentPath: String? = null,
     val currentDocument: Document? = null,
     val isLoading: Boolean = false,

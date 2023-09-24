@@ -38,10 +38,6 @@ class ProjectDetailViewModel @Inject constructor(
     private val _updateProjectEvent = Channel<ProjectDetailEvent> { Channel.BUFFERED }
     val updateProjectEvent = _updateProjectEvent.receiveAsFlow()
 
-    init {
-        getProject()
-    }
-
     fun getProject() {
         viewModelScope.launch {
             setLoadingState(true)
@@ -246,7 +242,7 @@ data class ProjectDetailUiState(
     val errorState: ProjectDetailErrorState? = null,
     val projectAttributes: List<Pair<Int, String>>? = null,
     val projectId: String? = null,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isSnackbarOpened: Boolean = false,
     val editableDisplayName: String? = null,
     val isEditing: Boolean = false

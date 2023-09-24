@@ -41,10 +41,6 @@ class BillingInfoViewModel @Inject constructor(
     private val _billingInfoEvent = Channel<BillingInfoEvent> { Channel.BUFFERED }
     val billingInfoEvent = _billingInfoEvent.receiveAsFlow()
 
-    init {
-        getBillingInfo()
-    }
-
     fun getBillingInfo() {
         setLoadingState(true)
         viewModelScope.launch {
@@ -157,7 +153,7 @@ sealed class BillingInfoEvent {
 data class BillingInfoUiState(
     val errorState: BillingInfoErrorState? = null,
     val billingInfo: ProjectBillingInfo? = null,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val isSuccess: Boolean = false,
     val isSnackbarOpened: Boolean = false
 )

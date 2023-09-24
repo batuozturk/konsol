@@ -12,18 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.management.R
 import com.batuhan.core.data.model.management.ProjectBillingInfo
+import com.batuhan.management.R
 import com.batuhan.theme.Orange
 
 @Composable
 fun BillingInfo(onBackPressed: () -> Unit, navigateToAddBillingInfo: (String) -> Unit) {
     val viewModel = hiltViewModel<BillingInfoViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(key1 = true) {
         viewModel.billingInfoEvent.collect { event ->
             when (event) {
@@ -31,6 +35,18 @@ fun BillingInfo(onBackPressed: () -> Unit, navigateToAddBillingInfo: (String) ->
                 is BillingInfoEvent.SaveChanges -> viewModel.removeBillingInfo()
                 is BillingInfoEvent.AddBillingInfo -> navigateToAddBillingInfo(event.projectId)
             }
+        }
+    }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.getBillingInfo()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
     BillingInfoContent(

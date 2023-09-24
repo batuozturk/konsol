@@ -50,10 +50,6 @@ class ExecutionViewModel @Inject constructor(
     private val _executionEvent = Channel<ExecutionEvent> { Channel.BUFFERED }
     val executionEvent = _executionEvent.receiveAsFlow()
 
-    init {
-        getExecution()
-    }
-
     fun getExecution() {
         setLoadingState(true)
         viewModelScope.launch {
@@ -138,7 +134,7 @@ class ExecutionViewModel @Inject constructor(
 data class ExecutionUiState(
     val errorState: ExecutionErrorState? = null,
     val isSnackbarOpened: Boolean = false,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val execution: Execution? = null
 )
 

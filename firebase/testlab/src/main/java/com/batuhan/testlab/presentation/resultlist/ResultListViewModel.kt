@@ -44,10 +44,6 @@ class ResultListViewModel @Inject constructor(
     private val _resultListEvent = Channel<ResultListEvent> { Channel.BUFFERED }
     val resultListEvent = _resultListEvent.receiveAsFlow()
 
-    init {
-        getHistoryList() // todo on resume
-    }
-
     fun getHistoryList() {
         viewModelScope.launch {
             val result = getHistoryList.invoke(GetHistoryList.Params(projectId!!))

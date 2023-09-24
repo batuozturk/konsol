@@ -90,7 +90,7 @@ fun DatabaseScreen(
         setSnackbarState = viewModel::setSnackbarState,
         onDocumentClicked = viewModel::onDocumentClicked,
         onCollectionClicked = viewModel::onCollectionClicked,
-        onDocumentRefreshed = viewModel::onDocumentRefreshed,
+        refreshDocument = viewModel::refreshDocument,
         setRefreshingState = viewModel::setRefreshingState,
         onRefresh = viewModel::onRefresh,
         retryOperation = viewModel::retryOperation,
@@ -121,7 +121,7 @@ fun DatabaseScreenContent(
     setSnackbarState: (Boolean) -> Unit,
     onDocumentClicked: (Document) -> Unit,
     onCollectionClicked: (String) -> Unit,
-    onDocumentRefreshed: () -> Unit,
+    refreshDocument: () -> Unit,
     setRefreshingState: (Boolean) -> Unit,
     onRefresh: (() -> Unit) -> Unit,
     retryOperation: (DatabaseErrorState, () -> Unit, () -> Unit) -> Unit,
@@ -138,9 +138,6 @@ fun DatabaseScreenContent(
 ) {
     val isCollectionClicked by remember(uiState.isCollectionClicked) {
         derivedStateOf { uiState.isCollectionClicked }
-    }
-    val isDocumentRefreshed by remember(uiState.isDocumentRefreshed) {
-        derivedStateOf { uiState.isDocumentRefreshed }
     }
     val errorState by remember(uiState.errorState) {
         derivedStateOf { uiState.errorState }
@@ -349,7 +346,7 @@ fun DatabaseScreenContent(
                         onRefresh.invoke {
                             if (isCollectionClicked) documents.refresh()
                             else {
-                                onDocumentRefreshed.invoke()
+                                refreshDocument.invoke()
                                 collectionIds.refresh()
                             }
                         }

@@ -12,18 +12,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.management.R
 import com.batuhan.core.data.model.management.AnalyticsProperty
+import com.batuhan.management.R
 import com.batuhan.theme.Orange
 
 @Composable
 fun AnalyticsInfo(onBackPressed: () -> Unit, navigateToAddAnalyticsAccount: (String) -> Unit) {
     val viewModel = hiltViewModel<AnalyticsViewModel>()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(key1 = true) {
         viewModel.analyticsInfoEvent.collect { event ->
             when (event) {
@@ -34,6 +38,18 @@ fun AnalyticsInfo(onBackPressed: () -> Unit, navigateToAddAnalyticsAccount: (Str
                     )
                 }
             }
+        }
+    }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.getAnalyticsDetails()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
     AnalyticsInfoContent(

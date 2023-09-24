@@ -41,10 +41,6 @@ class EnvironmentViewModel @Inject constructor(
     private val _environmentEvent = Channel<EnvironmentEvent> { Channel.BUFFERED }
     val environmentEvent = _environmentEvent.receiveAsFlow()
 
-    init {
-        getEnvironment()
-    }
-
     fun getEnvironment() {
         setLoadingState(true)
         viewModelScope.launch {
@@ -120,7 +116,7 @@ class EnvironmentViewModel @Inject constructor(
 data class EnvironmentUiState(
     val errorState: EnvironmentErrorState? = null,
     val isSnackbarOpened: Boolean = false,
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val environment: ExecutionEnvironment? = null
 
 )

@@ -12,13 +12,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.batuhan.firestore.R
 import com.batuhan.core.data.model.firestore.Database
 import com.batuhan.core.data.model.firestore.DatabaseType
+import com.batuhan.firestore.R
 import com.batuhan.theme.Orange
 
 @Composable
@@ -30,6 +33,7 @@ fun DatabaseListScreen(
     val viewModel = hiltViewModel<DatabaseListViewModel>()
     val databaseList by viewModel.databaseList.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
     LaunchedEffect(key1 = true) {
         viewModel.databaseListEvent.collect { event ->
             when (event) {
@@ -39,6 +43,18 @@ fun DatabaseListScreen(
                     event.name
                 )
             }
+        }
+    }
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                viewModel.listDatabases()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
         }
     }
     DatabaseListScreenContent(

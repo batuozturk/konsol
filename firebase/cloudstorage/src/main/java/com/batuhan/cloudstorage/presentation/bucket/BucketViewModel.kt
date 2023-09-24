@@ -51,10 +51,6 @@ class BucketViewModel @Inject constructor(
     private val _bucketEvent = Channel<BucketEvent> { Channel.BUFFERED }
     val bucketEvent = _bucketEvent.receiveAsFlow()
 
-    init {
-        getDefaultBucket()
-    }
-
     fun addFirebase(bucketName: String) {
         setLoadingState(true)
         viewModelScope.launch {
@@ -240,7 +236,7 @@ class BucketViewModel @Inject constructor(
 }
 
 data class BucketUiState(
-    val isLoading: Boolean = false,
+    val isLoading: Boolean = true,
     val errorState: BucketErrorState? = null,
     val isSnackbarOpened: Boolean = false,
     val defaultBucket: DefaultBucket? = null
