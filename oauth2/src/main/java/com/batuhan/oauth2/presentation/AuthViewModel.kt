@@ -2,7 +2,6 @@ package com.batuhan.oauth2.presentation
 
 import android.content.Intent
 import androidx.annotation.StringRes
-import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.batuhan.core.util.AuthStateManager
@@ -41,19 +40,9 @@ class AuthViewModel @Inject constructor(
     private val _authScreenEvent = Channel<AuthScreenEvent> { Channel.BUFFERED }
     val authEvent = _authScreenEvent.receiveAsFlow()
 
-    var email: String? = null
     internal var authState: AuthState? = null
 
     fun sendAuthRequest(authorizationService: AuthorizationService) {
-        if (email == null) {
-            setErrorState(AuthScreenErrorState.EMAIL_NOT_VALID)
-            return
-        }
-        if (email?.matches(PatternsCompat.EMAIL_ADDRESS.toRegex()) == false) {
-            setErrorState(AuthScreenErrorState.EMAIL_NOT_VALID)
-            return
-        }
-
         clearErrorState()
 
         getServiceConfiguration { authorizationServiceConfig ->
@@ -63,7 +52,6 @@ class AuthViewModel @Inject constructor(
                     GetAuthorizationRequestIntent.Params(
                         serviceConfiguration = authorizationServiceConfig,
                         clientId = Constants.OAUTH_CLIENT_ID,
-                        email = email!!,
                         redirectUri = "com.batuhan.konsol:/auth",
                         scope = Constants.OAUTH_SCOPE,
                         authorizationService = authorizationService
@@ -96,13 +84,6 @@ class AuthViewModel @Inject constructor(
                     setErrorState(AuthScreenErrorState.APPAUTH_ERROR)
                 }
             }
-        }
-    }
-
-    fun updateEmail(text: String) {
-        email = text
-        _uiState.update {
-            it.copy(email = text)
         }
     }
 
@@ -169,14 +150,11 @@ class AuthViewModel @Inject constructor(
 data class AuthScreenUiState(
     val errorState: AuthScreenErrorState? = null,
     val isLoading: Boolean = false,
-    val routing: String? = null,
-    val email: String? = null
-
+    val routing: String? = null
 )
 
 enum class AuthScreenErrorState(@StringRes val titleResId: Int, @StringRes val actionResId: Int?) {
-    APPAUTH_ERROR(R.string.error_occurred, null),
-    EMAIL_NOT_VALID(R.string.email_not_valid, null)
+    APPAUTH_ERROR(R.string.error_occurred, null)
 }
 
 sealed class AuthScreenEvent {

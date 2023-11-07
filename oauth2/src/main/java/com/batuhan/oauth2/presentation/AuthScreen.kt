@@ -4,7 +4,9 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -21,7 +23,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,9 +40,12 @@ import com.batuhan.oauth2.presentation.pages.CloudMessagingInfoScreen
 import com.batuhan.oauth2.presentation.pages.CloudStorageInfoScreen
 import com.batuhan.oauth2.presentation.pages.FirestoreInfoScreen
 import com.batuhan.oauth2.presentation.pages.TestLabInfoScreen
+import com.batuhan.theme.GoogleSignInFontFamily
 import com.batuhan.theme.KonsolFontFamily
 import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
+import com.batuhan.theme.SignInWithGoogleBorder
+import com.batuhan.theme.SignInWithGoogleFill
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
@@ -108,7 +115,6 @@ fun AuthScreen(
     val uiState by viewModel.authScreenUiState.collectAsStateWithLifecycle()
     AuthScreenContent(
         uiState = uiState,
-        onValueChanged = viewModel::updateEmail,
         sendAuthRequest = {
             viewModel.sendAuthRequest(authorizationService)
         },
@@ -122,7 +128,6 @@ fun AuthScreen(
 @Composable
 fun AuthScreenContent(
     uiState: AuthScreenUiState,
-    onValueChanged: (String) -> Unit,
     sendAuthRequest: () -> Unit,
     clearErrorState: () -> Unit,
     retryOperation: (AuthScreenErrorState) -> Unit,
@@ -146,13 +151,6 @@ fun AuthScreenContent(
         constrain(pageIndicator) {
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-            bottom.linkTo(emailInput.top)
-            width = Dimension.matchParent
-            height = Dimension.wrapContent
-        }
-        constrain(emailInput) {
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
             bottom.linkTo(signInButton.top)
             width = Dimension.matchParent
             height = Dimension.wrapContent
@@ -161,7 +159,7 @@ fun AuthScreenContent(
             start.linkTo(parent.start)
             end.linkTo(parent.end)
             bottom.linkTo(privacyPolicyAndTermsOfService.top)
-            width = Dimension.matchParent
+            width = Dimension.wrapContent
             height = Dimension.wrapContent
         }
         constrain(privacyPolicyAndTermsOfService) {
@@ -174,10 +172,6 @@ fun AuthScreenContent(
     }
     val errorState by remember(uiState.errorState) {
         derivedStateOf { uiState.errorState }
-    }
-
-    val email by remember(uiState.email) {
-        derivedStateOf { uiState.email }
     }
 
     val snackbarHostState = remember {
@@ -201,6 +195,7 @@ fun AuthScreenContent(
                     snackbarHostState.currentSnackbarData?.dismiss()
                     retryOperation.invoke(errorState!!)
                 }
+
                 SnackbarResult.Dismissed -> {
                     clearErrorState.invoke()
                     snackbarHostState.currentSnackbarData?.dismiss()
@@ -235,12 +230,16 @@ fun AuthScreenContent(
     ) {
         ConstraintLayout(
             constraint,
-            modifier = Modifier.fillMaxSize()
-                .padding(it).padding(8.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+                .padding(8.dp)
         ) {
             HorizontalPager(
                 state = pagerState,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp)
                     .layoutId(ConstraintParams.REF_HORIZONTAL_PAGER)
             ) { page ->
                 when (page) {
@@ -251,7 +250,9 @@ fun AuthScreenContent(
                 }
             }
             Row(
-                Modifier.fillMaxWidth().layoutId(ConstraintParams.REF_PAGE_INDICATOR),
+                Modifier
+                    .fillMaxWidth()
+                    .layoutId(ConstraintParams.REF_PAGE_INDICATOR),
                 horizontalArrangement = Arrangement.Center
             ) {
                 repeat(4) { iteration ->
@@ -267,56 +268,35 @@ fun AuthScreenContent(
                     )
                 }
             }
-            OutlinedTextField(
-                value = email ?: "",
-                onValueChange = onValueChanged,
-                label = {
-                    Text(
-                        text = stringResource(id = R.string.email),
-                        style = TextStyle(color = Orange)
-                    )
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedLabelColor = Orange,
-                    unfocusedLabelColor = Orange,
-                    focusedBorderColor = Orange,
-                    unfocusedBorderColor = Orange,
-                    cursorColor = Orange,
-                    selectionColors = TextSelectionColors(
-                        handleColor = Orange,
-                        backgroundColor = Orange.copy(alpha = 0.4f)
-                    )
-                ),
-                modifier = Modifier.padding(16.dp)
-                    .layoutId(ConstraintParams.REF_EMAIL_INPUT)
-            )
-            Button(
+            SignInWithGoogle(
                 onClick = { sendAuthRequest.invoke() },
-                modifier = Modifier.padding(horizontal = 16.dp)
-                    .layoutId(ConstraintParams.REF_SIGN_IN_BUTTON),
-                colors = ButtonDefaults.buttonColors(containerColor = Orange)
-            ) {
-                Text(text = stringResource(id = R.string.sign_in))
-            }
+                modifier = Modifier.padding(vertical = 48.dp)
+                    .layoutId(ConstraintParams.REF_SIGN_IN_BUTTON)
+            )
             Row(
-                modifier = Modifier.padding(top = 64.dp, bottom = 32.dp)
+                modifier = Modifier
+                    .padding(top = 16.dp, bottom = 32.dp)
                     .layoutId(ConstraintParams.REF_PRIVACY_POLICY_TOS_ROW),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(
-                    modifier = Modifier.weight(1f).clickable {
-                        launchUrl.invoke("https://getkonsol.app/privacy-policy")
-                    },
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            launchUrl.invoke("https://getkonsol.app/privacy-policy")
+                        },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(text = stringResource(id = R.string.privacy_policy))
                 }
 
                 Row(
-                    modifier = Modifier.weight(1f).clickable {
-                        launchUrl.invoke("https://getkonsol.app/terms-of-service")
-                    },
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            launchUrl.invoke("https://getkonsol.app/terms-of-service")
+                        },
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Text(text = stringResource(id = R.string.terms_of_service))
@@ -326,13 +306,36 @@ fun AuthScreenContent(
     }
 }
 
+@Composable
+fun SignInWithGoogle(onClick: () -> Unit, modifier: Modifier) {
+    Row(
+        modifier = modifier.height(40.dp).background(SignInWithGoogleFill)
+            .border(1.dp, SignInWithGoogleBorder, RoundedCornerShape(20.dp))
+            .clickable(role = Role.Button) {
+                onClick.invoke()
+            }.padding(start = 2.dp, end = 12.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Image(
+            painterResource(com.batuhan.theme.R.drawable.sign_in_with_google_logo),
+            contentDescription = null
+        )
+        Text(
+            stringResource(id = R.string.sign_in_with_google),
+            fontFamily = GoogleSignInFontFamily,
+            fontSize = 14.sp,
+            letterSpacing = 0.sp
+        )
+    }
+}
+
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun DefaultPreview() {
     KonsolTheme {
         AuthScreenContent(
             AuthScreenUiState(),
-            onValueChanged = {},
             sendAuthRequest = {},
             clearErrorState = {},
             retryOperation = {},

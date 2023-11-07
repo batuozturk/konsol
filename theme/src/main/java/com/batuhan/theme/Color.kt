@@ -26,6 +26,9 @@ val CaribbeanCurrent = Color(0xFF037171)
 val DartmoundGreen = Color(0xFF0b6e4f)
 val Bittersweet = Color(0xFFee6352)
 val Blush = Color(0xFFde6c83)
+val SignInWithGoogleFill = Color(0xFFFFFFFF)
+val SignInWithGoogleBorder = Color(0xFF747775)
+val SignInWithGoogleFont = Color(0xFF1F1F1F)
 
 val Orange = Color(0xFFFD6C01)
 
