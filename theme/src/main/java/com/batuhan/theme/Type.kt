@@ -17,6 +17,15 @@ val KonsolFontFamily = FontFamily(
     Font(R.font.nunito_medium, weight = FontWeight.Medium),
     Font(R.font.nunito_regular, weight = FontWeight.Normal)
 )
+
+val GoogleSignInFontFamily = FontFamily(
+    Font(R.font.roboto_medium, weight = FontWeight.Black),
+    Font(R.font.roboto_medium, weight = FontWeight.Bold),
+    Font(R.font.roboto_medium, weight = FontWeight.Normal, style = FontStyle.Italic),
+    Font(R.font.roboto_medium, weight = FontWeight.Light),
+    Font(R.font.roboto_medium, weight = FontWeight.Medium),
+    Font(R.font.roboto_medium, weight = FontWeight.Normal)
+)
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = KonsolFontFamily,

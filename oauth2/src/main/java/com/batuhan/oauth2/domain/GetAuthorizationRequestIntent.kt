@@ -18,7 +18,6 @@ class GetAuthorizationRequestIntent @Inject constructor() {
     data class Params(
         val serviceConfiguration: AuthorizationServiceConfiguration,
         val clientId: String,
-        val email: String,
         val scope: String,
         val redirectUri: String,
         val authorizationService: AuthorizationService
@@ -33,7 +32,7 @@ class GetAuthorizationRequestIntent @Inject constructor() {
                         params.clientId,
                         ResponseTypeValues.CODE,
                         Uri.parse(params.redirectUri)
-                    ).setScope(params.scope).setLoginHint(params.email)
+                    ).setScope(params.scope)
                         .setCodeVerifier(CodeVerifierUtil.generateRandomCodeVerifier()).build()
                 continuation.resume(
                     Result.Success(

@@ -6,7 +6,7 @@
     <string name="app_name_title">konsol</string>
     <string name ="terms_of_service">Terms Of Service</string>
     <string name ="privacy_policy">Privacy Policy</string>
-    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
     <string name="email">Email</string>
     <string name="cloud_messaging_info_desc">Create notifications for a single device or devices which subscribed to the topic</string>
     <string name="cloud_storage_info_desc">Upload / download your files from cloud for your Firebase project</string>
