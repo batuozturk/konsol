@@ -103,7 +103,7 @@ class CreateNotificationViewModel @Inject constructor(
                     setErrorState(CreateNotificationErrorState.BODY_IS_EMPTY)
                     return false
                 }
-                val notificationImageUrl = uiState.value.stepThreeState.imageUrl
+                val notificationImageUrl = uiState.value.stepThreeState.imageUrl.takeIf { it?.isNotEmpty() == true }
                 if (notificationImageUrl?.isValidHttpsUrl() == false) {
                     setErrorState(CreateNotificationErrorState.IMAGE_URL_VALIDATION)
                     return false
@@ -206,7 +206,7 @@ data class CreateNotificationUiState(
             notification = Notification(
                 title = stepThreeState.title,
                 body = stepThreeState.body,
-                imageUrl = stepThreeState.imageUrl
+                imageUrl = stepThreeState.imageUrl.takeIf { it?.isNotEmpty() == true }
             ),
             topic = (stepTwoState as? StepTwoState.Topic)?.topicName,
             token = (stepTwoState as? StepTwoState.Token)?.deviceToken

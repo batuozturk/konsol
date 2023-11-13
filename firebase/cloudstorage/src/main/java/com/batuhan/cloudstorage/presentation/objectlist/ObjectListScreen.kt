@@ -151,6 +151,7 @@ fun ObjectListScreenContent(
                     setSnackbarState.invoke(false)
                     snackbarHostState.currentSnackbarData?.dismiss()
                 }
+
                 SnackbarResult.Dismissed -> {
                     setSnackbarState.invoke(false)
                     snackbarHostState.currentSnackbarData?.dismiss()
@@ -255,6 +256,7 @@ fun ObjectListScreenContent(
                     is LoadState.Error -> {
                         setErrorState.invoke(ObjectListErrorState.CLOUD_STORAGE)
                     }
+
                     else -> {
                     }
                 }
@@ -263,6 +265,7 @@ fun ObjectListScreenContent(
                     is LoadState.Error -> {
                         setErrorState.invoke(ObjectListErrorState.CLOUD_STORAGE)
                     }
+
                     else -> {
                     }
                 }
@@ -286,16 +289,13 @@ fun CloudStorageObjectItem(
     setPrefix: (String) -> Unit,
     deleteFile: (String) -> Unit
 ) {
-    val paddingVertical = name?.takeIf { it.count { char -> char == '/' } > 1 }?.let {
-        10.dp
-    } ?: run { 23.dp }
     Row(
         modifier = Modifier.padding(8.dp).fillMaxWidth()
             .clickable {
                 setPrefix.invoke(name.takeIf { it?.last() == '/' } ?: return@clickable)
             }
             .border(2.dp, Orange, RoundedCornerShape(10.dp))
-            .padding(10.dp, vertical = paddingVertical),
+            .padding(10.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -305,17 +305,15 @@ fun CloudStorageObjectItem(
                 ?: name?.substring(name.lastIndexOf('/') + 1)
                 ?: stringResource(id = R.string.undefined)
         )
-        name?.takeIf { it.count { char -> char == '/' } > 1 }?.let {
-            IconButton(
-                modifier = Modifier.weight(1f),
-                onClick = { deleteFile.invoke(name) }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = null,
-                    tint = Orange
-                )
-            }
+        IconButton(
+            modifier = Modifier.weight(1f),
+            onClick = { deleteFile.invoke(name ?: return@IconButton) }
+        ) {
+            Icon(
+                imageVector = Icons.Default.Delete,
+                contentDescription = null,
+                tint = Orange
+            )
         }
     }
 }

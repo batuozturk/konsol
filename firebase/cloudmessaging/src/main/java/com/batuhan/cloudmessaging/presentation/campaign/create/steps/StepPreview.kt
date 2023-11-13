@@ -48,7 +48,7 @@ fun NotificationPreview(stepThreeState: StepThreeState) {
         PreviewItem(R.string.step_three_notification_body, stepThreeState.body ?: "")
         PreviewItem(
             R.string.step_three_notification_image_url,
-            stepThreeState.imageUrl ?: "undefined"
+            stepThreeState.imageUrl.takeIf { it?.isNotEmpty() == true } ?: "undefined"
         )
     }
 }
