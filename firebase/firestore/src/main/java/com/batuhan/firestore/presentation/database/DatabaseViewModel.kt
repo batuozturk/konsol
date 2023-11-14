@@ -240,7 +240,7 @@ class DatabaseViewModel @Inject constructor(
     fun patchDocument(isDeleted: Boolean = false) {
         viewModelScope.launch {
             val documentFieldList =
-                document.value?.fields?.toDocumentFieldList()?.toMutableList() ?: return@launch
+                document.value?.fields?.toDocumentFieldList()?.toMutableList() ?: mutableListOf()
             val currentEditedField = uiState.value.currentEditedField ?: return@launch
             val currentEditedFieldParentIndex = uiState.value.currentEditedFieldParentIndex
             val parentDocumentField =
