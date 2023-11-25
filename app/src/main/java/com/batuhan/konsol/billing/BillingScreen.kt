@@ -2,6 +2,7 @@ package com.batuhan.konsol.billing
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -43,6 +44,8 @@ import androidx.lifecycle.LifecycleEventObserver
 import com.android.billingclient.api.BillingClient
 import com.batuhan.konsol.R
 import com.batuhan.theme.Orange
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -153,7 +156,18 @@ fun BillingScreen(
                         ?.let {
                             val activity = context.findActivity() ?: return@Button
                             viewModel.createPurchase(it) { params ->
-                                viewModel.billingClient?.launchBillingFlow(activity, params)
+                                val result =
+                                    viewModel.billingClient?.launchBillingFlow(activity, params)
+                                Firebase.analytics.logEvent(
+                                    "billing_result",
+                                    Bundle().apply {
+                                        putString(
+                                            "billing_result_code",
+                                            result?.responseCode.toString()
+                                        )
+                                        putString("billing_result_message", result?.debugMessage)
+                                    }
+                                )
                             }
                         }
                 },

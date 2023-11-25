@@ -26,6 +26,7 @@ import com.batuhan.konsol.splashscreen.SplashScreenNavigationKeys.PROJECT_LIST_S
 import com.batuhan.navigation.*
 import com.batuhan.theme.KonsolTheme
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
@@ -132,6 +133,12 @@ fun NavGraphBuilder.billingScreenGraph(
     composable(BILLING_SCREEN) {
         BillingScreen(
             onNavigateToProjectListScreen = {
+                Firebase.analytics.logEvent(
+                    "project_list_screen",
+                    Bundle().apply {
+                        putBoolean("success", true)
+                    }
+                )
                 navController.navigate(PROJECT_LIST_SCREEN) {
                     popUpTo(BILLING_SCREEN) {
                         inclusive = true

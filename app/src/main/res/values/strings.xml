@@ -9,7 +9,7 @@
     <string name="six_month_price">14.99 USD/6 month\n(VAT not included)</string>
     <string name="six_month_title">Konsol Half Annual</string>
     <string name="one_month_price">2.99 USD/month\n(VAT not included)</string>
-    <string name="one_month_desc">Use Konsol features</string>
+    <string name="one_month_desc">Use Konsol features with 3-day free trial</string>
     <string name="one_month_title">Konsol Monthly</string>
     <string name="select_plan">Select plan</string>
     <string name="default_notification_channel_id" translatable="false">1</string>
