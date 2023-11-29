@@ -48,6 +48,7 @@ fun decideRoute(featureItemRoute: FeatureItemRoute, projectId: String): String {
         FeatureItemRoute.FCM -> "$CREATE_NOTIFICATION_SCREEN/$projectId"
         FeatureItemRoute.TEST_LAB -> "$RESULT_LIST_SCREEN/$projectId"
         FeatureItemRoute.CLOUD_STORAGE -> "$BUCKET_SCREEN/$projectId"
+        FeatureItemRoute.REALTIME_DATABASE -> "$REALTIME_DATABASE_SCREEN/$projectId"
         else -> ""
     }
 }

@@ -5,7 +5,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -42,6 +41,7 @@ class MainActivity : ComponentActivity() {
             // TODO: Inform user that that your app will not show notifications.
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tabIntent = CustomTabsIntent.Builder()
@@ -122,6 +122,7 @@ fun KonsolApp(
         testLabScreenGraph(navController)
         cloudStorageScreenGraph(navController)
         billingScreenGraph(navController)
+        realtimeDatabaseScreenGraph(navController)
         // todo other screen graphs
     }
 }
