@@ -8,7 +8,7 @@ import com.batuhan.oauth2.presentation.AuthScreen
 internal const val AUTH_SCREEN = "auth_screen"
 private const val BILLING_SCREEN = "billing_screen"
 
-fun NavGraphBuilder.authScreenGraph(navController: NavController, launchUrl: (String) -> Unit) {
+fun NavGraphBuilder.authScreenGraph(navController: NavController, launchUrl: (String) -> Unit, langCode: String, selectLang: (String) -> Unit) {
     composable(AUTH_SCREEN) {
         AuthScreen(
             navigateToProjectListScreen = {
@@ -25,7 +25,9 @@ fun NavGraphBuilder.authScreenGraph(navController: NavController, launchUrl: (St
                     }
                 }
             },
-            launchUrl = launchUrl
+            launchUrl = launchUrl,
+            langCode = langCode,
+            selectLang = selectLang
         )
     }
 }

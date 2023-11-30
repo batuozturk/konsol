@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Bir hata oluştu</string>
+    <string name="retry">Tekrar Dene</string>
+    <string name="undefined">tanımlı değil</string>
+    <string name="undefined_location">tanımlı olmayan konum</string>
+    <string name="bucket_name_is_empty">Bucket ismi boş olamaz</string>
+    <string name="enable">Etkinleştir</string>
+    <string name="cloud_storage_is_not_enabled">Cloud Storage bu proje için etkinleştirilmedi, kullanmak için etkinleştirin.</string>
+    <string name="folder_name_is_empty">Klasör ismi boş olamaz</string>
+    <string name="create">Oluştur</string>
+    <string name="create_bucket">Bucket bulunamadı, Cloud Storage\'ı kullanmak için olşturun.</string>
+    <string name="location_not_selected">Konum seçilmedi</string>
+    <string name="bucket_name">Bucket ismi</string>
+    <string name="select_location">Konum seçin</string>
+    <string name="bucket_location_info">Firestore konumu %s olarak seçildi, bucket konumu Firestore ile aynı olmalıdır.</string>
+
+</resources>

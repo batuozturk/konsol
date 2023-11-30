@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Bir hata oluştu</string>
+    <string name="retry">Tekrar Dene</string>
+    <string name="title_is_empty">Bildirim başlığı boş olamaz</string>
+    <string name="body_is_empty">Bildirim içeriği boş olamaz</string>
+    <string name="application_not_selected">Uygulama seçilmedi</string>
+    <string name="image_url_validation">Resim URLsi geçersiz</string>
+    <string name="type_not_selected">Gönderim türü seçilmedi</string>
+    <string name="token_is_empty">Gönderme jetonu boş olamaz</string>
+    <string name="topic_is_empty">Konu boş olamaz</string>
+    <string name="campaign_list">Android Kampanya Listesi</string>
+
+    <string name="step_one_token_title">Cihaz Jetonu ile</string>
+    <string name="step_one_topic_title">Konu ile</string>
+    <string name="step_one_token_desc">Girilen jeton ile eşleşen cihaza bildirim yollayın</string>
+    <string name="step_one_topic_desc">Girilen konuya abone olmuş cihazlara bildirim yollayın</string>
+    <string name="step_two_token">Cihaz Jetonu</string>
+    <string name="step_two_topic">Konu İsmi</string>
+    <string name="step_three_notification_title">Bildirim Başlığı</string>
+    <string name="step_three_notification_body">Bildirim içeriği</string>
+    <string name="step_three_notification_image_url">Bildirim Resim URL</string>
+    <string name="notification_type">Bildirim Tipi</string>
+    <string name="notification_info">Bildirim Bilgisi</string>
+    <string name="step_preview_token">Jeton</string>
+    <string name="step_preview_topic">Konu</string>
+    <string name="notification_preview">Bildirim Önizlemesi</string>
+    <string name="create_notification">Bildirim oluştur</string>
+</resources>

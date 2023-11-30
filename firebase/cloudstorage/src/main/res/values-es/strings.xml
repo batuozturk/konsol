@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Se produjo un error, por favor inténtalo de nuevo</string>
+    <string name="retry">Reintentar</string>
+    <string name="undefined">indefinido</string>
+    <string name="undefined_location">ubicación no definida</string>
+    <string name="bucket_name_is_empty">El nombre del bucket está vacío</string>
+    <string name="enable">Habilitar</string>
+    <string name="cloud_storage_is_not_enabled">Cloud Storage no está habilitado para este proyecto, por favor habilítelo.</string>
+    <string name="folder_name_is_empty">El nombre de la carpeta está vacío</string>
+    <string name="create">Crear</string>
+    <string name="create_bucket">Bucket no encontrado, por favor créelo para usar esta función</string>
+    <string name="location_not_selected">No se seleccionó la ubicación</string>
+    <string name="bucket_name">Nombre del bucket</string>
+    <string name="select_location">Seleccionar ubicación</string>
+    <string name="bucket_location_info">La ubicación de Firestore se seleccionó como %s, la ubicación del bucket debe ser la misma que la ubicación de Firestore</string>
+</resources>

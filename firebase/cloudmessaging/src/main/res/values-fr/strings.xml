@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Une erreur s\'est produite, veuillez réessayer</string>
+    <string name="retry">Réessayer</string>
+    <string name="title_is_empty">Le titre de la notification est vide</string>
+    <string name="body_is_empty">Le corps de la notification est vide</string>
+    <string name="application_not_selected">L\'application n\'a pas été sélectionnée</string>
+    <string name="image_url_validation">L\'URL de l\'image contient un caractère non valide</string>
+    <string name="type_not_selected">Le type d\'envoi n\'a pas été sélectionné</string>
+    <string name="token_is_empty">Le jeton (token) est vide</string>
+    <string name="topic_is_empty">Le sujet (topic) est vide</string>
+    <string name="campaign_list">Liste des campagnes Android</string>
+
+    <string name="step_one_token_title">Avec le jeton de l\'appareil</string>
+    <string name="step_one_topic_title">Avec le sujet</string>
+    <string name="step_one_token_desc">Vous pouvez envoyer la notification à un appareil correspondant au jeton de l\'appareil donné</string>
+    <string name="step_one_topic_desc">Vous pouvez envoyer la notification à plusieurs appareils abonnés au sujet donné</string>
+    <string name="step_two_token">Jeton de l\'appareil</string>
+    <string name="step_two_topic">Nom du sujet</string>
+    <string name="step_three_notification_title">Titre de la notification</string>
+    <string name="step_three_notification_body">Corps de la notification</string>
+    <string name="step_three_notification_image_url">URL de l\'image de la notification</string>
+    <string name="notification_type">Type de notification</string>
+    <string name="notification_info">Informations sur la notification</string>
+    <string name="step_preview_token">Jeton</string>
+    <string name="step_preview_topic">Sujet</string>
+    <string name="notification_preview">Aperçu de la notification</string>
+    <string name="create_notification">Créer la notification</string>
+</resources>
