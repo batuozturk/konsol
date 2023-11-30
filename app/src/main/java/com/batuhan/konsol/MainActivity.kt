@@ -1,10 +1,12 @@
 package com.batuhan.konsol
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,22 +44,40 @@ class MainActivity : ComponentActivity() {
             // TODO: Inform user that that your app will not show notifications.
         }
     }
+
+    override fun attachBaseContext(newBase: Context) {
+        val configuration = newBase.resources.configuration
+        val sharedPreferences = newBase.getSharedPreferences("lang_pref", MODE_PRIVATE)
+        val localeList = LocaleList.forLanguageTags(sharedPreferences.getString("selected_lang", "en"))
+        configuration.setLocales(localeList)
+        val newContext = newBase.createConfigurationContext(configuration)
+        super.attachBaseContext(newContext)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tabIntent = CustomTabsIntent.Builder()
             .build()
+        val sharedPreferences = getSharedPreferences("lang_pref", MODE_PRIVATE)
+        val langCode = sharedPreferences.getString("selected_lang", "en") ?: "en"
         setContent {
             val screen = intent.extras?.getString("screen_name") ?: AUTH_SCREEN
             KonsolTheme {
                 // A surface container using the 'background' color from the theme
                 KonsolApp(
+                    langCode = langCode,
                     startDestination = screen,
                     launchUrl = { url ->
                         tabIntent.launchUrl(this@MainActivity, Uri.parse(url))
-                    }
+                    },
+                    selectLang = ::setLanguage
                 )
             }
         }
+    }
+
+    fun setLanguage(langCode: String){
+        getSharedPreferences("lang_pref", MODE_PRIVATE).edit().putString("selected_lang", langCode).apply()
+        recreate()
     }
 
     override fun onResume() {
@@ -105,15 +125,17 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun KonsolApp(
     viewModel: MainViewModel = hiltViewModel(),
+    langCode: String,
     startDestination: String,
-    launchUrl: (String) -> Unit
+    launchUrl: (String) -> Unit,
+    selectLang: (String) -> Unit
 ) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        authScreenGraph(navController, launchUrl)
+        authScreenGraph(navController, launchUrl, langCode, selectLang)
         projectListScreenGraph(navController)
         projectScreenGraph(navController)
         projectSettingsGraph(navController)
@@ -153,6 +175,6 @@ fun NavGraphBuilder.billingScreenGraph(
 @Composable
 fun DefaultPreview() {
     KonsolTheme {
-        KonsolApp(startDestination = AUTH_SCREEN, launchUrl = {})
+        KonsolApp(langCode = "en",startDestination = AUTH_SCREEN, launchUrl = {}, selectLang = {})
     }
 }

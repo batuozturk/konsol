@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Se produjo un error, por favor inténtalo de nuevo</string>
+    <string name="retry">Reintentar</string>
+    <string name="title_is_empty">El título de la notificación está vacío</string>
+    <string name="body_is_empty">El cuerpo de la notificación está vacío</string>
+    <string name="application_not_selected">No se seleccionó la aplicación</string>
+    <string name="image_url_validation">La URL de la imagen contiene un carácter no válido</string>
+    <string name="type_not_selected">No se seleccionó el tipo de envío</string>
+    <string name="token_is_empty">El token está vacío</string>
+    <string name="topic_is_empty">El tema está vacío</string>
+    <string name="campaign_list">Lista de Campañas para Android</string>
+
+    <string name="step_one_token_title">Con Token de Dispositivo</string>
+    <string name="step_one_topic_title">Con Tema</string>
+    <string name="step_one_token_desc">Puede enviar la notificación a un dispositivo que coincida con el token de dispositivo dado</string>
+    <string name="step_one_topic_desc">Puede enviar la notificación a varios dispositivos que estén suscritos al tema dado</string>
+    <string name="step_two_token">Token de Dispositivo</string>
+    <string name="step_two_topic">Nombre del Tema</string>
+    <string name="step_three_notification_title">Título de la Notificación</string>
+    <string name="step_three_notification_body">Cuerpo de la Notificación</string>
+    <string name="step_three_notification_image_url">URL de la Imagen de la Notificación</string>
+    <string name="notification_type">Tipo de Notificación</string>
+    <string name="notification_info">Información de la Notificación</string>
+    <string name="step_preview_token">Token</string>
+    <string name="step_preview_topic">Tema</string>
+    <string name="notification_preview">Vista Previa de la Notificación</string>
+    <string name="create_notification">Crear notificación</string>
+</resources>

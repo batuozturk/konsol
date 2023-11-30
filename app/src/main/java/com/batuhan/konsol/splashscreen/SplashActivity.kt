@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.LocaleList
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
@@ -16,6 +17,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -23,6 +25,15 @@ class SplashActivity : ComponentActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     lateinit var billingClient: BillingClient
+
+    override fun attachBaseContext(newBase: Context) {
+        val configuration = newBase.resources.configuration
+        val sharedPreferences = newBase.getSharedPreferences("lang_pref", MODE_PRIVATE)
+        val localeList = LocaleList.forLanguageTags(sharedPreferences.getString("selected_lang", "en"))
+        configuration.setLocales(localeList)
+        val newContext = newBase.createConfigurationContext(configuration)
+        super.attachBaseContext(newContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

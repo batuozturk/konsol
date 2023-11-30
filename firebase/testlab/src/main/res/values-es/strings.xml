@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="file_not_selected">El archivo no está seleccionado</string>
+    <string name="wrong_file_format">Se ha seleccionado un formato de archivo incorrecto</string>
+    <string name="error_occurred">Se ha producido un error, por favor, inténtalo de nuevo</string>
+    <string name="retry">Reintentar</string>
+    <string name="select_file">Seleccionar archivo</string>
+    <string name="test_result_list">Lista de resultados de prueba</string>
+    <string name="execution_environments">Entornos</string>
+    <string name="execution_details">Detalles de la ejecución</string>
+    <string name="app_not_selected">La aplicación no fue seleccionada</string>
+    <string name="test_timeout_invalid">El tiempo de espera de la prueba no es válido</string>
+    <string name="test_type_not_selected">No se ha seleccionado el tipo de prueba</string>
+    <string name="device_not_selected">No se ha seleccionado el dispositivo</string>
+    <string name="test_app_not_selected">No se ha seleccionado la aplicación de prueba</string>
+    <string name="test_package_id_invalid">La ID del paquete de prueba no es válida</string>
+    <string name="package_id_invalid">La ID del paquete no es válida</string>
+    <string name="create_matrix">Crear matriz</string>
+    <string name="test_timeout">Tiempo de espera de la prueba</string>
+    <string name="test_type">Tipo de prueba</string>
+    <string name="disable_video_recording">Desactivar grabación de video</string>
+    <string name="disable_performance_metrics">Desactivar métricas de rendimiento</string>
+    <string name="enable_test_account">Habilitar cuenta de prueba para testing</string>
+    <string name="add_device">Agregar dispositivo</string>
+    <string name="device_name">Nombre del dispositivo</string>
+    <string name="version_list">Lista de versiones</string>
+    <string name="locale_list">Lista de configuraciones regionales</string>
+    <string name="locale_name">Nombre de la configuración regional</string>
+    <string name="orientation_list">Lista de orientaciones</string>
+    <string name="undefined">indefinido</string>
+    <string name="unknown_locale">configuración regional desconocida</string>
+    <string name="unknown_region">región desconocida</string>
+    <string name="test_app">Aplicación de prueba</string>
+    <string name="app">Aplicación</string>
+    <string name="upload_file">Subir archivo</string>
+    <string name="select_file_cloud_storage">Seleccionar archivo desde Cloud Storage</string>
+    <string name="environment_id">ID de entorno</string>
+    <string name="execution_id">ID de ejecución</string>
+    <string name="creation_date">Fecha de creación</string>
+    <string name="completion_date">Fecha de finalización</string>
+    <string name="test_summary">Resumen de la prueba</string>
+    <string name="model">Modelo</string>
+    <string name="version">Versión</string>
+    <string name="locale">Configuración regional</string>
+    <string name="orientation">Orientación</string>
+    <string name="matrix_id">ID de matriz</string>
+    <string name="execution_app_name">Nombre de la aplicación</string>
+    <string name="execution_package_name">Nombre del paquete</string>
+    <string name="execution_version_name">Nombre de la versión</string>
+    <string name="execution_version_code">Código de versión</string>
+    <string name="error_occurred_default_bucket">Se ha producido un error, es probable que el almacenamiento en la nube esté desactivado para este proyecto. Por favor, actívalo desde Cloud Storage.</string>
+
+</resources>

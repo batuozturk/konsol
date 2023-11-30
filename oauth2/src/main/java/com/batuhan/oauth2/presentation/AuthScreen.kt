@@ -14,6 +14,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,6 +46,7 @@ import com.batuhan.theme.KonsolTheme
 import com.batuhan.theme.Orange
 import com.batuhan.theme.SignInWithGoogleBorder
 import com.batuhan.theme.SignInWithGoogleFill
+import com.batuhan.theme.Typography
 import net.openid.appauth.AuthorizationException
 import net.openid.appauth.AuthorizationResponse
 import net.openid.appauth.AuthorizationService
@@ -55,6 +57,7 @@ private object ConstraintParams {
     const val REF_HORIZONTAL_PAGER = "horizontal_pager"
     const val REF_PAGE_INDICATOR = "page_indicator"
     const val REF_PRIVACY_POLICY_TOS_ROW = "privacy_policy_tos"
+    const val REF_LANGUAGE_TAB = "language_tab"
 }
 
 @Composable
@@ -62,7 +65,9 @@ fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
     navigateToProjectListScreen: () -> Unit,
     navigateToBillingScreen: () -> Unit,
-    launchUrl: (String) -> Unit
+    launchUrl: (String) -> Unit,
+    langCode: String,
+    selectLang: (String) -> Unit
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -133,7 +138,9 @@ fun AuthScreen(
         },
         clearErrorState = viewModel::clearErrorState,
         retryOperation = viewModel::retryOperation,
-        launchUrl = launchUrl
+        launchUrl = launchUrl,
+        langCode = langCode,
+        updateLang = selectLang
     )
 }
 
@@ -144,7 +151,9 @@ fun AuthScreenContent(
     sendAuthRequest: () -> Unit,
     clearErrorState: () -> Unit,
     retryOperation: (AuthScreenErrorState) -> Unit,
-    launchUrl: (String) -> Unit
+    launchUrl: (String) -> Unit,
+    langCode: String,
+    updateLang: (String) -> Unit
 ) {
     val constraint = ConstraintSet {
         val horizontalPager = createRefFor(ConstraintParams.REF_HORIZONTAL_PAGER)
@@ -153,6 +162,7 @@ fun AuthScreenContent(
         val pageIndicator = createRefFor(ConstraintParams.REF_PAGE_INDICATOR)
         val privacyPolicyAndTermsOfService =
             createRefFor(ConstraintParams.REF_PRIVACY_POLICY_TOS_ROW)
+        val languageTab = createRefFor(ConstraintParams.REF_LANGUAGE_TAB)
         constrain(horizontalPager) {
             top.linkTo(parent.top)
             start.linkTo(parent.start)
@@ -176,6 +186,13 @@ fun AuthScreenContent(
             height = Dimension.wrapContent
         }
         constrain(privacyPolicyAndTermsOfService) {
+            bottom.linkTo(languageTab.top)
+            end.linkTo(parent.end)
+            start.linkTo(parent.start)
+            width = Dimension.wrapContent
+            height = Dimension.wrapContent
+        }
+        constrain(languageTab) {
             bottom.linkTo(parent.bottom)
             end.linkTo(parent.end)
             start.linkTo(parent.start)
@@ -192,6 +209,10 @@ fun AuthScreenContent(
     }
     val pagerState = rememberPagerState { 4 }
     val context = LocalContext.current
+    val tabTitles = listOf("en", "tr", "fr", "es")
+    var selectedTab by remember {
+        mutableStateOf(langCode)
+    }
     LaunchedEffect(errorState) {
         errorState?.titleResId?.let {
             val titleText = context.getString(it)
@@ -286,35 +307,65 @@ fun AuthScreenContent(
                 modifier = Modifier.padding(vertical = 48.dp)
                     .layoutId(ConstraintParams.REF_SIGN_IN_BUTTON)
             )
-            Row(
+            Column(
                 modifier = Modifier
-                    .padding(top = 16.dp, bottom = 32.dp)
+                    .padding(bottom = 16.dp, start = 32.dp, end = 32.dp)
                     .layoutId(ConstraintParams.REF_PRIVACY_POLICY_TOS_ROW),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
                     modifier = Modifier
-                        .weight(1f)
                         .clickable {
                             launchUrl.invoke("https://getkonsol.app/privacy-policy")
                         },
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Start
                 ) {
                     Text(text = stringResource(id = R.string.privacy_policy))
                 }
-
+                Spacer(modifier = Modifier.height(10.dp))
                 Row(
                     modifier = Modifier
-                        .weight(1f)
                         .clickable {
                             launchUrl.invoke("https://getkonsol.app/terms-of-service")
                         },
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.End
                 ) {
                     Text(text = stringResource(id = R.string.terms_of_service))
                 }
             }
+            TabRow(
+                modifier = Modifier.layoutId(ConstraintParams.REF_LANGUAGE_TAB),
+                selectedTabIndex = tabTitles.indexOf(selectedTab),
+                tabs = {
+                    tabTitles.forEachIndexed { index, title ->
+                        Tab(
+                            selected = title == selectedTab,
+                            onClick = {
+                                selectedTab = title
+                                updateLang(title)
+                            },
+                            text = {
+                                Text(
+                                    text = title,
+                                    style = Typography.bodyLarge
+                                )
+                            }
+                        )
+                    }
+                },
+                divider = {
+                },
+                indicator = {
+                    TabRowDefaults.Indicator(
+                        Modifier
+                            .tabIndicatorOffset(it[tabTitles.indexOf(langCode)])
+                            .padding(horizontal = 16.dp),
+                        color = Orange,
+                        height = 4.dp
+                    )
+                },
+                contentColor = Color.Black
+            )
         }
     }
 }
@@ -352,7 +403,9 @@ fun DefaultPreview() {
             sendAuthRequest = {},
             clearErrorState = {},
             retryOperation = {},
-            launchUrl = {}
+            launchUrl = {},
+            langCode = "en",
+            updateLang = {}
         )
     }
 }
