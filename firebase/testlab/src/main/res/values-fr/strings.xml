@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="file_not_selected">Le fichier n\'est pas sélectionné</string>
+    <string name="wrong_file_format">Un format de fichier incorrect est sélectionné</string>
+    <string name="error_occurred">Une erreur s\'est produite, veuillez réessayer</string>
+    <string name="retry">Réessayer</string>
+    <string name="select_file">Sélectionner un fichier</string>
+    <string name="test_result_list">Liste des résultats de test</string>
+    <string name="execution_environments">Environnements</string>
+    <string name="execution_details">Détails de l\'exécution</string>
+    <string name="app_not_selected">L\'application n\'a pas été sélectionnée</string>
+    <string name="test_timeout_invalid">Le délai d\'attente du test n\'est pas valide</string>
+    <string name="test_type_not_selected">Le type de test n\'a pas été sélectionné</string>
+    <string name="device_not_selected">Le périphérique n\'a pas été sélectionné</string>
+    <string name="test_app_not_selected">L\'application de test n\'a pas été sélectionnée</string>
+    <string name="test_package_id_invalid">L\'ID du package de test n\'est pas valide</string>
+    <string name="package_id_invalid">L\'ID du package n\'est pas valide</string>
+    <string name="create_matrix">Créer une matrice</string>
+    <string name="test_timeout">Délai d\'attente du test</string>
+    <string name="test_type">Type de test</string>
+    <string name="disable_video_recording">Désactiver l\'enregistrement vidéo</string>
+    <string name="disable_performance_metrics">Désactiver les métriques de performance</string>
+    <string name="enable_test_account">Activer le compte de test pour les tests</string>
+    <string name="add_device">Ajouter un périphérique</string>
+    <string name="device_name">Nom du périphérique</string>
+    <string name="version_list">Liste des versions</string>
+    <string name="locale_list">Liste des paramètres régionaux</string>
+    <string name="locale_name">Nom du paramètre régional</string>
+    <string name="orientation_list">Liste des orientations</string>
+    <string name="undefined">indéfini</string>
+    <string name="unknown_locale">paramètre régional inconnu</string>
+    <string name="unknown_region">région inconnue</string>
+    <string name="test_app">Application de test</string>
+    <string name="app">Application</string>
+    <string name="upload_file">Télécharger un fichier</string>
+    <string name="select_file_cloud_storage">Sélectionner un fichier depuis le stockage cloud</string>
+    <string name="environment_id">ID de l\'environnement</string>
+    <string name="execution_id">ID de l\'exécution</string>
+    <string name="creation_date">Date de création</string>
+    <string name="completion_date">Date de fin</string>
+    <string name="test_summary">Résumé du test</string>
+    <string name="model">Modèle</string>
+    <string name="version">Version</string>
+    <string name="locale">Paramètre régional</string>
+    <string name="orientation">Orientation</string>
+    <string name="matrix_id">ID de la matrice</string>
+    <string name="execution_app_name">Nom de l\'application</string>
+    <string name="execution_package_name">Nom du package</string>
+    <string name="execution_version_name">Nom de la version</string>
+    <string name="execution_version_code">Code de la version</string>
+    <string name="error_occurred_default_bucket">Une erreur s\'est produite, il est probable que le stockage Cloud ait été désactivé pour ce projet. Veuillez l\'activer depuis le stockage Cloud.</string>
+
+</resources>
