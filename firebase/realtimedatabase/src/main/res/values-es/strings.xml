@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Se produjo un error, por favor, inténtalo de nuevo</string>
+    <string name="create_database_title">Crear base de datos</string>
+    <string name="retry">Reintentar</string>
+    <string name="database_name">Nombre de la base de datos</string>
+    <string name="undefined">indefinido</string>
+    <string name="location_not_selected">No se seleccionó la ubicación</string>
+    <string name="name_is_empty">El nombre está vacío</string>
+    <string name="type_object">Objeto</string>
+    <string name="type_string">Cadena</string>
+    <string name="type_integer">Entero</string>
+    <string name="type_boolean">Booleano</string>
+    <string name="value_text">Valor</string>
+    <string name="key_text">Clave</string>
+    <string name="database_screen_title">Pantalla de base de datos</string>
+    <string name="value_invalid">El valor no es válido</string>
+    <string name="database_list_title">Lista de bases de datos</string>
+</resources>
