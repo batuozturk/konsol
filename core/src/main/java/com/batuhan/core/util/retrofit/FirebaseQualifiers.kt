@@ -27,4 +27,12 @@ interface FirebaseQualifiers {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class FirebaseCloudStorage
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class RealtimeDatabase
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class RealtimeDatabaseManagement
 }

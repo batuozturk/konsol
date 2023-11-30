@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_occurred">Bir hata oluştu, lütfen tekrar deneyin</string>
+    <string name="create_database_title">Veritabanı Oluştur</string>
+    <string name="retry">Yeniden Dene</string>
+    <string name="database_name">Veritabanı Adı</string>
+    <string name="undefined">tanımsız</string>
+    <string name="location_not_selected">Konum seçilmedi</string>
+    <string name="name_is_empty">İsim boş olamaz</string>
+    <string name="type_object">Object</string>
+    <string name="type_string">String</string>
+    <string name="type_integer">Integer</string>
+    <string name="type_boolean">Boolean</string>
+    <string name="value_text">Değer</string>
+    <string name="key_text">Anahtar</string>
+    <string name="database_screen_title">Veritabanı Ekranı</string>
+    <string name="value_invalid">Değer geçersiz</string>
+    <string name="database_list_title">Veritabanı Listesi</string>
+</resources>

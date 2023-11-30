@@ -1,8 +1,9 @@
 package com.batuhan.core.di
 
+import com.batuhan.core.util.retrofit.FirebaseQualifiers.*
 import com.batuhan.core.util.retrofit.KonsolAuthenticator
 import com.batuhan.core.util.retrofit.KonsolInterceptor
-import com.batuhan.core.util.retrofit.FirebaseQualifiers.*
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -74,6 +75,22 @@ object FirebaseModule {
     @FirebaseCloudStorage
     fun provideFirebaseCloudStorageRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder().baseUrl("https://firebasestorage.googleapis.com/").client(client)
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    }
+
+    @Provides
+    @Singleton
+    @RealtimeDatabase
+    fun provideRealtimeDatabaseRetrofit(client: OkHttpClient): Retrofit {
+        val gson = GsonBuilder().setLenient().create()
+        return Retrofit.Builder().baseUrl("http://localhost/").client(client).addConverterFactory(GsonConverterFactory.create(gson)).build()
+    }
+
+    @Provides
+    @Singleton
+    @RealtimeDatabaseManagement
+    fun provideRealtimeDatabaseManagementRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder().baseUrl("https://firebasedatabase.googleapis.com/").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 }

@@ -39,7 +39,7 @@ enum class FeatureItem(
     ),
     REALTIME_DATABASE(
         R.string.feature_realtime_database,
-        R.string.feature_realtime_database,
+        R.string.feature_realtime_database_description,
         Icons.Outlined.Storage,
         FeatureItemRoute.REALTIME_DATABASE,
         Orange
@@ -100,9 +100,9 @@ fun generateFeatureList(): List<FeatureItem> {
     featureList.add(FeatureItem.FIRESTORE)
     featureList.add(FeatureItem.CLOUD_STORAGE)
     featureList.add(FeatureItem.TEST_LAB)
+    featureList.add(FeatureItem.REALTIME_DATABASE)
     featureList.add(FeatureItem.FCM)
     /*featureList.add(FeatureItem.AUTH)
-    featureList.add(FeatureItem.REALTIME_DATABASE)
     featureList.add(FeatureItem.APP_CHECK)
     featureList.add(FeatureItem.REMOTE_CONFIG)
     featureList.add(FeatureItem.HOSTING)

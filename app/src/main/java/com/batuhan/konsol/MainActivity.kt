@@ -144,6 +144,7 @@ fun KonsolApp(
         testLabScreenGraph(navController)
         cloudStorageScreenGraph(navController)
         billingScreenGraph(navController)
+        realtimeDatabaseScreenGraph(navController)
         // todo other screen graphs
     }
 }
