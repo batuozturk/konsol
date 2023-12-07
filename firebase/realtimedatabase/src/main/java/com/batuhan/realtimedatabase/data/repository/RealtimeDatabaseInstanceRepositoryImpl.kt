@@ -7,6 +7,7 @@ import com.batuhan.realtimedatabase.data.model.DatabaseInstance
 import com.batuhan.realtimedatabase.data.source.RealtimeDatabaseInstanceDataSource
 import com.batuhan.realtimedatabase.data.source.RealtimeDatabaseInstancePagingSource
 import com.batuhan.realtimedatabase.data.source.RealtimeDatabaseInstanceService
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -41,7 +42,7 @@ class RealtimeDatabaseInstanceRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getDatabase(url: String): JsonObject? {
+    override suspend fun getDatabase(url: String): JsonElement? {
         return dataSource.getDatabase(url)
     }
 
