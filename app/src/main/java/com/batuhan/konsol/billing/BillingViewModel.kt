@@ -7,6 +7,7 @@ import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
 import com.android.billingclient.api.BillingResult
+import com.android.billingclient.api.ProductDetails
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.QueryProductDetailsParams
@@ -16,6 +17,7 @@ import com.batuhan.core.util.AuthStateManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +29,7 @@ class BillingViewModel @Inject constructor(private val authStateManager: AuthSta
     private val _routing: Channel<BillingScreenEvent> = Channel { Channel.BUFFERED }
     val routing = _routing.receiveAsFlow()
 
+    val productDetails = MutableStateFlow(listOf<ProductDetails>())
     var billingClient: BillingClient? = null
 
     fun initBillingClient(billingClient: BillingClient) {
@@ -81,6 +84,28 @@ class BillingViewModel @Inject constructor(private val authStateManager: AuthSta
                                     }
                                 }
                             }
+                        }
+                        val queryProductDetailsParams =
+                            QueryProductDetailsParams.newBuilder()
+                                .setProductList(
+                                    listOf(
+                                        QueryProductDetailsParams.Product.newBuilder()
+                                            .setProductId("konsol_annual")
+                                            .setProductType(BillingClient.ProductType.SUBS)
+                                            .build(),
+                                        QueryProductDetailsParams.Product.newBuilder()
+                                            .setProductId("konsol_6_month")
+                                            .setProductType(BillingClient.ProductType.SUBS)
+                                            .build(),
+                                        QueryProductDetailsParams.Product.newBuilder()
+                                            .setProductId("konsol_monthly")
+                                            .setProductType(BillingClient.ProductType.SUBS)
+                                            .build()
+                                    )
+                                )
+                                .build()
+                        billingClient?.queryProductDetailsAsync(queryProductDetailsParams) { result, products ->
+                            productDetails.value = products
                         }
                     }
                 }
