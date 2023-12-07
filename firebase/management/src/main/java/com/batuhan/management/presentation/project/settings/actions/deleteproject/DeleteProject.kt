@@ -160,7 +160,7 @@ fun DeleteProjectContent(
         ) {
             OutlinedTextField(
                 label = {
-                    Text(stringResource(R.string.project_id))
+                    Text(stringResource(R.string.project_id_text_field))
                 },
                 value = uiState.editableProjectId ?: "",
                 onValueChange = onValueChange,
