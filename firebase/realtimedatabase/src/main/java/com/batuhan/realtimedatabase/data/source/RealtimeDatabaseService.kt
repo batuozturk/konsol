@@ -1,5 +1,6 @@
 package com.batuhan.realtimedatabase.data.source
 
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -11,7 +12,7 @@ import retrofit2.http.Url
 interface RealtimeDatabaseService {
 
     @GET
-    suspend fun getDatabase(@Url url: String): JsonObject?
+    suspend fun getDatabase(@Url url: String): JsonElement?
 
     @DELETE
     suspend fun deleteData(@Url url: String)

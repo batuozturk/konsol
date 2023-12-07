@@ -1,6 +1,7 @@
 package com.batuhan.realtimedatabase.data.source
 
 import com.batuhan.realtimedatabase.data.model.DatabaseInstance
+import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ class RealtimeDatabaseInstanceDataSource @Inject constructor(
 
     suspend fun getDatabase(
         url: String
-    ): JsonObject? = databaseService.getDatabase(url)
+    ): JsonElement? = databaseService.getDatabase(url)
 
     suspend fun deleteData(url: String) = databaseService.deleteData(url)
 
