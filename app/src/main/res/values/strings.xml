@@ -2,16 +2,18 @@
     <string name="app_name">Konsol</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="continue_text">Continue</string>
+    <string name="billing_desc">"You need to select a plan to use Konsol. All of the plans start with free trial up to 7 days, then you are billed.\nYou can cancel anytime on Google Play. To be not billed, do this before billing date.\n\nKonsol features are :"</string>
     <string name="annual_desc">Save %33 &amp; 7-day free trial</string>
-    <string name="annual_price">23.99 USD/year\n(VAT not included)</string>
+    <string name="annual_price"> / every year</string>
     <string name="annual_title">Konsol Annual</string>
     <string name="six_month_desc">Save %16 &amp; 3-day free trial</string>
-    <string name="six_month_price">14.99 USD/6 month\n(VAT not included)</string>
+    <string name="six_month_price"> / every 6 month</string>
     <string name="six_month_title">Konsol Half Annual</string>
-    <string name="one_month_price">2.99 USD/month\n(VAT not included)</string>
-    <string name="one_month_desc">Use Konsol features</string>
+    <string name="one_month_price"> / every month</string>
+    <string name="one_month_desc">3-day free trial</string>
     <string name="one_month_title">Konsol Monthly</string>
     <string name="select_plan">Select plan</string>
     <string name="default_notification_channel_id" translatable="false">1</string>
     <string name="topic_subscribe">konsol-en</string>
+    <string name="price_then">Then you are billed </string>
 </resources>
