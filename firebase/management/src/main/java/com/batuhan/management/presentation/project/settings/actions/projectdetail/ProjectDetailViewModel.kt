@@ -176,7 +176,7 @@ class ProjectDetailViewModel @Inject constructor(
 
     private fun FirebaseProject.getAttributesList(): List<Pair<Int, String>> {
         val attributeList = mutableListOf<Pair<Int, String>>()
-        attributeList.add(Pair(R.string.project_id, projectId ?: "undefined"))
+        attributeList.add(Pair(R.string.project_id_text, projectId ?: "undefined"))
         attributeList.add(Pair(R.string.project_name, name ?: "undefined"))
         attributeList.add(Pair(R.string.project_display_name, displayName ?: "undefined"))
         attributeList.add(Pair(R.string.project_number, projectNumber?.toString() ?: "-1"))
