@@ -6,12 +6,12 @@
     <string name="undefined_location">undefined location</string>
     <string name="bucket_name_is_empty">Bucket name is empty</string>
     <string name="enable">Enable</string>
-    <string name="cloud_storage_is_not_enabled">Cloud Storage was not enabled for this project, please enable it.</string>
+    <string name="cloud_storage_is_not_enabled">This feature was not enabled for this project, please enable it.</string>
     <string name="folder_name_is_empty">Folder name is empty</string>
     <string name="create">Create</string>
     <string name="create_bucket">Bucket not found, please create to use this feature</string>
     <string name="location_not_selected">Location was not selected</string>
     <string name="bucket_name">Bucket name</string>
     <string name="select_location">Select location</string>
-    <string name="bucket_location_info">Firestore location was selected as %s, bucket location must be the same as Firestore location</string>
+    <string name="bucket_location_info">NoSQL database location was selected as %s, bucket location must be the same as NoSQL database location</string>
 </resources>
