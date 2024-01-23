@@ -23,7 +23,7 @@
     <string name="analytics_account_not_selected">Analytics hesabı seçilmedi</string>
     <string name="location_not_selected">Konum seçilmedi</string>
     <string name="project_info_title">Proje Bilgisi</string>
-    <string name="project_id">Proje ID</string>
+    <string name="project_id_text">Proje ID</string>
     <string name="project_name">Proje İsmi</string>
     <string name="project_display_name">Gösterilen Proje İsmi</string>
     <string name="project_number">Proje Sayısı</string>

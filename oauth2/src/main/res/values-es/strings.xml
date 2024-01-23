@@ -13,4 +13,5 @@
     <string name="cloud_storage_info_desc">Sube / descarga tus archivos desde la nube para tu proyecto Firebase</string>
     <string name="firestore_info_desc">Crea / edita / visualiza la base de datos Firestore, colección o documento para tu proyecto Firebase</string>
     <string name="test_lab_info_desc">Prueba tu aplicación de Android sin necesidad de ningún dispositivo</string>
+    <string name="realtime_database_info_desc">Cree/borre/actualice objetos/elementos JSON para su proyecto</string>
 </resources>

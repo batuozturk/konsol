@@ -22,7 +22,7 @@
     <string name="analytics_account_not_selected">Analytics account is not selected</string>
     <string name="location_not_selected">Location is not selected</string>
     <string name="project_info_title">Project Info</string>
-    <string name="project_id">Project ID</string>
+    <string name="project_id_text">Project ID</string>
     <string name="project_name">Project Name</string>
     <string name="project_display_name">Project Display Name</string>
     <string name="project_number">Project Number</string>
@@ -30,39 +30,39 @@
     <string name="project_hosting_site">Hosting Site</string>
     <string name="project_location_id">Location ID</string>
     <string name="project_storage_bucket">Storage Bucket</string>
-    <string name="project_rtdb_instance">Realtime Database Instance</string>
+    <string name="project_rtdb_instance">Json Database Instance</string>
 
     <string name="step_wait_title">Please wait until operation is done</string>
 
     <string name="step_one_title">Select how to create your project</string>
-    <string name="step_one_choice_one">Add Firebase to existing Google Cloud Project</string>
-    <string name="step_one_choice_two">Create a new Firebase project</string>
+    <string name="step_one_choice_one">Add to existing cloud project</string>
+    <string name="step_one_choice_two">Create a new project</string>
 
     <string name="step_two_title">Enter your project details or select a project</string>
     <string name="project_name_text_field">Project Name</string>
     <string name="project_id_text_field">Project ID</string>
 
-    <string name="step_three_title">Link your analytics account or disable Google Analytics</string>
-    <string name="enable_analytics_title">Enable Google Analytics for this project</string>
+    <string name="step_three_title">Link your analytics account or disable analytics</string>
+    <string name="enable_analytics_title">Enable analytics for this project</string>
 
 
-    <string name="step_four_title">Finalize location for your Firebase project</string>
+    <string name="step_four_title">Finalize location for your project</string>
     <string name="multiregional_supported_title">This location is multiregional</string>
     <string name="cloud_functions_supported_title">This location supports Cloud Functions</string>
     <string name="firestore_supported_title">This location supports Firestore</string>
-    <string name="default_cloud_storage_bucket_supported_title">This location supports default Cloud Storage bucket</string>
+    <string name="default_cloud_storage_bucket_supported_title">This location supports default storage bucket</string>
 
 
-    <string name="feature_firestore">Firestore</string>
-    <string name="feature_fcm">FCM</string>
+    <string name="feature_firestore">NoSQL Database</string>
+    <string name="feature_fcm">Notification</string>
     <string name="feature_auth">Auth</string>
-    <string name="feature_realtime_database">Realtime Database</string>
+    <string name="feature_realtime_database">JSON Database</string>
     <string name="feature_app_check">App Check</string>
-    <string name="feature_cloud_storage">Cloud Storage</string>
+    <string name="feature_cloud_storage">Storage</string>
     <string name="feature_remote_config">Remote Config</string>
     <string name="feature_hosting">Hosting</string>
     <string name="feature_dynamic_links">Dynamic Links</string>
-    <string name="feature_test_lab">Test Lab</string>
+    <string name="feature_test_lab">Test Device</string>
     <string name="feature_app_distribution">App Distribution</string>
 
     <string name="add_remove_google_analytics">Analytics info</string>
@@ -72,7 +72,7 @@
     <string name="add_android_app">Create an Android app</string>
     <string name="add_ios_app">Create an iOS app</string>
     <string name="add_web_app">Create a Web app</string>
-    <string name="remove_google_analytics">Remove Google Analytics account</string>
+    <string name="remove_google_analytics">Remove analytics account</string>
     <string name="update_billing_info">Billing info</string>
     <string name="delete_project">Delete project</string>
     <string name="update_project">Project info</string>
@@ -123,9 +123,9 @@
     <string name="feature_fcm_description">Send notifications to one device or devices subscribed to the topic</string>
     <string name="feature_firestore_description">Do collection/document operations</string>
     <string name="feature_cloud_storage_description">Create/delete folder &amp; upload/delete objects</string>
-    <string name="feature_test_lab_description">Create tests for your Android app or view matrices</string>
+    <string name="feature_test_lab_description">Create tests for your app or view matrices</string>
     <string name="feature_realtime_database_description">Create/view/update database as a JSON tree</string>
-    <string name="step_one_choice_one_description">Select existing Google Cloud Project you previously created, then add Firebase configuration.</string>
-    <string name="step_one_choice_two_description">Enter details of the project and create Google Cloud Project, then add Firebase configuration to this project.</string>
-    <string name="firestore_location_info">Firestore location was selected as %s, project location must be the same as Firestore location</string>
+    <string name="step_one_choice_one_description">Select existing cloud project you previously created, then add configuration.</string>
+    <string name="step_one_choice_two_description">Enter details of the project and create cloud project, then add configuration to this project.</string>
+    <string name="firestore_location_info">NoSQL Database location was selected as %s, project location must be the same as NoSQL Database location</string>
 </resources>

@@ -23,7 +23,7 @@
     <string name="analytics_account_not_selected">Le compte Analytics n\'est pas sélectionné</string>
     <string name="location_not_selected">L\'emplacement n\'est pas sélectionné</string>
     <string name="project_info_title">Info sur le projet</string>
-    <string name="project_id">ID du projet</string>
+    <string name="project_id_text">ID du projet</string>
     <string name="project_name">Nom du projet</string>
     <string name="project_display_name">Nom d\'affichage du projet</string>
     <string name="project_number">Numéro du projet</string>
