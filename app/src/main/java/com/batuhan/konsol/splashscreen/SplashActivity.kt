@@ -9,8 +9,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.PurchasesUpdatedListener
 import com.batuhan.konsol.MainActivity
 import com.batuhan.theme.KonsolTheme
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -24,7 +22,6 @@ import java.util.Locale
 class SplashActivity : ComponentActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-    lateinit var billingClient: BillingClient
 
     override fun attachBaseContext(newBase: Context) {
         val configuration = newBase.resources.configuration
@@ -40,11 +37,6 @@ class SplashActivity : ComponentActivity() {
         firebaseAnalytics = Firebase.analytics
         setContent {
             val viewModel = hiltViewModel<SplashViewModel>()
-            billingClient = BillingClient.newBuilder(this)
-                .setListener { _, _ -> }
-                .enablePendingPurchases()
-                .build()
-            viewModel.initBillingClient(billingClient)
             val context = LocalContext.current
             KonsolTheme {
                 SplashScreen(

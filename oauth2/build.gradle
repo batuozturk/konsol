@@ -98,9 +98,6 @@ dependencies {
 
     // AppAuth
     implementation 'net.openid:appauth:0.11.0'
-
-    // Billing
-    implementation "com.android.billingclient:billing-ktx:6.0.1"
 }
 
 // Allow references to generated code

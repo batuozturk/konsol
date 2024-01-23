@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.LocaleList
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,15 +15,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.batuhan.konsol.billing.BillingScreen
 import com.batuhan.konsol.splashscreen.SplashScreenNavigationKeys.AUTH_SCREEN
-import com.batuhan.konsol.splashscreen.SplashScreenNavigationKeys.BILLING_SCREEN
-import com.batuhan.konsol.splashscreen.SplashScreenNavigationKeys.PROJECT_LIST_SCREEN
 import com.batuhan.navigation.*
 import com.batuhan.theme.KonsolTheme
 import com.google.android.gms.tasks.OnCompleteListener
@@ -143,32 +136,8 @@ fun KonsolApp(
         createNotificationScreenGraph(navController)
         testLabScreenGraph(navController)
         cloudStorageScreenGraph(navController)
-        billingScreenGraph(navController)
         realtimeDatabaseScreenGraph(navController)
         // todo other screen graphs
-    }
-}
-
-fun NavGraphBuilder.billingScreenGraph(
-    navController: NavController
-) {
-    composable(BILLING_SCREEN) {
-        BillingScreen(
-            onNavigateToProjectListScreen = {
-                navController.navigate(PROJECT_LIST_SCREEN) {
-                    popUpTo(BILLING_SCREEN) {
-                        inclusive = true
-                    }
-                }
-            },
-            logout = {
-                navController.navigate(AUTH_SCREEN) {
-                    popUpTo(BILLING_SCREEN) {
-                        inclusive = true
-                    }
-                }
-            }
-        )
     }
 }
 
