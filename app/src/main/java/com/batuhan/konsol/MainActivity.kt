@@ -91,6 +91,9 @@ class MainActivity : ComponentActivity() {
                         }
 
                         Firebase.messaging.subscribeToTopic(getString(R.string.topic_subscribe))
+                        Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe1))
+                        Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe2))
+                        Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe3))
                     }
                 )
             } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
@@ -109,6 +112,9 @@ class MainActivity : ComponentActivity() {
                         return@OnCompleteListener
                     }
                     Firebase.messaging.subscribeToTopic(getString(R.string.topic_subscribe))
+                    Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe1))
+                    Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe2))
+                    Firebase.messaging.unsubscribeFromTopic(getString(R.string.topic_subscribe3))
                 }
             )
         }

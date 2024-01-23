@@ -15,5 +15,8 @@
     <string name="select_plan">Select plan</string>
     <string name="default_notification_channel_id" translatable="false">1</string>
     <string name="topic_subscribe">konsol-en</string>
+    <string name="topic_subscribe1">konsol-tr</string>
+    <string name="topic_subscribe2">konsol-fr</string>
+    <string name="topic_subscribe3">konsol-es</string>
     <string name="price_then">Then you are billed </string>
 </resources>
