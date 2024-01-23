@@ -38,6 +38,7 @@ import com.batuhan.oauth2.R
 import com.batuhan.oauth2.presentation.pages.CloudMessagingInfoScreen
 import com.batuhan.oauth2.presentation.pages.CloudStorageInfoScreen
 import com.batuhan.oauth2.presentation.pages.FirestoreInfoScreen
+import com.batuhan.oauth2.presentation.pages.RealtimeDatabaseInfoScreen
 import com.batuhan.oauth2.presentation.pages.TestLabInfoScreen
 import com.batuhan.theme.GoogleSignInFontFamily
 import com.batuhan.theme.KonsolFontFamily
@@ -195,7 +196,7 @@ fun AuthScreenContent(
     val snackbarHostState = remember {
         SnackbarHostState()
     }
-    val pagerState = rememberPagerState { 4 }
+    val pagerState = rememberPagerState { 5 }
     val context = LocalContext.current
     val tabTitles = listOf("en", "tr", "fr", "es")
     var selectedTab by remember {
@@ -266,9 +267,10 @@ fun AuthScreenContent(
             ) { page ->
                 when (page) {
                     0 -> FirestoreInfoScreen()
-                    1 -> TestLabInfoScreen()
-                    2 -> CloudStorageInfoScreen()
-                    3 -> CloudMessagingInfoScreen()
+                    1 -> RealtimeDatabaseInfoScreen()
+                    2 -> TestLabInfoScreen()
+                    3 -> CloudStorageInfoScreen()
+                    4 -> CloudMessagingInfoScreen()
                 }
             }
             Row(
@@ -277,7 +279,7 @@ fun AuthScreenContent(
                     .layoutId(ConstraintParams.REF_PAGE_INDICATOR),
                 horizontalArrangement = Arrangement.Center
             ) {
-                repeat(4) { iteration ->
+                repeat(5) { iteration ->
                     val color =
                         if (pagerState.currentPage == iteration) Orange else Orange.copy(alpha = 0.4f)
                     Box(
