@@ -34,7 +34,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.android.billingclient.api.BillingClient
 import com.batuhan.oauth2.R
 import com.batuhan.oauth2.presentation.pages.CloudMessagingInfoScreen
 import com.batuhan.oauth2.presentation.pages.CloudStorageInfoScreen
@@ -64,7 +63,6 @@ private object ConstraintParams {
 fun AuthScreen(
     viewModel: AuthViewModel = hiltViewModel(),
     navigateToProjectListScreen: () -> Unit,
-    navigateToBillingScreen: () -> Unit,
     launchUrl: (String) -> Unit,
     langCode: String,
     selectLang: (String) -> Unit
@@ -91,11 +89,6 @@ fun AuthScreen(
                 return@rememberLauncherForActivityResult
             }
             resp?.let { response ->
-                val billingClient = BillingClient.newBuilder(context)
-                    .setListener(viewModel)
-                    .enablePendingPurchases()
-                    .build()
-                viewModel.initBillingClient(billingClient)
                 viewModel.getOauth2Token(response, authorizationService)
             }
         }
@@ -110,7 +103,6 @@ fun AuthScreen(
         lifecycleOwner.lifecycle.addObserver(observer)
 
         onDispose {
-            viewModel.endConnection()
             authorizationService.dispose()
             lifecycleOwner.lifecycle.removeObserver(observer)
         }
@@ -119,11 +111,7 @@ fun AuthScreen(
         viewModel.authEvent.collect { event ->
             when (event) {
                 is AuthScreenEvent.Success -> {
-                    if (event.purchased) {
-                        navigateToProjectListScreen.invoke()
-                    } else {
-                        navigateToBillingScreen.invoke()
-                    }
+                    navigateToProjectListScreen.invoke()
                 }
 
                 is AuthScreenEvent.LaunchIntent -> oauth2Result.launch(event.intent)
