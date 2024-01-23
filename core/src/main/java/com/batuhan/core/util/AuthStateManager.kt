@@ -61,6 +61,20 @@ class AuthStateManager @Inject constructor(
     }
 
     suspend fun refreshToken(): String? {
+        if (oauthUser == null) {
+            val result = getAuthState()
+            when (result) {
+                is Result.Error -> {
+                    throw Throwable()
+                }
+
+                is Result.Success -> {
+                    result.data?.let {
+                        setAuthState(it)
+                    }
+                }
+            }
+        }
         oauthUser?.authState?.takeIf { it.needsTokenRefresh }?.let {
             val params = RefreshToken.Params(it, AuthorizationService(context))
             val tokenRefreshResult = refreshToken.invoke(params)
