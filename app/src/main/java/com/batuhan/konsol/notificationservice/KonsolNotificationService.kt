@@ -15,6 +15,12 @@ import com.google.firebase.messaging.RemoteMessage
 
 class KonsolNotificationService : FirebaseMessagingService() {
 
+    companion object {
+        private const val NOTIFICATION_CHANNEL_NAME = "Konsol Notification Channel"
+        private const val NOTIFICATION_ID = 0
+        private const val REQUEST_CODE = 0
+    }
+
     override fun onNewToken(token: String) {
         super.onNewToken(token)
     }
@@ -26,12 +32,11 @@ class KonsolNotificationService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(messageBody: String, messageTitle: String) {
-        val requestCode = 0
         val intent = Intent(this, SplashActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(
             this,
-            requestCode,
+            REQUEST_CODE,
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
@@ -53,13 +58,12 @@ class KonsolNotificationService : FirebaseMessagingService() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
-                "Konsol Notification Channel",
+                NOTIFICATION_CHANNEL_NAME,
                 NotificationManager.IMPORTANCE_DEFAULT
             )
             notificationManager.createNotificationChannel(channel)
         }
 
-        val notificationId = 0
-        notificationManager.notify(notificationId, notificationBuilder.build())
+        notificationManager.notify(NOTIFICATION_ID, notificationBuilder.build())
     }
 }

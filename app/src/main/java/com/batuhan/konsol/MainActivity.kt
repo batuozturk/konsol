@@ -29,6 +29,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+    companion object {
+        private const val LANG_PREF = "lang_pref"
+        private const val SELECTED_LANG = "selected_lang"
+        private const val DEFAULT_LANGUAGE = "en"
+        private const val SCREEN_NAME = "screen_name"
+    }
+
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
@@ -40,20 +47,22 @@ class MainActivity : ComponentActivity() {
 
     override fun attachBaseContext(newBase: Context) {
         val configuration = newBase.resources.configuration
-        val sharedPreferences = newBase.getSharedPreferences("lang_pref", MODE_PRIVATE)
-        val localeList = LocaleList.forLanguageTags(sharedPreferences.getString("selected_lang", "en"))
+        val sharedPreferences = newBase.getSharedPreferences(LANG_PREF, MODE_PRIVATE)
+        val localeList =
+            LocaleList.forLanguageTags(sharedPreferences.getString(SELECTED_LANG, DEFAULT_LANGUAGE))
         configuration.setLocales(localeList)
         val newContext = newBase.createConfigurationContext(configuration)
         super.attachBaseContext(newContext)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val tabIntent = CustomTabsIntent.Builder()
             .build()
-        val sharedPreferences = getSharedPreferences("lang_pref", MODE_PRIVATE)
-        val langCode = sharedPreferences.getString("selected_lang", "en") ?: "en"
+        val sharedPreferences = getSharedPreferences(LANG_PREF, MODE_PRIVATE)
+        val langCode = sharedPreferences.getString(SELECTED_LANG, DEFAULT_LANGUAGE) ?: DEFAULT_LANGUAGE
         setContent {
-            val screen = intent.extras?.getString("screen_name") ?: AUTH_SCREEN
+            val screen = intent.extras?.getString(SCREEN_NAME) ?: AUTH_SCREEN
             KonsolTheme {
                 // A surface container using the 'background' color from the theme
                 KonsolApp(
@@ -68,8 +77,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun setLanguage(langCode: String){
-        getSharedPreferences("lang_pref", MODE_PRIVATE).edit().putString("selected_lang", langCode).apply()
+    fun setLanguage(langCode: String) {
+        getSharedPreferences(LANG_PREF, MODE_PRIVATE).edit().putString(SELECTED_LANG, langCode)
+            .apply()
         recreate()
     }
 

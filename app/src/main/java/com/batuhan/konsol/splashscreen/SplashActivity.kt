@@ -23,10 +23,17 @@ class SplashActivity : ComponentActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
+    companion object {
+        private const val LANG_PREF = "lang_pref"
+        private const val SELECTED_LANG = "selected_lang"
+        private const val DEFAULT_LANGUAGE = "en"
+        private const val SCREEN_NAME = "screen_name"
+    }
+
     override fun attachBaseContext(newBase: Context) {
         val configuration = newBase.resources.configuration
-        val sharedPreferences = newBase.getSharedPreferences("lang_pref", MODE_PRIVATE)
-        val localeList = LocaleList.forLanguageTags(sharedPreferences.getString("selected_lang", "en"))
+        val sharedPreferences = newBase.getSharedPreferences(LANG_PREF, MODE_PRIVATE)
+        val localeList = LocaleList.forLanguageTags(sharedPreferences.getString(SELECTED_LANG, DEFAULT_LANGUAGE))
         configuration.setLocales(localeList)
         val newContext = newBase.createConfigurationContext(configuration)
         super.attachBaseContext(newContext)
@@ -51,7 +58,7 @@ class SplashActivity : ComponentActivity() {
 
     private fun navigateToMainActivity(context: Context, screen: String) {
         val intent = Intent(context, MainActivity::class.java)
-        intent.putExtra("screen_name", screen)
+        intent.putExtra(SCREEN_NAME, screen)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or
             Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         startActivity(intent)
