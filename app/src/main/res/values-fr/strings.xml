@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Konsol</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="continue_text">Continuer</string>
+    <string name="billing_desc">Vous devez sélectionner un plan pour utiliser Konsol. Tous les plans commencent par un essai gratuit de 7 jours, puis vous êtes facturé.\nVous pouvez annuler à tout moment sur Google Play. Pour ne pas être facturé, faites ceci avant la date de facturation.\n\nLes fonctionnalités de Konsol sont les suivantes :</string>
+    <string name="annual_desc">Économisez 33% et essai gratuit de 7 jours</string>
+    <string name="annual_price"> / chaque an</string>
+    <string name="annual_title">Konsol Annual</string>
+    <string name="six_month_desc">Économisez 16% et essai gratuit de 3 jours</string>
+    <string name="six_month_price"> / chaque 6 mois</string>
+    <string name="six_month_title">Konsol 6 Month</string>
+    <string name="one_month_price"> / chaque mois</string>
+    <string name="one_month_desc">essai gratuit de 3 jours</string>
+    <string name="one_month_title">Konsol Monthly</string>
+    <string name="select_plan">Sélectionner un plan</string>
+    <string name="default_notification_channel_id" translatable="false">1</string>
+    <string name="topic_subscribe">konsol-fr</string>
+    <string name="topic_subscribe1">konsol-tr</string>
+    <string name="topic_subscribe2">konsol-en</string>
+    <string name="topic_subscribe3">konsol-es</string>
+    <string name="price_then">Ensuite, vous êtes facturé </string>
+</resources>

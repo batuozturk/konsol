@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name_title">konsol</string>
+    <string name="button_next">İleri</string>
+    <string name="button_back">Geri</string>
+    <string name="button_save">Kaydet</string>
+    <string name="step_success">Projeniz oluşturuldu!</string>
+    <string name="error_occurred">Bir hata oluştu</string>
+    <string name="gcloud_error_desc">Muhtemel sebepler: \n
+                1) Google Cloud Kullanım Koşullarını kabul etmediniz,Google Cloud Console websitesi üzerinden koşulları kabul ediniz.\n
+                2) Google Cloud proje kotanız doldu, lütfen Google Cloud Console websitesi üzerinden kota isteğinde bulunun \n
+                3) Girdiğiniz Proje IDsi başka bir proje tarafından kullanılmakta, başka bir Proje IDsi girin \n
+                4) Google Cloud servislerinde beklenmeyen bir hata yaşandı </string>
+    <string name="firebase_error_desc">Muhtemel sebepler: \n
+                1) Firebase Kullanım Koşullarını kabul etmediniz, lütfen Firebase Console üzerinden kabul edin \n
+                2) Firebase servislerinde beklenmeyen bir hata yaşandı</string>
+    <string name="project_id_empty">Proje IDsi boş olamaz</string>
+    <string name="project_name_empty">Project ismi boş olamaz</string>
+    <string name="no_connection">Bağlantı yok</string>
+    <string name="creation_type_not_selected">Oluşturma türü seçilmedi</string>
+    <string name="project_not_selected">Proje seçilmedi</string>
+    <string name="analytics_account_not_selected">Analytics hesabı seçilmedi</string>
+    <string name="location_not_selected">Konum seçilmedi</string>
+    <string name="project_info_title">Proje Bilgisi</string>
+    <string name="project_id_text">Proje ID</string>
+    <string name="project_name">Proje İsmi</string>
+    <string name="project_display_name">Gösterilen Proje İsmi</string>
+    <string name="project_number">Proje Sayısı</string>
+    <string name="project_state">Proje Durumu</string>
+    <string name="project_hosting_site">Hosting Sitesi</string>
+    <string name="project_location_id">Konum ID</string>
+    <string name="project_storage_bucket">Depolama Bucketı</string>
+    <string name="project_rtdb_instance">Realtime Database Instance</string>
+
+    <string name="step_wait_title">İşlem bitinceye kadar bekleyin</string>
+
+    <string name="step_one_title">Projenizi nasıl oluşturacağınızı seçin</string>
+    <string name="step_one_choice_one">Varolan Google Cloud Projesine Firebase konfigürasyonu ekleyin</string>
+    <string name="step_one_choice_two">Yeni bir Firebase projesi oluşturun</string>
+
+    <string name="step_two_title">Proje detaylarını girin ya da proje seçin</string>
+    <string name="project_name_text_field">Proje İsmi</string>
+    <string name="project_id_text_field">Proje IDsi</string>
+
+    <string name="step_three_title">Analytics hesabınızı bağlayın ya da Analytics\'i devre dışı bırakın</string>
+    <string name="enable_analytics_title">Bu proje için Google Analytics\'i etkinleştir</string>
+
+
+    <string name="step_four_title">Firebase projeniz için konumu ayarlayın</string>
+    <string name="multiregional_supported_title">Bu konum çoklu bölge özelliğinde</string>
+    <string name="cloud_functions_supported_title">Cloud Functions\'u destekler</string>
+    <string name="firestore_supported_title">Firestore\'u destekler</string>
+    <string name="default_cloud_storage_bucket_supported_title">Varsayılan Cloud Storage bucketını destekler</string>
+
+
+    <string name="feature_firestore">Firestore</string>
+    <string name="feature_fcm">FCM</string>
+    <string name="feature_auth">Auth</string>
+    <string name="feature_realtime_database">RTDB</string>
+    <string name="feature_app_check">App Check</string>
+    <string name="feature_cloud_storage">Cloud Storage</string>
+    <string name="feature_remote_config">Remote Config</string>
+    <string name="feature_hosting">Hosting</string>
+    <string name="feature_dynamic_links">Dynamic Links</string>
+    <string name="feature_test_lab">Test Lab</string>
+    <string name="feature_app_distribution">App Distribution</string>
+
+    <string name="add_remove_google_analytics">Analytics bilgisi</string>
+    <string name="android_apps">Android uygulamaları</string>
+    <string name="ios_apps">iOS uygulamaları</string>
+    <string name="web_apps">Web uygulamaları</string>
+    <string name="add_android_app">Android uygulaması oluştur</string>
+    <string name="add_ios_app">iOS uygulaması oluştur</string>
+    <string name="add_web_app">Web uygulaması oluştur</string>
+    <string name="remove_google_analytics">Google Analytics hesabını kaldır</string>
+    <string name="update_billing_info">Ödeme bilgisi</string>
+    <string name="delete_project">Projeyi sil</string>
+    <string name="update_project">Proje bilgisi</string>
+
+    <string name="package_name_is_empty">Paket ismi boş olamaz</string>
+    <string name="package_name_is_invalid">Paket ismi geçersiz</string>
+    <string name="bundle_id_is_empty">Bundle ID boş olamaz</string>
+    <string name="bundle_id_is_invalid">Bundle ID geçersiz</string>
+    <string name="app_name_is_empty">Uygulama ismi boş olamaz</string>
+    <string name="app_store_id_is_empty">App Store ID boş olamaz</string>
+    <string name="sha1_is_invalid">SHA-1 anahtarı geçersiz</string>
+    <string name="sha1_is_empty">SHA-1 anahtarı boş olamaz</string>
+    <string name="create_app_package_name">Paket ismi</string>
+    <string name="create_app_bundle_id">Bundle ID</string>
+    <string name="create_app_app_name">Uygulama ismi (optional)</string>
+    <string name="create_app_app_store_id">App Store ID (optional)</string>
+    <string name="create_app_sha1">SHA-1 Anahtarı (optional)</string>
+    <string name="create_app_title">Uygulama oluştur</string>
+
+    <string name="retry">Tekrar dene</string>
+
+    <string name="project_display_name_is_same">Proje ismi aynı olamaz</string>
+    <string name="project_display_name_validation">Validasyon hatası: Görüntülenen proje ismi en az 4 karakter içermeli, alfanumerik &amp; \", \', - karakterlerini içerebilir  </string>
+
+    <string name="project_id_not_correct">Proje IDsi yanlış</string>
+    <string name="delete_project_title">Bu projeyi silerseniz, projeyle ilgili tüm verileriniz silinecektir.
+        (Eğer silme fikrinizi değiştirirseniz,Google Cloud Consoleda bu işleminizi 30 gün içerisinde geri alabilirsiniz.)</string>
+    <string name="delete_project_project_id_desc">Projeyi silmek için, proje IDsini girmeniz gerekmektedir.</string>
+
+    <string name="billing_account_not_selected">Ödeme hesabı seçilmedi</string>
+    <string name="select_billing_account_title">Projeniz için ödeme hesabı seçin</string>
+    <string name="billing_info_name">İsim</string>
+    <string name="billing_account_name">Ödeme Hesabı İsmi</string>
+    <string name="billing_info_update_desc">Değişiklikler gecikmeli olarak yansıyabilir</string>
+
+    <string name="select_analytics_account_title">Projeniz için Analytics hesabı seçin</string>
+    <string name="analytics_property_id">Analytics Mülk ID</string>
+    <string name="analytics_property_name">Analytics Mülk İsmi</string>
+    <string name="analytics_account_id">Analytics Hesap ID</string>
+
+    <string name="select_location">Konum seçin</string>
+    <string name="select_location_desc">Projeniz için konum seçin</string>
+
+    <string name="undefined">Tanımsız</string>
+    <string name="project_list_empty_view_title">Henüz proje oluşturmadınız, artı ikonuna basarak proje oluşturabilirsiniz
+        (Firebase Kullanım Koşulları ve Google Cloud Kullanım Koşullarını kabul ettiğinizden emin olun)</string>
+    <string name="create_project">Proje Oluştur</string>
+    <string name="feature_fcm_description">Bir cihaza ya da konuya abone olmuş birden fazla cihaza bildirim yollayın</string>
+    <string name="feature_firestore_description">Doküman/koleksiyon operasyonları yapın</string>
+    <string name="feature_cloud_storage_description">Klasör oluşturun </string>
+    <string name="feature_test_lab_description">Matrisleri görüntüleyin ya da Android uygulamanız için test oluşturun</string>
+    <string name="step_one_choice_one_description">Varolan Google Cloud projesini seçin ve Firebase konfigürasyonu ekleyin</string>
+    <string name="step_one_choice_two_description">Proje detaylarını girip Google Cloud Projesi olşturun, sonrasında Firebase konfigürasyonu ekleyin</string>
+    <string name="firestore_location_info">Firestore konumu %s olarak seçildi, bucket konumu Firestore ile aynı olmalıdır.</string>
+
+</resources>

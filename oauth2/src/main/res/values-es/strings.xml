@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="error_occurred">Se ha producido un error, por favor, inténtalo de nuevo</string>
+    <string name="retry">Reintentar</string>
+    <string name="email_not_valid">El correo electrónico no es válido</string>
+    <string name="app_name_title">konsol</string>
+    <string name="terms_of_service">Términos de Servicio</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="sign_in_with_google">Iniciar sesión con Google</string>
+    <string name="email">Correo electrónico</string>
+    <string name="cloud_messaging_info_desc">Crea notificaciones para un solo dispositivo o dispositivos suscritos al tema</string>
+    <string name="cloud_storage_info_desc">Sube / descarga tus archivos desde la nube para tu proyecto Firebase</string>
+    <string name="firestore_info_desc">Crea / edita / visualiza la base de datos Firestore, colección o documento para tu proyecto Firebase</string>
+    <string name="test_lab_info_desc">Prueba tu aplicación de Android sin necesidad de ningún dispositivo</string>
+    <string name="realtime_database_info_desc">Cree/borre/actualice objetos/elementos JSON para su proyecto</string>
+</resources>

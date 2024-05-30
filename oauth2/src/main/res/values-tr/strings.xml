@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="error_occurred">Bir hata oluştu</string>
+    <string name="retry">Tekrar Dene</string>
+    <string name="email_not_valid">Email geçersiz</string>
+    <string name="app_name_title">konsol</string>
+    <string name ="terms_of_service">Kullanım Koşulları</string>
+    <string name ="privacy_policy">Gizlilik Politikası</string>
+    <string name="sign_in_with_google">Google ile giriş yapın</string>
+    <string name="email">Email</string>
+    <string name="cloud_messaging_info_desc">Bir cihaz ya da birden fazla cihaz için bildirim oluşturun</string>
+    <string name="cloud_storage_info_desc">Firebase projeniz için dosya yükleyin, klasörleri düzenleyin</string>
+    <string name="firestore_info_desc">Firestore veritabanı oluşturun / düzenleyin / görüntüleyin. Doküman ve koleksiyon operasyonlarını gerçekleştirin.</string>
+    <string name="test_lab_info_desc">Herhangi bir fiziksel cihaza ihtiyaç duymadan Android uygulamanızı test edin</string>
+    <string name="realtime_database_info_desc">Projeniz için JSON nesnelerini/elemanlarını oluşturun/silin/güncelleyin</string>
+</resources>

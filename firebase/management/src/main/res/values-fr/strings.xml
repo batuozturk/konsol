@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name_title">konsol</string>
+    <string name="button_next">Suivant</string>
+    <string name="button_back">Retour</string>
+    <string name="button_save">Enregistrer</string>
+    <string name="step_success">Votre projet est enregistré!</string>
+    <string name="error_occurred">Une erreur s\'est produite, veuillez réessayer</string>
+    <string name="gcloud_error_desc">Causes possibles :\n
+                1) Les conditions d\'utilisation de Google Cloud ne sont pas acceptées, veuillez les accepter après vous être connecté avec ce compte sur le site web de la console Google Cloud\n
+                2) Votre quota GCP est plein, veuillez créer une demande de quota sur le site web de la console Google Cloud\n
+                3) L\'ID de projet que vous avez saisi est utilisé dans un autre projet, veuillez changer l\'ID du projet\n
+                4) Une erreur inconnue s\'est produite dans les services Google Cloud</string>
+    <string name="firebase_error_desc">Causes possibles :\n
+                1) Les conditions d\'utilisation de Firebase ne sont pas acceptées, veuillez les accepter\n
+                2) Une erreur inconnue s\'est produite dans les services Firebase</string>
+    <string name="project_id_empty">L\'ID du projet est vide</string>
+    <string name="project_name_empty">Le nom du projet est vide</string>
+    <string name="no_connection">Pas de connexion</string>
+    <string name="creation_type_not_selected">Le type de création n\'est pas sélectionné</string>
+    <string name="project_not_selected">Le projet n\'est pas sélectionné</string>
+    <string name="analytics_account_not_selected">Le compte Analytics n\'est pas sélectionné</string>
+    <string name="location_not_selected">L\'emplacement n\'est pas sélectionné</string>
+    <string name="project_info_title">Info sur le projet</string>
+    <string name="project_id_text">ID du projet</string>
+    <string name="project_name">Nom du projet</string>
+    <string name="project_display_name">Nom d\'affichage du projet</string>
+    <string name="project_number">Numéro du projet</string>
+    <string name="project_state">État du projet</string>
+    <string name="project_hosting_site">Site d\'hébergement</string>
+    <string name="project_location_id">ID de l\'emplacement du projet</string>
+    <string name="project_storage_bucket">Storage Bucket du projet</string>
+    <string name="project_rtdb_instance">Instance de Realtime Database du projet</string>
+
+    <string name="step_wait_title">Veuillez patienter jusqu\'à la fin de l\'opération</string>
+
+    <string name="step_one_title">Sélectionnez comment créer votre projet</string>
+    <string name="step_one_choice_one">Ajouter Firebase à un projet Google Cloud existant</string>
+    <string name="step_one_choice_two">Créer un nouveau projet Firebase</string>
+
+    <string name="step_two_title">Entrez les détails de votre projet ou sélectionnez un projet</string>
+    <string name="project_name_text_field">Nom du projet</string>
+    <string name="project_id_text_field">ID du projet</string>
+
+    <string name="step_three_title">Associez votre compte Analytics ou désactivez Google Analytics</string>
+    <string name="enable_analytics_title">Activer Google Analytics pour ce projet</string>
+
+    <string name="step_four_title">Finalisez l\'emplacement de votre projet Firebase</string>
+    <string name="multiregional_supported_title">Cet emplacement est multirégional</string>
+    <string name="cloud_functions_supported_title">Cet emplacement prend en charge les fonctions Cloud</string>
+    <string name="firestore_supported_title">Cet emplacement prend en charge Firestore</string>
+    <string name="default_cloud_storage_bucket_supported_title">Cet emplacement prend en charge le compartiment de stockage Cloud par défaut</string>
+
+    <string name="feature_firestore">Firestore</string>
+    <string name="feature_fcm">FCM</string>
+    <string name="feature_auth">Auth</string>
+    <string name="feature_realtime_database">Realtime Database</string>
+    <string name="feature_app_check">App Check</string>
+    <string name="feature_cloud_storage">Cloud Storage</string>
+    <string name="feature_remote_config">Remote Config</string>
+    <string name="feature_hosting">Hosting</string>
+    <string name="feature_dynamic_links">Dynamic Links</string>
+    <string name="feature_test_lab">Test Lab</string>
+    <string name="feature_app_distribution">App Distribution</string>
+
+    <string name="add_remove_google_analytics">Infos Analytics</string>
+    <string name="android_apps">Liste des applications Android</string>
+    <string name="ios_apps">Liste des applications iOS</string>
+    <string name="web_apps">Liste des applications Web</string>
+    <string name="add_android_app">Créer une application Android</string>
+    <string name="add_ios_app">Créer une application iOS</string>
+    <string name="add_web_app">Créer une application Web</string>
+    <string name="remove_google_analytics">Supprimer le compte Google Analytics</string>
+    <string name="update_billing_info">Infos de facturation</string>
+    <string name="delete_project">Supprimer le projet</string>
+    <string name="update_project">Infos du projet</string>
+
+    <string name="package_name_is_empty">Le nom du package est vide</string>
+    <string name="package_name_is_invalid">Le nom du package n\'est pas valide</string>
+    <string name="bundle_id_is_empty">L\'ID du bundle est vide</string>
+    <string name="bundle_id_is_invalid">L\'ID du bundle n\'est pas valide</string>
+    <string name="app_name_is_empty">Le nom de l\'application est vide</string>
+    <string name="app_store_id_is_empty">L\'ID de l\'App Store est vide</string>
+    <string name="sha1_is_invalid">La clé SHA-1 n\'est pas valide</string>
+    <string name="sha1_is_empty">La clé SHA-1 est vide</string>
+    <string name="create_app_package_name">Nom du package</string>
+    <string name="create_app_bundle_id">ID du bundle</string>
+    <string name="create_app_app_name">Nom de l\'application (facultatif)</string>
+    <string name="create_app_app_store_id">ID de l\'App Store (facultatif)</string>
+    <string name="create_app_sha1">Clé SHA-1 (facultatif)</string>
+    <string name="create_app_title">Créer une application</string>
+
+    <string name="retry">Réessayer</string>
+
+    <string name="project_display_name_is_same">Le nom du projet est le même</string>
+    <string name="project_display_name_validation">Erreur de validation : la longueur doit être supérieure à 4, alphanumérique et peut inclure les caractères \", \', - </string>
+
+    <string name="project_id_not_correct">L\'ID du projet n\'est pas correct</string>
+    <string name="delete_project_title">Si vous supprimez ce projet, toutes vos données liées à ce projet seront supprimées.
+    (Notez que si vous changez d\'avis après la suppression, vous pouvez le récupérer depuis la Console Google Cloud pendant 30 jours.)</string>
+    <string name="delete_project_project_id_desc">Pour supprimer ce projet, vous devrez entrer l\'ID du projet que vous souhaitez supprimer.</string>
+
+    <string name="billing_account_not_selected">Le compte de facturation n\'est pas sélectionné</string>
+    <string name="select_billing_account_title">Sélectionnez le compte de facturation pour votre projet</string>
+    <string name="billing_info_name">Nom</string>
+    <string name="billing_account_name">Nom du compte de facturation</string>
+    <string name="billing_info_update_desc">Veuillez noter que les changements peuvent être retardés de quelques minutes malgré la modification des informations de facturation</string>
+
+    <string name="select_analytics_account_title">Sélectionnez le compte Analytics pour votre projet</string>
+    <string name="analytics_property_id">ID de propriété Analytics</string>
+    <string name="analytics_property_name">Nom de propriété Analytics</string>
+    <string name="analytics_account_id">ID du compte Analytics</string>
+
+    <string name="select_location">Sélectionnez l\'emplacement</string>
+    <string name="select_location_desc">Sélectionnez l\'emplacement de votre projet</string>
+
+    <string name="undefined">Non défini</string>
+    <string name="project_list_empty_view_title">Il semble que vous n\'ayez créé aucun projet, vous pouvez créer votre premier projet en appuyant sur l\'icône plus!
+    (Assurez-vous également d\'avoir accepté les conditions d\'utilisation de Firebase et de Google Cloud avant de créer votre projet)</string>
+    <string name="create_project">Créer un projet</string>
+    <string name="feature_fcm_description">Envoyer des notifications à un appareil ou des appareils abonnés au sujet</string>
+    <string name="feature_firestore_description">Effectuer des opérations de collection/document</string>
+    <string name="feature_cloud_storage_description">Créer/supprimer un dossier et télécharger/supprimer des objets</string>
+    <string name="feature_test_lab_description">Créer des tests pour votre application Android ou consulter des matrices</string>
+    <string name="step_one_choice_one_description">Sélectionnez un projet Google Cloud existant que vous avez créé précédemment, puis ajoutez la configuration Firebase.</string>
+    <string name="step_one_choice_two_description">Saisissez les détails du projet et créez un projet Google Cloud, puis ajoutez la configuration Firebase à ce projet.</string>
+    <string name="firestore_location_info">L\'emplacement Firestore a été sélectionné comme %s, l\'emplacement du projet doit être le même que celui de Firestore</string>
+</resources>

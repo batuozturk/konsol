@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Konsol</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="continue_text">Devam</string>
+    <string name= "billing_desc">Konsol\'u kullanmak için bir plan seçmeniz gerekiyor. Tüm planlar ücretsiz deneme ile başlar ve 7 gün süreyle devam eder, ardından ücretlendirilirsiniz.\nGoogle Play üzerinden istediğiniz zaman iptal edebilirsiniz. Ücretlendirilmemek için fatura tarihinden önce bu işlemi yapın.\n\nKonsol özellikleri şunlardır:</string>
+    <string name="annual_desc">%33 tasarruf edin ve 7 gün ücretsiz kullanın</string>
+    <string name="annual_price"> / her yıl</string>
+    <string name="annual_title">Konsol Annual</string>
+    <string name="six_month_desc">%16 tasarruf edin ve 3 gün ücretsiz kullanın</string>
+    <string name="six_month_price"> / her 6 ay</string>
+    <string name="six_month_title">Konsol Half Annual</string>
+    <string name="one_month_price"> / her ay</string>
+    <string name="one_month_desc">3 gün ücretsiz kullanın</string>
+    <string name="one_month_title">Konsol Monthly</string>
+    <string name="select_plan">Plan seçin</string>
+    <string name="default_notification_channel_id" translatable="false">1</string>
+    <string name="topic_subscribe">konsol-tr</string>
+    <string name="topic_subscribe1">konsol-en</string>
+    <string name="topic_subscribe2">konsol-fr</string>
+    <string name="topic_subscribe3">konsol-es</string>
+    <string name="price_then">Ardından ücretlendirilirsiniz : </string>
+</resources>

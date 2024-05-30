@@ -11,6 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/firebase" />
+            <option value="$PROJECT_DIR$/firebase/cloudmessaging" />
+            <option value="$PROJECT_DIR$/firebase/firestore" />
+            <option value="$PROJECT_DIR$/firebase/management" />
+            <option value="$PROJECT_DIR$/oauth2" />
           </set>
         </option>
       </GradleProjectSettings>

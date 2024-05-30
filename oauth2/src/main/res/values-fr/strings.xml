@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="error_occurred">Une erreur s\'est produite, veuillez réessayer</string>
+    <string name="retry">Réessayer</string>
+    <string name="email_not_valid">L\'e-mail n\'est pas valide</string>
+    <string name="app_name_title">konsol</string>
+    <string name="terms_of_service">Conditions d\'utilisation</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="sign_in_with_google">Se connecter avec Google</string>
+    <string name="email">E-mail</string>
+    <string name="cloud_messaging_info_desc">Créez des notifications pour un seul appareil ou des appareils qui se sont abonnés au sujet</string>
+    <string name="cloud_storage_info_desc">Téléchargez / téléchargez vos fichiers depuis le cloud pour votre projet Firebase</string>
+    <string name="firestore_info_desc">Créez / modifiez / consultez la base de données Firestore, la collection ou le document pour votre projet Firebase</string>
+    <string name="test_lab_info_desc">Testez votre application Android sans avoir besoin d\'aucun appareil</string>
+    <string name="realtime_database_info_desc">Créez/supprimez/mettez à jour des objets/éléments JSON pour votre projet</string>
+</resources>

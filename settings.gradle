@@ -12,5 +12,15 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "FConsole"
+rootProject.name = "Konsol"
 include ':app'
+include ':core'
+include ':oauth2'
+include ':firebase:cloudmessaging'
+include ':firebase:firestore'
+include ':firebase:management'
+include ':theme'
+include ':navigation'
+include ':firebase:testlab'
+include ':firebase:cloudstorage'
+include ':firebase:realtimedatabase'

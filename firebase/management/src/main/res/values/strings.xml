@@ -1,0 +1,131 @@
+<resources>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name_title">konsol</string>
+    <string name="button_next">Next</string>
+    <string name="button_back">Back</string>
+    <string name="button_save">Save</string>
+    <string name="step_success">Your project is saved!</string>
+    <string name="error_occurred">An error occurred, please try again</string>
+    <string name="gcloud_error_desc">Possible causes: \n
+                1) Google Cloud Terms Of Service isn\'t accepted, please accept after signing in with this account on Google Cloud Console website \n
+                2) Your GCP quota is full, please create a quota request on Google Cloud Console website \n
+                3) Project ID you entered is used in another project, please change the project ID \n
+                4) Unknown error occurred in Google Cloud services </string>
+    <string name="firebase_error_desc">Possible causes: \n
+                1) Firebase Terms Of Service isn\'t accepted, please accept \n
+                2) Unknown error occurred in Firebase services</string>
+    <string name="project_id_empty">Project ID is empty</string>
+    <string name="project_name_empty">Project name is empty</string>
+    <string name="no_connection">No connection</string>
+    <string name="creation_type_not_selected">Creation type is not selected</string>
+    <string name="project_not_selected">Project is not selected</string>
+    <string name="analytics_account_not_selected">Analytics account is not selected</string>
+    <string name="location_not_selected">Location is not selected</string>
+    <string name="project_info_title">Project Info</string>
+    <string name="project_id_text">Project ID</string>
+    <string name="project_name">Project Name</string>
+    <string name="project_display_name">Project Display Name</string>
+    <string name="project_number">Project Number</string>
+    <string name="project_state">Project State</string>
+    <string name="project_hosting_site">Hosting Site</string>
+    <string name="project_location_id">Location ID</string>
+    <string name="project_storage_bucket">Storage Bucket</string>
+    <string name="project_rtdb_instance">Json Database Instance</string>
+
+    <string name="step_wait_title">Please wait until operation is done</string>
+
+    <string name="step_one_title">Select how to create your project</string>
+    <string name="step_one_choice_one">Add to existing cloud project</string>
+    <string name="step_one_choice_two">Create a new project</string>
+
+    <string name="step_two_title">Enter your project details or select a project</string>
+    <string name="project_name_text_field">Project Name</string>
+    <string name="project_id_text_field">Project ID</string>
+
+    <string name="step_three_title">Link your analytics account or disable analytics</string>
+    <string name="enable_analytics_title">Enable analytics for this project</string>
+
+
+    <string name="step_four_title">Finalize location for your project</string>
+    <string name="multiregional_supported_title">This location is multiregional</string>
+    <string name="cloud_functions_supported_title">This location supports Cloud Functions</string>
+    <string name="firestore_supported_title">This location supports Firestore</string>
+    <string name="default_cloud_storage_bucket_supported_title">This location supports default storage bucket</string>
+
+
+    <string name="feature_firestore">NoSQL Database</string>
+    <string name="feature_fcm">Notification</string>
+    <string name="feature_auth">Auth</string>
+    <string name="feature_realtime_database">JSON Database</string>
+    <string name="feature_app_check">App Check</string>
+    <string name="feature_cloud_storage">Storage</string>
+    <string name="feature_remote_config">Remote Config</string>
+    <string name="feature_hosting">Hosting</string>
+    <string name="feature_dynamic_links">Dynamic Links</string>
+    <string name="feature_test_lab">Test Device</string>
+    <string name="feature_app_distribution">App Distribution</string>
+
+    <string name="add_remove_google_analytics">Analytics info</string>
+    <string name="android_apps">List Android apps</string>
+    <string name="ios_apps">List iOS apps</string>
+    <string name="web_apps">List web apps</string>
+    <string name="add_android_app">Create an Android app</string>
+    <string name="add_ios_app">Create an iOS app</string>
+    <string name="add_web_app">Create a Web app</string>
+    <string name="remove_google_analytics">Remove analytics account</string>
+    <string name="update_billing_info">Billing info</string>
+    <string name="delete_project">Delete project</string>
+    <string name="update_project">Project info</string>
+
+    <string name="package_name_is_empty">Package name is empty</string>
+    <string name="package_name_is_invalid">Package name is invalid</string>
+    <string name="bundle_id_is_empty">Bundle ID is empty</string>
+    <string name="bundle_id_is_invalid">Bundle ID is invalid</string>
+    <string name="app_name_is_empty">App name is empty</string>
+    <string name="app_store_id_is_empty">App Store ID is empty</string>
+    <string name="sha1_is_invalid">SHA-1 key is invalid</string>
+    <string name="sha1_is_empty">SHA-1 key is empty</string>
+    <string name="create_app_package_name">Package Name</string>
+    <string name="create_app_bundle_id">Bundle ID</string>
+    <string name="create_app_app_name">App Name (optional)</string>
+    <string name="create_app_app_store_id">App Store ID (optional)</string>
+    <string name="create_app_sha1">SHA-1 Key (optional)</string>
+    <string name="create_app_title">Create app</string>
+
+    <string name="retry">Retry</string>
+
+    <string name="project_display_name_is_same">Project name is same</string>
+    <string name="project_display_name_validation">Validation error: length must be greater than 4, alphanumeric &amp; can include \", \', - characters </string>
+
+    <string name="project_id_not_correct">Project ID is not correct</string>
+    <string name="delete_project_title">If you delete this project, your all data related to this project will be deleted.
+        (Note that if you change your decision after deletion, you can undelete it from Google Cloud Console for 30 days.)</string>
+    <string name="delete_project_project_id_desc">To delete this project, you will need to enter the id of the project which you want to delete.</string>
+
+    <string name="billing_account_not_selected">Billing account is not selected</string>
+    <string name="select_billing_account_title">Select billing account for your project</string>
+    <string name="billing_info_name">Name</string>
+    <string name="billing_account_name">Billing Account Name</string>
+    <string name="billing_info_update_desc">Please note that changes may be delayed for a few minutes despite you change the billing info</string>
+
+    <string name="select_analytics_account_title">Select analytics account for your project</string>
+    <string name="analytics_property_id">Analytics Property ID</string>
+    <string name="analytics_property_name">Analytics Property Name</string>
+    <string name="analytics_account_id">Analytics Account ID</string>
+
+    <string name="select_location">Select location</string>
+    <string name="select_location_desc">Select location for your project</string>
+
+    <string name="undefined">Undefined</string>
+    <string name="project_list_empty_view_title">It looks like you didn\'t create any project, you can create your first project by pressing plus icon!
+        (Also make sure that you accepted Firebase ToS &amp; Google Cloud ToS before creating your project)</string>
+    <string name="create_project">Create Project</string>
+    <string name="feature_fcm_description">Send notifications to one device or devices subscribed to the topic</string>
+    <string name="feature_firestore_description">Do collection/document operations</string>
+    <string name="feature_cloud_storage_description">Create/delete folder &amp; upload/delete objects</string>
+    <string name="feature_test_lab_description">Create tests for your app or view matrices</string>
+    <string name="feature_realtime_database_description">Create/view/update database as a JSON tree</string>
+    <string name="step_one_choice_one_description">Select existing cloud project you previously created, then add configuration.</string>
+    <string name="step_one_choice_two_description">Enter details of the project and create cloud project, then add configuration to this project.</string>
+    <string name="firestore_location_info">NoSQL Database location was selected as %s, project location must be the same as NoSQL Database location</string>
+</resources>
